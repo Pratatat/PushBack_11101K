@@ -93,6 +93,7 @@ public:
   //Joystick control methods
   void arcade_control();
   void arcade_control_double();
+  void arcade_control_double_reversed();
   void tank_control();
 
   //Set autonomous function constants

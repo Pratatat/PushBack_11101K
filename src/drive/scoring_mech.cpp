@@ -2,28 +2,18 @@
 #include "algorithm"
 using namespace std;
 
-Scoring_Mech::Scoring_Mech(std::initializer_list<std::int8_t> neutral_stake_mtr_grp, int8_t neutral_stake_rot_grp, int8_t intake_mtr_grp, int8_t intake_color_sensor_grp) 
-    : neutral_stake_mtr(neutral_stake_mtr_grp)
-    , neutral_stake_rot(neutral_stake_rot_grp) 
-    , intake_mtr(intake_mtr_grp)
+Scoring_Mech::Scoring_Mech(int8_t intake_mtr_grp, int8_t intake_color_sensor_grp) 
+    : intake_mtr(intake_mtr_grp)
     , color_sensor(intake_color_sensor_grp) {}
 
 
 void Scoring_Mech::initialize() {
-    //neutral_stake_rot.set_position(36000);
-    neutral_stake_rot.set_position(33000);
-
-
-
-    neutral_stake_mtr.move_velocity(0);
-    neutral_stake_rot.set_data_rate(5);
     intake_mtr.set_encoder_units(pros::v5::MotorUnits::counts);
     intake_mtr.set_brake_mode(MOTOR_BRAKE_HOLD);
     color_sensor.set_integration_time(5);
     color_sensor.set_led_pwm(100);
-    set_brake_mode('H');
 }
-
+/*
 void Scoring_Mech::neutral_stake_control() {
     if (master.get_digital(DIGITAL_A) && neutral_stake_position != 3) {
         neutral_stake_mtr.move_velocity(600);
@@ -37,7 +27,7 @@ void Scoring_Mech::neutral_stake_control() {
         while (neutral_stake_rot.get_position() > angle_positions[neutral_stake_position + 1] + up_thresholds[neutral_stake_position] and timeout < 3000) {
             pros::delay(5);
             timeout += 5;
-        }*/
+        }
         neutral_stake_position++;
         neutral_stake_mtr.move_velocity(0);
     } 
@@ -52,7 +42,7 @@ void Scoring_Mech::neutral_stake_control() {
         while (neutral_stake_rot.get_position() < angle_positions[neutral_stake_position - 1] - down_thresholds[neutral_stake_position-1] and timeout < 3000) {
             pros::delay(5);
             timeout += 5;
-        }*/
+        }
         neutral_stake_position--;
         neutral_stake_mtr.move_velocity(0);
     } 
@@ -133,7 +123,7 @@ int Scoring_Mech::neutral_stake_score_task() {
     scoring_mech.neutral_stake_score();
     return 1;
 }
-
+*/
 
 void Scoring_Mech::intake_control() {
     if (master.get_digital(DIGITAL_L1) && (current_outtaking == 0)){
@@ -238,22 +228,5 @@ void Scoring_Mech::intake_detector() {
 
 int Scoring_Mech::intake_detector_task() {
     scoring_mech.intake_detector();
-    return 1;
-}
-
-void Scoring_Mech::rush_helper() {
-    scoring_mech.move1(75);
-    pros::delay(100);
-    scoring_mech.intake_move(600);
-    pros::delay(375);
-    scoring_mech.move1(0);
-    pros::delay(210);
-    //pneumatics.doinker_left_v(1);
-    pneumatics.doinker_right_v(1);
-    scoring_mech.intake_move(10);
-}
-
-int Scoring_Mech::rush_helper_task() {
-    scoring_mech.rush_helper();
     return 1;
 }

@@ -10,11 +10,9 @@ class Scoring_Mech{
 
     int about_to_score = 0;
     int current_outtaking = 0;
-    pros::MotorGroup neutral_stake_mtr;
-    pros::Rotation neutral_stake_rot;
     pros::Motor intake_mtr;
     pros::Optical color_sensor;
-    Scoring_Mech(std::initializer_list<std::int8_t> neutral_stake_mtr_grp, int8_t neutral_stake_rot_grp, int8_t intake_mtr_grp, int8_t intake_color_sensor_grp);
+    Scoring_Mech(int8_t intake_mtr_grp, int8_t intake_color_sensor_grp);
 
     void initialize();
 

@@ -79,6 +79,20 @@ void Drive::arcade_control_double() {
    DriveL.move_voltage(vert + horz);
    DriveR.move_voltage(vert - horz);
 }
+void Drive::arcade_control_double_reversed() {
+   //Grabs joystick position
+   int vert = master.get_analog(ANALOG_RIGHT_Y);
+   int horz = master.get_analog(ANALOG_LEFT_X);
+   //Checks to make sure joystick isn't it deadzone
+   if (abs(horz) < deadzone){
+       horz = 0;}
+   if (abs(vert) < deadzone){
+       vert = 0;}
+   vert = vert * 100;
+   horz = horz * 100;
+   DriveL.move_voltage(vert + horz);
+   DriveR.move_voltage(vert - horz);
+}
 
 void Drive::tank_control() {
 int straight = -master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
@@ -252,8 +266,8 @@ void Drive::drive_distance(float distance){
   drive_distance(distance, desired_heading, drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
 }
 
-void Drive::drive_distance(float distance, float heading){
-  drive_distance(distance, heading, drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
+void Drive::drive_distance(float distance, float drive_max_voltage){
+  drive_distance(distance, desired_heading, drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
 }
 
 void Drive::drive_distance(float distance, float heading, float drive_max_voltage, float heading_max_voltage){
