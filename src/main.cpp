@@ -2,7 +2,7 @@
 #include <iostream> 
 
 //Motor Definitions
-pros::adi::DigitalOut clench('B');
+pros::adi::DigitalOut aligner('B');
 pros::adi::DigitalOut doinker_left('C');
 pros::adi::DigitalOut doinker_right('A');
 pros::Motor left_front_mtr(-9, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
@@ -47,21 +47,21 @@ Drive chassis(
 );
 
 Scoring_Mech scoring_mech(
-  4,
+  4,6,-19,17
   //{-9, 7},
-  17
+  
 );
 
 
 Pneumatics pneumatics(
-	{clench, doinker_left, doinker_right}
+	{aligner, doinker_left, doinker_right}
 );
 
 
 void initialize() {
 	chassis.initialize();
   scoring_mech.initialize(); 
-	pneumatics.clench_initialize();
+	pneumatics.aligner_initialize();
   pneumatics.doinker_initialize();
 
   //pros::Task intake_task_3(Scoring_Mech::intake_detector_task);
@@ -84,7 +84,7 @@ void opcontrol(void) {
   scoring_mech.driverControl = true;
   //pros::Task neutral_stake_task(Scoring_Mech::neutral_stake_task);
   pros::Task intake_task(Scoring_Mech::intake_task);
-  //pros::Task pneumatics_clench_task(Pneumatics::clench_task);
+  pros::Task pneumatics_aligner_task(Pneumatics::aligner_task);
   //pros::Task pneumatics_doinker_task_1(Pneumatics::doinker_right_task);
   //pros::Task pneumatics_doinker_task_2(Pneumatics::doinker_left_task);
   while (true) {

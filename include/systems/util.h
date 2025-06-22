@@ -3,7 +3,7 @@
 //Controller
 extern pros::Controller master;
 
-extern int clench_down;
+extern int aligner_down;
 extern int climb_open;
 extern int doinker_left_open;
 extern int doinker_right_open;

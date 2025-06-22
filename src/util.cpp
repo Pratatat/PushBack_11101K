@@ -4,7 +4,7 @@
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 //Variables
-int clench_down = 0;
+int aligner_down = 0;
 int climb_open = 0;
 int doinker_left_open = 0;
 int doinker_right_open = 0;
