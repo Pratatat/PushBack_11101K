@@ -3,12 +3,11 @@
 void default_constants(){
   // Each constant set is in the form of (maxVoltage, kP, kI, kD, startI).
   //0.52
-  chassis.set_drive_constants(10.5, 0.545, 0, 0.65, 0);
+  chassis.set_drive_constants(10.5, 0.543, 0, 0.67, 0);
   chassis.set_heading_constants(1, 0.65, 0, 0, 0); //was 6 0.4 0 1 0
-  chassis.set_turn_constants(12, .1775, 0, 1.43, 0); // was .285,0,0.9
+  chassis.set_turn_constants(12, .17, 0, 1.46, 0); // was .285,0,0.9
   chassis.set_swing_constants(10.5, 0.10, .005, 2.8, 15);
 
-  // Each exit condition set is in the form (settle_error, settle_time, timeout).
   chassis.set_drive_exit_conditions(1.5, 100, 1000);
   chassis.set_turn_exit_conditions(3, 50, 800);
   chassis.set_swing_exit_conditions(2, 50, 2000);
@@ -61,21 +60,31 @@ void full_test(){
 }
 
 void odom_test(){
-  chassis.set_coordinates(0, 0, 0);
-  while(1){
-    /*pros::screen::erase();
-    char *text = new char[16];
-    std::sprintf(text, "X: %f", chassis.get_X_position());
-    pros::screen::print(TEXT_MEDIUM, 0,50, text);
-    delete [] text;
-    text = new char[16];
-    std::sprintf(text, "Y: %f", chassis.get_Y_position());
-    pros::screen::print(TEXT_MEDIUM, 0, 70, text);
-    delete [] text;
-    text = new char[16];
-    std::sprintf(text, "Heading: %f", chassis.get_absolute_heading());
-    pros::screen::print(TEXT_MEDIUM, 0, 90, text);*/
-  }
+  default_constants();
+  chassis.set_coordinates(-8.8, 0, 0);
+  scoring_mech.intake_move(600);
+  chassis.drive_to_point(0,27.5,8,4);
+  pros::delay(750);
+  chassis.turn_to_point(-16,48,0,12);
+  scoring_mech.top_goal_intake(1);
+  chassis.drive_to_point(26,0,6,2);
+  
+  chassis.turn_to_point(26,72,0,12);
+  chassis.drive_to_point(26,17.5,6,0);
+  scoring_mech.top_goal_intake(600);
+  pros::delay(1300);
+  chassis.drive_to_point(26,5,6,0);
+  pneumatics.aligner_v(1);
+  chassis.turn_to_point(24,-24,0,12);
+  scoring_mech.bottom_intake_move(600);
+  chassis.drive_to_point(26,-22,4,0);
+  pros::delay(500);
+  scoring_mech.top_goal_intake(0);
+  chassis.drive_to_point(26,6.5,4,0);
+  pneumatics.aligner_v(0);
+  chassis.turn_to_point(-24,56);
+  chassis.drive_to_point(-6,34,8,0);
+  scoring_mech.top_goal_intake(-600);
 }
 
 void tank_odom_test(){
@@ -121,12 +130,26 @@ void tank_odom_test(){
 }
 
 void auton_setup() {
+  chassis.set_brake_mode('C');
+  chassis.set_coordinates(0, 0, 0);
+  std::string x_str, y_str, heading_str;
+  while (1){ 
+    x_str = std::to_string(chassis.get_X_position());
+    y_str = std::to_string(chassis.get_Y_position());
+    heading_str = std::to_string(chassis.get_absolute_heading());
+    pros::screen::draw_rect(0,0,480,240);
+    pros::screen::set_pen(pros::Color::white);
+    pros::screen::print(TEXT_LARGE, 50, 50, x_str.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 125, y_str.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 175, heading_str.c_str()); 
+  }
+  /*
   odom_constants();
   chassis.set_brake_mode('C');
   chassis.set_coordinates(0, 0, 0);
   pros::delay(500);
   chassis.calculate();
-
+*/
 }
 
 void redLeftQual(){

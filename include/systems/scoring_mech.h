@@ -32,6 +32,8 @@ class Scoring_Mech{
     void intake_control();
     static int intake_task();
     void intake_move(double velocity);
+    void bottom_intake_move(double velocity);
+    void top_goal_intake(double velocity);
     bool driverControl = false;
 
     static int rush_helper_task();

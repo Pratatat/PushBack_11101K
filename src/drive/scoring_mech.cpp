@@ -169,11 +169,19 @@ int Scoring_Mech::intake_task() {
     return 1;
 }
 
-void Scoring_Mech::intake_move(double velocity) {
-    //intake_mtr.move_velocity(velocity);
-    //current_intaking = velocity;
+void Scoring_Mech::top_goal_intake(double velocity) {
+    bottom_intake.move_velocity(velocity);
+    middle_intake.move_velocity(velocity);
+    top_intake.move_velocity(velocity);
 }
-
+void Scoring_Mech::intake_move(double velocity) {
+    bottom_intake.move_velocity(velocity);
+    middle_intake.move_velocity(200);
+    top_intake.move_velocity(-velocity);
+}
+void Scoring_Mech::bottom_intake_move(double velocity) {
+    bottom_intake.move_velocity(velocity);
+}
 
 // use intake rotations
 void Scoring_Mech::red_color_sort() { 
