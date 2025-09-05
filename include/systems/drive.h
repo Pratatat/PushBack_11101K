@@ -70,6 +70,7 @@ public:
   float desired_heading;
 
   Drive(enum::drive_setup_enum drive_setup, std::initializer_list<std::int8_t> DriveL, std::initializer_list<std::int8_t> DriveR, int gyro_port, float wheel_diameter, float wheel_ratio, float gyro_scale, int ForwardTracker_port, float ForwardTracker_diameter, float ForwardTracker_center_distance, int SidewaysTracker_port, float SidewaysTracker_diameter, float SidewaysTracker_center_distance);
+  
   //Sensor Functions
   double left_sensor();
   double right_sensor();
@@ -116,7 +117,7 @@ public:
   void drive_distance(float distance);
   void drive_distance(float distance, float drive_max_voltage);
   void drive_distance(float distance, float heading, float drive_max_voltage, float heading_max_voltage);
-  void drive_distance(float distance, float drive_max_voltage,float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti);
+  void drive_distance(float distance, float drive_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti);
   void drive_distance(float distance, float heading, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti, float heading_kp, float heading_ki, float heading_kd, float heading_starti);
 
   //Swinging Functions

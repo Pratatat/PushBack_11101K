@@ -2,18 +2,15 @@
 #include "algorithm"
 using namespace std;
 
-Scoring_Mech::Scoring_Mech(int8_t intake_mtr_grp, int8_t intake_mtr_grp2,int8_t intake_mtr_grp3,int8_t intake_color_sensor_grp) 
+Scoring_Mech::Scoring_Mech(int8_t intake_mtr_grp, int8_t intake_mtr_grp2,int8_t intake_color_sensor_grp) 
     : bottom_intake(intake_mtr_grp)
-    , middle_intake(intake_mtr_grp2)
-    , top_intake(intake_mtr_grp3)
+    , top_intake(intake_mtr_grp2)
     , color_sensor(intake_color_sensor_grp) {}
 
 
 void Scoring_Mech::initialize() {
     bottom_intake.set_encoder_units(pros::v5::MotorUnits::counts);
     bottom_intake.set_brake_mode(MOTOR_BRAKE_COAST);
-    middle_intake.set_encoder_units(pros::v5::MotorUnits::counts);
-    middle_intake.set_brake_mode(MOTOR_BRAKE_COAST);
     top_intake.set_encoder_units(pros::v5::MotorUnits::counts);
     top_intake.set_brake_mode(MOTOR_BRAKE_COAST);
     color_sensor.set_integration_time(5);
@@ -132,32 +129,29 @@ int Scoring_Mech::neutral_stake_score_task() {
 */
 
 void Scoring_Mech::intake_control() {
+    //printf("bottom intake temp %f\n", bottom_intake.get_temperature());
+    //printf("Top intake temp %f\n", top_intake.get_temperature());
+    
     if (master.get_digital(DIGITAL_L1) && (current_outtaking == 0)){
         bottom_intake.move_velocity(600);
-        middle_intake.move_velocity(600);
         top_intake.move_velocity(600);
 
     } else if ((master.get_digital(DIGITAL_L2)) && (current_outtaking == 0)) {
         bottom_intake.move_velocity(600);
-        middle_intake.set_brake_mode(MOTOR_BRAKE_HOLD);
         top_intake.move_velocity(-600);
         
 
     } else if ((master.get_digital(DIGITAL_R1)) && (current_outtaking == 0)) {
         bottom_intake.move_velocity(600);
-        middle_intake.move_velocity(200);
-        top_intake.move_velocity(-600);
+        top_intake.move_velocity(-5);
 
     } else if ((master.get_digital(DIGITAL_R2)) && (current_outtaking == 0)) {
         bottom_intake.move_velocity(-600);
-        middle_intake.move_velocity(-600);
         top_intake.move_velocity(-600);
 
     } else if (current_outtaking == 0){
         bottom_intake.move_velocity(0);
-        middle_intake.move_velocity(0);
         top_intake.move_velocity(0);
-        middle_intake.set_brake_mode(MOTOR_BRAKE_COAST);
     }
 }
 
@@ -171,13 +165,11 @@ int Scoring_Mech::intake_task() {
 
 void Scoring_Mech::top_goal_intake(double velocity) {
     bottom_intake.move_velocity(velocity);
-    middle_intake.move_velocity(velocity);
     top_intake.move_velocity(velocity);
 }
 void Scoring_Mech::intake_move(double velocity) {
     bottom_intake.move_velocity(velocity);
-    middle_intake.move_velocity(200);
-    top_intake.move_velocity(-velocity);
+    top_intake.move_velocity(-5);
 }
 void Scoring_Mech::bottom_intake_move(double velocity) {
     bottom_intake.move_velocity(velocity);

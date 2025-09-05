@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "auton",
+    "project_name": "test2",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -255,8 +255,8 @@
       }
     },
     "upload_options": {
-      "description": "Coming Soon",
-      "slot": 2
+      "description": "",
+      "slot": 3
     },
     "use_early_access": false
   }

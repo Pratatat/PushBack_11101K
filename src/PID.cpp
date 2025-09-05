@@ -1,54 +1,56 @@
-#pragma once
-#ifndef _USER_PID_HPP
+// PID.cpp
 #include "main.h"
-using namespace std;
+#include <cmath>
+#include <iostream>
 
-PID::PID(float error, float kp, float ki, float kd, float starti) :
-  error(error),
-  kp(kp),
-  ki(ki),
-  kd(kd),
-  starti(starti)
-{};
+PID::PID(float error,
+         float kp, float ki, float kd, float starti)
+  : error(error),
+    kp(kp), ki(ki), kd(kd),
+    starti(starti)
+{}
 
-PID::PID(float error, float kp, float ki, float kd, float starti, float settle_error, float settle_time, float timeout) :
-  error(error),
-  kp(kp),
-  ki(ki),
-  kd(kd),
-  starti(starti),
-  settle_error(settle_error),
-  settle_time(settle_time),
-  timeout(timeout)
-{};
+PID::PID(float error,
+         float kp, float ki, float kd, float starti,
+         float settle_error, float settle_time, float timeout)
+  : error(error),
+    kp(kp), ki(ki), kd(kd),
+    starti(starti),
+    settle_error(settle_error),
+    settle_time(settle_time),
+    timeout(timeout)
+{}
 
 float PID::compute(float error) {
-  output = kp * error + ki * accumulated_error + kd * (error - previous_error);
-  
-  previous_error = error;
+  // Proportional, Integral, Derivative
+  float P = kp * error;
+  float I = ki * accumulated_error;
+  float D = kd * (error - previous_error);
 
-  if(fabs(error)<settle_error){
+  output = P + I + D;
+
+  previous_error = error;
+  accumulated_error += error + starti;
+
+  // settled logic
+  if (std::fabs(error) < settle_error) {
     time_spent_settled += 10;
   } else {
     time_spent_settled = 0;
   }
-
   time_spent_running += 10;
 
   return output;
 }
 
 bool PID::is_settled(){
-  if (time_spent_running>timeout && timeout != 0){
-    cout << "bad" << endl;
-    return(true);
+  if (time_spent_running > timeout && timeout != 0) {
+    std::cout << "bad" << std::endl;
+    return true;
   }
-
-  if (time_spent_settled>settle_time){
-    cout << "good" << endl;
-    return(true);
+  if (time_spent_settled > settle_time) {
+    std::cout << "good" << std::endl;
+    return true;
   }
-  return(false);
+  return false;
 }
-
-#endif

@@ -18,8 +18,8 @@ void odom_test();
 void tank_odom_test();
 void holonomic_odom_test();
 
-void redLeftQual();
-void redRightQual();
+void RightSevenBall();
+void RightAWP();
 void redLeftElim();
 void redRightElim();
 void blueRightQual();

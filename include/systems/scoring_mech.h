@@ -11,10 +11,9 @@ class Scoring_Mech{
     int about_to_score = 0;
     int current_outtaking = 0;
     pros::Motor bottom_intake;
-    pros::Motor middle_intake;
     pros::Motor top_intake;
     pros::Optical color_sensor;
-    Scoring_Mech(int8_t intake_mtr_grp, int8_t intake_mtr_grp2,int8_t intake_mtr_grp3,int8_t intake_color_sensor_grp);
+    Scoring_Mech(int8_t intake_mtr_grp,int8_t intake_mtr_grp2,int8_t intake_color_sensor_grp);
 
     void initialize();
 
