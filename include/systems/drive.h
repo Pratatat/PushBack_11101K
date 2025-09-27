@@ -137,6 +137,7 @@ public:
   pros::Task odom_task = pros::Task([](){});
   float get_X_position();
   float get_Y_position();
+  void print_odom_vals();
 
   //Driving odom
   void drive_to_point(float X_position, float Y_position);

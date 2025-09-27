@@ -33,6 +33,7 @@ class Scoring_Mech{
     void intake_move(double velocity);
     void bottom_intake_move(double velocity);
     void top_goal_intake(double velocity);
+    void mid_intake_move(double velocity);
     bool driverControl = false;
 
     static int rush_helper_task();
@@ -41,10 +42,16 @@ class Scoring_Mech{
     void neutral_stake_score();
     static int neutral_stake_setup_task();
     void neutral_stake_setup();
+    
     static int intake_detector_task();
     void intake_detector();
+
     static int red_color_sort_task();
     void red_color_sort();
     static int blue_color_sort_task();
     void blue_color_sort();
+    static int intake_autontask();
+     static int anti_jam_auton();
+
+    
 };

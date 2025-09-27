@@ -1,4 +1,4 @@
-bin/autons.cpp.o: src/autons.cpp include/main.h include/api.h \
+bin/odom.cpp.o: src/odom.cpp include/main.h include/api.h \
  include/pros/adi.h include/pros/colors.h include/pros/device.h \
  include/pros/distance.h include/pros/error.h include/pros/ext_adi.h \
  include/pros/adi.h include/pros/adi.h include/pros/gps.h \
@@ -132,7 +132,7 @@ bin/autons.cpp.o: src/autons.cpp include/main.h include/api.h \
  include/pros/vision.h include/systems/odom.h include/systems/drive.h \
  include/systems/util.h include/systems/PID.h \
  include/systems/scoring_mech.h include/systems/pneumatics.h \
- include/autons.h include/pros/adi.hpp
+ include/autons.h
 include/main.h:
 include/api.h:
 include/pros/adi.h:
@@ -354,4 +354,3 @@ include/systems/PID.h:
 include/systems/scoring_mech.h:
 include/systems/pneumatics.h:
 include/autons.h:
-include/pros/adi.hpp:

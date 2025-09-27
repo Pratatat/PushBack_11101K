@@ -4,10 +4,9 @@
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 //Variables
-int aligner_down = 0;
-int climb_open = 0;
-int doinker_left_open = 0;
-int doinker_right_open = 0;
+int matchloader_down = 0;
+int intakepiston_down = 0;
+
 double PI = 3.14159265359;
 
 float reduce_0_to_360(float angle) {
