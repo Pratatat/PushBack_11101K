@@ -75,7 +75,7 @@ void competition_initialize() {}
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  RightRush();
+  LeftRush();
 }
 
 void opcontrol(void) {
