@@ -51,7 +51,8 @@ class Scoring_Mech{
     static int blue_color_sort_task();
     void blue_color_sort();
     static int intake_autontask();
-     static int anti_jam_auton();
+    static int intake_autontask2();
+    static int anti_jam_auton();
 
     
 };

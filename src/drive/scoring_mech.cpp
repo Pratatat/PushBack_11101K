@@ -169,10 +169,16 @@ int Scoring_Mech::intake_autontask() {
         
     return 1;
 }
+int Scoring_Mech::intake_autontask2() {
+    pros::delay(580);
+    scoring_mech.top_goal_intake(600);
+        
+    return 1;
+}
 int Scoring_Mech::anti_jam_auton() {
     pros::delay(500);
     scoring_mech.top_goal_intake(-600);
-    pros::delay(75);
+    pros::delay(100);
     scoring_mech.intake_move(600);
     return 1;
 }

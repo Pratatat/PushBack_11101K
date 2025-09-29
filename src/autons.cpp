@@ -166,20 +166,22 @@ void RightAWP(){
   chassis.drive_to_point(-1,22.5,4.5,2);
   
   //pros::delay(350);
-  //chassis.turn_to_point(-24,5,0,8);
-  chassis.drive_to_point(-23.5,5,8,0);
+  chassis.turn_to_point(-24,4.5,0,8,2.5,10,800);
+  chassis.drive_to_point(-23.5,4.5,8,1.5);
   scoring_mech.intake_move(0);
   pneumatics.matchloader_v(0);
-  chassis.turn_to_point(-23.5,-48,0,10);
+  chassis.turn_to_point(-23.5,-48,0,8);
+
   scoring_mech.top_goal_intake(75);
   pros::Task intae(Scoring_Mech::intake_autontask);
   chassis.drive_to_point(-23.5,23);
   scoring_mech.top_goal_intake(600);
   pneumatics.matchloader_v(1);
-  pros::delay(350);
-  chassis.drive_to_point(-23.25,-13,7,2);
+  pros::delay(340);
+  //chassis.turn_to_point(-23.25,-48,0,8);
+  chassis.drive_to_point(-23.25,-13,5.5,2);
   scoring_mech.intake_move(600);
-  pros::delay(110);
+  pros::delay(10);
   chassis.drive_to_point(-23.25,0);
   pneumatics.matchloader_v(0);
   scoring_mech.intake_move(600);
@@ -188,20 +190,53 @@ void RightAWP(){
   pros::Task antijam(Scoring_Mech::anti_jam_auton);
   chassis.drive_to_point(47,24);
   scoring_mech.intake_move(600);
-  chassis.turn_to_point(71,5,0,10,2,10,800);
-  chassis.drive_to_point(71,5,8,0);
-  chassis.turn_to_point(71,-48,0,10);
-  scoring_mech.top_goal_intake(75);
+  chassis.turn_to_point(70.3,5,0,8,2.5,10,800);
+  chassis.drive_to_point(70.3,5,8,1);
+  chassis.turn_to_point(70.3,-48,0,10);
+  scoring_mech.top_goal_intake(50);
   pros::Task intae2(Scoring_Mech::intake_autontask);
-  chassis.drive_to_point(71,22.5);
+  chassis.drive_to_point(70.3,22.5);
   scoring_mech.top_goal_intake(600);
+  pneumatics.matchloader_v(1);
 }
 
 
 
 
 void LeftSevenBall(){
- default_constants();
+  default_constants();
+  chassis.set_coordinates(13.73, 1.65, 0);
+  chassis.turn_to_point(-2,28,0,8);
+  scoring_mech.intake_move(600);
+  pros::Task awp_task2(Pneumatics::awp_task2);
+  chassis.drive_to_point(-2,28,5.5,2);
+  
+  //pros::delay(350);
+  chassis.turn_to_point(-23.4,5,0,8);
+  chassis.drive_to_point(-23.4,5,8,1);
+  scoring_mech.intake_move(0);
+  pneumatics.matchloader_v(0);
+  chassis.turn_to_point(-23.4,-48,0,8);
+  pros::Task intae(Scoring_Mech::intake_autontask);
+  chassis.drive_to_point(-23.4,24,8,1.5);
+  scoring_mech.top_goal_intake(600);
+  pneumatics.matchloader_v(1);
+  pros::delay(150);
+  chassis.turn_to_point(-23.25,-16,1,8,2.5,10,800);
+  chassis.drive_to_point(-23.25,-16,6.5,2);
+  scoring_mech.intake_move(600);
+  pros::delay(80);
+  pros::Task intae2(Scoring_Mech::intake_autontask2);
+  chassis.drive_to_point(-23.4,23,8,1);
+  pneumatics.matchloader_v(0);
+  scoring_mech.top_goal_intake(600);
+  pros::delay(1850);
+  
+  chassis.drive_distance(12,12,1.5,30,700,0.4325, 0, 0.91, 0);
+  scoring_mech.top_goal_intake(0);
+  chassis.drive_distance(-20,12,1.5,30,700,0.4325, 0, 0.91, 0);
+  /*
+  default_constants();
   chassis.set_coordinates(13.73, 0.6, 180);
   //scoring_mech.top_goal_intake(50);
   chassis.drive_to_point(13.73,33);
@@ -214,28 +249,29 @@ void LeftSevenBall(){
   chassis.drive_to_point(-1,22.5,4.5,2);
   
   //pros::delay(350);
-  //chassis.turn_to_point(-24,5,0,8);
-  chassis.drive_to_point(-23.5,5,8,0);
+  chassis.turn_to_point(-23.5,4.5,0,8);
+  chassis.drive_to_point(-23.5,4.5,8,1);
   scoring_mech.intake_move(0);
   pneumatics.matchloader_v(0);
-  chassis.turn_to_point(-23.5,-48,0,10);
+  chassis.turn_to_point(-23.5,-48,0,8);
   pros::Task intae(Scoring_Mech::intake_autontask);
-  chassis.drive_to_point(-23.5,23);
+  chassis.drive_to_point(-23.5,23.25);
   scoring_mech.top_goal_intake(600);
   pneumatics.matchloader_v(1);
   pros::delay(350);
-  chassis.drive_to_point(-23.25,-16.5,4,2);
+  chassis.turn_to_point(-23.25,-15,1,8);
+  chassis.drive_to_point(-23.25,-15,4.5,2);
   scoring_mech.intake_move(600);
-  pros::delay(200);
+  pros::delay(80);
   chassis.drive_to_point(-23.25,23);
   pneumatics.matchloader_v(0);
   scoring_mech.top_goal_intake(600);
-  pros::delay(2200);
+  pros::delay(2100);
   
   chassis.drive_distance(10,12);
   scoring_mech.top_goal_intake(0);
   chassis.drive_distance(-15,12);
-
+*/
 }
 
 void RightSevenBall(){
@@ -263,7 +299,7 @@ void RightSevenBall(){
   pros::delay(650);
   chassis.drive_to_point(23.5,-13,4.5,2);
   scoring_mech.intake_move(450);
-  pros::delay(120);
+  pros::delay(100);
   
   chassis.drive_to_point(23.5,22.5,6,2);
   scoring_mech.top_goal_intake(600);

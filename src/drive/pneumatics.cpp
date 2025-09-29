@@ -1,10 +1,10 @@
 #include "main.h"
 
 
-Pneumatics::Pneumatics(pros::adi::DigitalOut matchloader_port, pros::adi::DigitalOut intakepiston_port, pros::adi::DigitalOut doinker_right_port)
+Pneumatics::Pneumatics(pros::adi::DigitalOut matchloader_port, pros::adi::DigitalOut intakepiston_port, pros::adi::DigitalOut wing_port)
    : matchloader(matchloader_port),
    intake_piston(intakepiston_port),
-   doinker_right(doinker_right_port) {}
+   wing(wing_port) {}
 
 
 void Pneumatics::matchloader_control() {
@@ -34,13 +34,40 @@ int Pneumatics::matchloader_task() {
    } return 1;
 }
 
+void Pneumatics::wing_control() {
+  if (master.get_digital(DIGITAL_RIGHT)){
+       wing_down = !wing_down;
+       wing.set_value(wing_down);
+       while (master.get_digital(DIGITAL_RIGHT)) {
+           pros::delay(util::DELAY_TIME);
+       }
+   }
+}
+
+
+void Pneumatics::wing_initialize() {
+   wing.set_value(0);
+}
+
+
+void Pneumatics::wing_v(int value) {
+   wing.set_value(value);
+}
+
+int Pneumatics::wing_task() {
+   while (true) {
+      pneumatics.wing_control();
+      pros::delay(10);
+   } return 1;
+}
+
 int Pneumatics::awp_task() {
    pros::delay(600);
    pneumatics.matchloader_v(1);
    return 1;
 }
 int Pneumatics::awp_task2() {
-   pros::delay(525);
+   pros::delay(510);
    pneumatics.matchloader_v(1);
    return 1;
 }

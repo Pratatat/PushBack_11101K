@@ -6,6 +6,7 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 //Variables
 int matchloader_down = 0;
 int intakepiston_down = 0;
+int wing_down = 0;
 
 double PI = 3.14159265359;
 

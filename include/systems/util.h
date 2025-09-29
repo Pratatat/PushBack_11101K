@@ -6,7 +6,7 @@ extern pros::Controller master;
 extern int matchloader_down;
 extern int climb_open;
 extern int intakepiston_down;
-extern int doinker_right_open;
+extern int wing_down;
 
 float reduce_0_to_360(float angle);
 

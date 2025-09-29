@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Leftrush",
+    "project_name": "left7",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -256,7 +256,7 @@
     },
     "upload_options": {
       "description": "",
-      "slot": 6
+      "slot": 3
     },
     "use_early_access": false
   }
