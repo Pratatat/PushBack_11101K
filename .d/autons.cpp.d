@@ -132,7 +132,7 @@ bin/autons.cpp.o: src/autons.cpp include/main.h include/api.h \
  include/pros/vision.h include/systems/odom.h include/systems/drive.h \
  include/systems/util.h include/systems/PID.h \
  include/systems/scoring_mech.h include/systems/pneumatics.h \
- include/autons.h
+ include/autons.h include/pros/adi.hpp
 include/main.h:
 include/api.h:
 include/pros/adi.h:
@@ -354,3 +354,4 @@ include/systems/PID.h:
 include/systems/scoring_mech.h:
 include/systems/pneumatics.h:
 include/autons.h:
+include/pros/adi.hpp:

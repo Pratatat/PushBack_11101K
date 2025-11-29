@@ -4,7 +4,8 @@
       "name": "PROS Project",
       "includePath": [
         "${workspaceFolder}/**",
-        "/Users/pathu/Downloads/PushBack/PushBack_11101K/include"
+        "/Users/pathu/Downloads/PushBack/PushBack_11101K/include",
+        "/Users/pathu/Desktop/PushBack_11101K/include"
       ],
       "defines": [
         "_DEBUG",
@@ -20,7 +21,7 @@
       ],
       "browse": {
         "path": [
-          "/Users/pathu/Downloads/PushBack/PushBack_11101K"
+          "/Users/pathu/Desktop/PushBack_11101K"
         ],
         "limitSymbolsToIncludedHeaders": true,
         "databaseFilename": ""

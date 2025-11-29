@@ -11,15 +11,24 @@ extern Pneumatics pneumatics;
 void default_constants();
 
 void drive_test();
+void odom_offset_test();
 void turn_test();
 void swing_test();
 void full_test();
 void odom_test();
 void tank_odom_test();
 void holonomic_odom_test();
+void intake_test();
+
 
 void RightSevenBall();
+void LeftSevenQual();
+void LeftSevenElim();
 void RightAWP();
+void RightRush();
+void LeftRush();
+
+
 void redLeftElim();
 void redRightElim();
 void blueRightQual();

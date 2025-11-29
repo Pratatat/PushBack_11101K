@@ -1,12 +1,15 @@
-#include "main.h"
+
+
 
 //Controller
+//#include main.h
+#include "pros/misc.hpp"
 extern pros::Controller master;
 
-extern int aligner_down;
+extern int matchloader_down;
 extern int climb_open;
-extern int doinker_left_open;
-extern int doinker_right_open;
+extern int intakepiston_down;
+extern int wing_down;
 
 float reduce_0_to_360(float angle);
 

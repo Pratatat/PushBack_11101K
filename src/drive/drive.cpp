@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/motors.h"
 #define MOVING_VOLTAGE 25
 float PII = 3.14159265359;
 float GYRO_SCALE;
@@ -42,11 +43,19 @@ Drive::Drive(enum::drive_setup_enum drive_setup, std::initializer_list<std::int8
 bool Drive::imu_calibrate() {
    Gyro.reset();
    return true;
+
 }
 
 void Drive::reset_drive_sensor() {
    DriveL.tare_position();
    DriveR.tare_position();
+}
+
+void Drive::print_odom_vals() {
+  DriveL.set_encoder_units(pros::E_MOTOR_ENCODER_COUNTS);
+  float ferref = 47.06 * (21.8/23.5625);
+  float avg = ((DriveL.get_position() + DriveR.get_position())/2)/ferref;
+  printf("Encoder avg: %f\n",avg);
 }
 
 void Drive::arcade_control() {
@@ -454,6 +463,7 @@ void Drive::drive_to_point(float X_position, float Y_position, float drive_max_v
 }
 
 void Drive::drive_to_point(float X_position, float Y_position, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti, float heading_kp, float heading_ki, float heading_kd, float heading_starti){
+  
   PID drivePID(hypot(X_position-get_X_position(),Y_position-get_Y_position()), drive_kp, drive_ki, drive_kd, drive_starti, drive_settle_error, drive_settle_time, drive_timeout);
   PID headingPID(reduce_negative_180_to_180(to_deg(atan2(X_position-get_X_position(),Y_position-get_Y_position()))-get_absolute_heading()), heading_kp, heading_ki, heading_kd, heading_starti);
   /*set_brake_mode('C');
