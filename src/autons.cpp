@@ -15,15 +15,16 @@ void default_constants(){
   chassis.set_swing_exit_conditions(1, 300, 3000);
   */
   // (maxVoltage, kP, kI, kD, startI)
-  chassis.set_drive_constants(12, 1.15, 0.0009, 8.65, 2);
-  chassis.set_heading_constants(6, .23, 0, 1, 0);
+  chassis.set_drive_constants(12, 1, 0.00005, 8.65, 5);
+  chassis.set_heading_constants(12, 0.270, 0.00032, 2.29, 5);
    chassis.set_turn_constants(12, 0.270, 0.00032, 2.29, 5);
-  chassis.set_swing_constants(12, .3, .001, 2, 15);
+  chassis.set_swing_constants(12, 0.56, 0.00001, 3.65, 5);
 
   // (settle_error, settle_time, timeout)
-  chassis.set_drive_exit_conditions(0.01, 75, 2500);
-  chassis.set_turn_exit_conditions(1.5, 75, 2500);
-  chassis.set_swing_exit_conditions(1, 300, 3000);
+  chassis.set_drive_exit_conditions(1, 50, 2500);
+  chassis.set_turn_exit_conditions(1.5, 50, 2500);
+  chassis.set_swing_exit_conditions(1, 75, 4000);
+  
 }
  
 
@@ -39,7 +40,7 @@ void drive_test(){
   default_constants();
   chassis.set_coordinates(0,0,0);
   chassis.print_odom_vals();
-  chassis.drive_distance(24);
+  chassis.drive_to_point(0,24,8,0);
   chassis.print_odom_vals();
 }
 
@@ -61,8 +62,18 @@ void turn_test(){
 
 
 void swing_test(){
-  chassis.left_swing_to_angle(90);
-  chassis.right_swing_to_angle(0);
+  std::string left_front,left_middle, left_back;
+  default_constants();
+  chassis.set_coordinates(0, 0, 0);
+  chassis.right_swing_to_angle(182,4.5);
+  left_front = std::to_string(chassis.get_X_position());
+  left_middle = std::to_string(chassis.get_Y_position());
+  left_back = std::to_string(chassis.get_absolute_heading());
+  pros::screen::draw_rect(0,0,480,240);
+    pros::screen::set_pen(pros::Color::white);
+    pros::screen::print(TEXT_LARGE, 50, 50, left_front.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 100, left_middle.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 150, left_back.c_str());
 }
 
 
@@ -88,9 +99,9 @@ void tank_odom_test(){
   
 
   
-  default_constants();
-  chassis.turn_max_voltage = 8;
-  chassis.set_coordinates(0, 0, 0);
+  
+  chassis.turn_max_voltage = 6;
+  
   //chassis.turn_to_point(24, 24,0,4);
   //chassis.drive_to_point(24, 24,4,0,1,200,2000);
   //chassis.turn_to_angle(90,9);
@@ -101,32 +112,32 @@ void tank_odom_test(){
   
 
   
-  chassis.turn_to_point(0, 24);
+  chassis.turn_to_point(0, 48);
   printf("turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
 
-chassis.drive_to_point(0, 24,8,0);
+chassis.drive_to_point(0, 48,6,0);
   printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
   
-  chassis.turn_to_point(24, 24);
+  chassis.turn_to_point(48, 48);
   printf("Turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
  // pros::delay(100);
   
-  chassis.drive_to_point(24, 24,8,0);
+  chassis.drive_to_point(48, 48,6,0);
   printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
  // pros::delay(100);
-  chassis.turn_to_point(24, 0);
+  chassis.turn_to_point(48, 0);
   printf("Turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
  // pros::delay(100);
-  chassis.drive_to_point(24, 0,8,0);
+  chassis.drive_to_point(48, 0,6,0);
   printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
  // pros::delay(100);
   chassis.turn_to_point(0, 0);
   printf("Turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
   //pros::delay(100);
-  chassis.drive_to_point(0, 0,8,0);
+  chassis.drive_to_point(0, 0,6,0);
   printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
   //pros::delay(100);
-  chassis.turn_to_point(0, 24);
+  chassis.turn_to_point(0, 48);
   printf("Turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
   //pros::delay(100);
 
