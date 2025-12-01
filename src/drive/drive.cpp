@@ -52,10 +52,17 @@ void Drive::reset_drive_sensor() {
 }
 
 void Drive::print_odom_vals() {
-  DriveL.set_encoder_units(pros::E_MOTOR_ENCODER_COUNTS);
-  float ferref = 47.06 * (21.8/23.5625);
-  float avg = ((DriveL.get_position() + DriveR.get_position())/2)/ferref;
+  DriveL.set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
+  float avg = ((DriveL.get_position() + DriveR.get_position())/2) * (10.21/480);
   printf("Encoder avg: %f\n",avg);
+  printf("Odom value: %f\n", odom.Y_position);
+  std::string encorder_avg, odom_value;
+  encorder_avg = std::to_string(avg);
+  odom_value = std::to_string(odom.Y_position);
+  pros::screen::draw_rect(0,0,480,240);
+    pros::screen::set_pen(pros::Color::white);
+    pros::screen::print(TEXT_LARGE, 50, 50, encorder_avg.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 100, odom_value.c_str());
 }
 
 void Drive::arcade_control() {
@@ -589,6 +596,21 @@ void Drive::right_swing_to_point(float X_position, float Y_position, float extra
 int Drive::position_track_task(){
   chassis.position_track();
   return(0);
+}
+
+double Drive::absolute_y_pos()
+{
+  return odom.Y_position;
+}
+
+void Drive::y_pos_task()
+{
+  print_coords();
+}
+
+void Drive::print_coords()
+{
+  std::cout << odom.X_position << "  " << odom.X_position << "  " << chassis.get_absolute_heading() << std::endl;
 }
 
 void Drive::calculate() {

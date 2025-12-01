@@ -15,14 +15,14 @@ void default_constants(){
   chassis.set_swing_exit_conditions(1, 300, 3000);
   */
   // (maxVoltage, kP, kI, kD, startI)
-  chassis.set_drive_constants(12, 0.66, -0.0005, 4.3, 2);
+  chassis.set_drive_constants(12, 1.15, 0.0009, 8.65, 2);
   chassis.set_heading_constants(6, .23, 0, 1, 0);
    chassis.set_turn_constants(12, 0.270, 0.00032, 2.29, 5);
   chassis.set_swing_constants(12, .3, .001, 2, 15);
 
   // (settle_error, settle_time, timeout)
   chassis.set_drive_exit_conditions(0.01, 75, 2500);
-  chassis.set_turn_exit_conditions(0.01, 75, 2500);
+  chassis.set_turn_exit_conditions(1.5, 75, 2500);
   chassis.set_swing_exit_conditions(1, 300, 3000);
 }
  
@@ -30,13 +30,14 @@ void default_constants(){
 void odom_constants(){
   default_constants();
   chassis.heading_max_voltage = 10;
-  chassis.drive_max_voltage = 7;
+  chassis.drive_max_voltage = 12;
   chassis.drive_settle_error = 3;
 }
 
 
 void drive_test(){
   default_constants();
+  chassis.set_coordinates(0,0,0);
   chassis.print_odom_vals();
   chassis.drive_distance(24);
   chassis.print_odom_vals();
@@ -87,34 +88,47 @@ void tank_odom_test(){
   
 
   
-  chassis.turn_to_point(0, 48);
+  default_constants();
+  chassis.turn_max_voltage = 8;
+  chassis.set_coordinates(0, 0, 0);
+  //chassis.turn_to_point(24, 24,0,4);
+  //chassis.drive_to_point(24, 24,4,0,1,200,2000);
+  //chassis.turn_to_angle(90,9);
+  
+  //chassis.drive_to_point(0, 24);
+  //chassis.drive_distance(48,1.6,1,200,10000,0.48,0,0.65,0);
+  //printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
+  
+
+  
+  chassis.turn_to_point(0, 24);
   printf("turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
 
-chassis.drive_to_point(0, 48,12,0);
+chassis.drive_to_point(0, 24,8,0);
   printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
   
-  chassis.turn_to_point(48, 48);
+  chassis.turn_to_point(24, 24);
   printf("Turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
-  pros::delay(100);
+ // pros::delay(100);
   
-  chassis.drive_to_point(48, 48,12,0);
+  chassis.drive_to_point(24, 24,8,0);
   printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
-  pros::delay(100);
-  chassis.turn_to_point(48, 0);
+ // pros::delay(100);
+  chassis.turn_to_point(24, 0);
   printf("Turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
-  pros::delay(100);
-  chassis.drive_to_point(48, 0,12,0);
+ // pros::delay(100);
+  chassis.drive_to_point(24, 0,8,0);
   printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
-  pros::delay(100);
+ // pros::delay(100);
   chassis.turn_to_point(0, 0);
   printf("Turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
-  pros::delay(100);
-  chassis.drive_to_point(0, 0,12,0);
+  //pros::delay(100);
+  chassis.drive_to_point(0, 0,8,0);
   printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
-  pros::delay(100);
-  chassis.turn_to_point(0, 48);
+  //pros::delay(100);
+  chassis.turn_to_point(0, 24);
   printf("Turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
-  pros::delay(100);
+  //pros::delay(100);
 
   
 }

@@ -138,6 +138,13 @@ public:
   float get_X_position();
   float get_Y_position();
   void print_odom_vals();
+  double absolute_y_pos();
+
+  //printing coords
+  void y_pos_task();
+  void print_coords();
+
+
 
   //Driving odom
   void drive_to_point(float X_position, float Y_position);
