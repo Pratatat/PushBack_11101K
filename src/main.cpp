@@ -75,7 +75,7 @@ void competition_initialize() {}
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  swing_test();
+  LeftSevenQual();
 }
 
 void opcontrol(void) {

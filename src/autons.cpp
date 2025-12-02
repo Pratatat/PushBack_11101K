@@ -208,51 +208,53 @@ void RightAWP(){
 
 
 
-
 void LeftSevenQual(){
+  //-setting up-//
+  default_constants();  
+  chassis.heading_max_voltage = 2;
+  chassis.set_drive_exit_conditions(1.5, 50, 1100);
+  chassis.set_turn_exit_conditions(1.5, 50, 800);
+  chassis.set_coordinates(-17.5, -50, 349.7);
 
-  default_constants();
-  chassis.set_coordinates(13.73, 0.9, 0);
-  chassis.turn_to_point(0,24.8,1,8,2.5,75,800);
+  //-head towards the first 3 balls-//
   scoring_mech.intake_move(600);
-  pros::Task awp_task2(Pneumatics::awp_task);
-  chassis.drive_to_point(0,24.8,5.5,2);
-  chassis.drive_distance(-0.5,5,1.5,10,200,0.4325, 0, 0.91, 0);
-  chassis.turn_to_point(-24.5,2,1,8,2.5,75,800);
-  pneumatics.intakepiston_v(1);
-  pros::Task intae(Scoring_Mech::intake_autontask3);
-  chassis.drive_to_point(17.75,37.5,4.5,0);
- 
-  pros::delay(450);
-  pneumatics.matchloader_v(0);
-  pneumatics.intakepiston_v(0);
-  scoring_mech.mid_intake_move(200);
-  chassis.drive_distance(4,7,1.5,50,600,0.4325, 0, 0.91, 0);
-  chassis.turn_to_point(-23.1,5,1,8,2.5,75,800);
-  scoring_mech.mid_intake_move(0);
-  chassis.drive_to_point(-23.1,5,5,2);
-  
-  scoring_mech.intake_move(0);
+  chassis.drive_to_point(-22, -29.5, 10, 2, 1.5, 10, 1500);
   pneumatics.matchloader_v(1);
-  chassis.turn_to_point(-23.55,-48,1,8,2.5,10,800);
+  chassis.drive_to_point(-23, -23);
+  pros::delay(100);
+
+  //-head towards the goal-//
+  chassis.turn_to_point(-48.5, -36, 2, 8);
+  chassis.drive_to_point(-48.5, -36);
+  chassis.turn_to_angle(180);
+  chassis.drive_distance(-11);
+  chassis.set_coordinates(-48, -28, chassis.get_absolute_heading()); 
+  pros::delay(50);
+  //sscoring_mech.top_goal_intake(600);
+  pros::delay(1000);
+  scoring_mech.top_goal_intake(0);
   scoring_mech.intake_move(600);
 
-  chassis.drive_to_point(-23.45,-16,4.5,0.5,1.5,75,1200);
-  //pros::delay(50);
-  pros::Task intae2(Scoring_Mech::intake_autontask2);
-  chassis.drive_to_point(-23.5,23,7,2);
-  pros::delay(900);
-  pneumatics.matchloader_v(0);
+  //-head towards matchloader-//
+  chassis.drive_to_point(-46, -59, 5, 0.75, 1.5, 50, 1500);
+  scoring_mech.intake_move(600);
+  pros::delay(650);
 
-  chassis.drive_to_point(-23.5,7);
+  //-scoring the 3 balls-//
+  chassis.drive_to_point(-48, -26, 7, 0.5, 1.5, 50, 1500);
+  //chassis.drive_distance(-33, 0, 5.5, 0.5);
+  chassis.set_coordinates(-48, -28, chassis.get_absolute_heading());
+  pros::delay(1000);
+  pneumatics.matchloader_v(0);
+  scoring_mech.intake_move(0);
+  chassis.drive_distance(3);
+
+  //-set up for wing push-//
   pneumatics.wing_v(1);
-  chassis.turn_to_point(0,-13.5,1.5,9,2.5,10,600);
-  chassis.drive_distance(-17.5,12,1.5,50,600,0.4325, 0, 0.91, 0);
-  chassis.turn_to_angle(181,9,2,50,500,0.46, 0, 5, 0);
-  pneumatics.wing_v(0);
-  chassis.drive_distance(-22,12,1.5,50,600,0.4325, 0, 0.91, 0);
-  
-  
+  chassis.set_swing_constants(5, 0.50, 0.00001, 3.65, 5);
+  chassis.right_swing_to_angle(1, 1.75);
+  chassis.drive_distance(20, 350, 9, 1.5);
+  //chassis.drive_to_point(-37.8, -24, 8, 1.5);
 
 }
 
