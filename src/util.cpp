@@ -8,7 +8,7 @@ int matchloader_down = 0;
 int intakepiston_down = 0;
 int wing_down = 0;
 
-double PI = 3.14159265359;
+double PI = 3.14159;
 
 float reduce_0_to_360(float angle) {
   while(!(angle >= 0 && angle < 360)) {

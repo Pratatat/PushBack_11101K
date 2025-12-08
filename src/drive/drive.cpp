@@ -41,8 +41,8 @@ Drive::Drive(enum::drive_setup_enum drive_setup, std::initializer_list<std::int8
 }
 
 bool Drive::imu_calibrate() {
-   Gyro.reset();
-   return true;
+  Gyro.reset();
+  return true;
 
 }
 
