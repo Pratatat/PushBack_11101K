@@ -33,18 +33,18 @@ Drive chassis(
   //If you are using ZERO_TRACKER_ODOM, you ONLY need to adjust the FORWARD TRACKER CENTER DISTANCE.
   //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
   //If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
-  16,
+  13,
   //Input the Forward Tracker diameter (reverse it to make the direction switch):
   2,
   //Input Forward Tracker center distance (In.) (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
   //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
-  -0.47,
+  -0.34375,
   //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
-  16,
+  14,
   //Sideways tracker diameter (reverse to make the direction switch):
   2,
   //Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
-  0
+  2
 );
 
 Scoring_Mech scoring_mech(
