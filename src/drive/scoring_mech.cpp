@@ -143,7 +143,7 @@ void Scoring_Mech::intake_control() {
 
     } else if ((master.get_digital(DIGITAL_R1)) && (current_outtaking == 0)) {
         bottom_intake.move_velocity(600);
-        top_intake.move_velocity(-5);
+        top_intake.set_brake_mode(MOTOR_BRAKE_HOLD);
 
     } else if ((master.get_digital(DIGITAL_R2)) && (current_outtaking == 0)) {
         bottom_intake.move_velocity(-600);

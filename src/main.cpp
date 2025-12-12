@@ -6,12 +6,12 @@
 pros::adi::DigitalOut matchloader('B');
 pros::adi::DigitalOut intake_piston('A');
 pros::adi::DigitalOut wing('C');
-pros::Motor left_front_mtr(-1, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);//9
-pros::Motor left_middle_mtr(-12, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);//20
-pros::Motor left_back_mtr(-2, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);//10
-pros::Motor right_front_mtr(9, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
-pros::Motor right_middle_mtr(20, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
-pros::Motor right_back_mtr(7, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor left_front_mtr(-13, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor left_middle_mtr(-12, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor left_back_mtr(-11, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor right_front_mtr(18, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor right_middle_mtr(19, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor right_back_mtr(20, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 
 
 Drive chassis( 
@@ -22,7 +22,7 @@ Drive chassis(
   //Right Motors:
   {right_front_mtr.get_port(), right_middle_mtr.get_port(), right_back_mtr.get_port()},
   //IMU Port:
-  21,
+  4,
   //Wheel diameter (4" omnis are actually closer to 4.125"):
   3.25,
   //External Gear Ratio
@@ -33,24 +33,23 @@ Drive chassis(
   //If you are using ZERO_TRACKER_ODOM, you ONLY need to adjust the FORWARD TRACKER CENTER DISTANCE.
   //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
   //If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
-  11,
+  16,
   //Input the Forward Tracker diameter (reverse it to make the direction switch):
-  -2,
+  2,
   //Input Forward Tracker center distance (In.) (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
   //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
-  0.2,
+  -0.47,
   //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
-  19,
+  16,
   //Sideways tracker diameter (reverse to make the direction switch):
-  1.9925,
+  2,
   //Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
-  2.2
+  0
 );
 
 Scoring_Mech scoring_mech(
-  8,-13,17
-  //{-9, 7},
-  //bottom, top, color sensor
+  -17,-1,26
+  // Bottom Intake, Top Intake, Color Sensor
 );
 
 
@@ -70,12 +69,10 @@ void initialize() {
   //pros::Task intake_task_1(Scoring_Mech::red_color_sort_task);
   //pros::Task intake_task_2(Scoring_Mech::blue_color_sort_task);
 }
-void competition_initialize() {}
-
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  LeftSevenQual();
+  drive_test();
 }
 
 void opcontrol(void) {
@@ -115,5 +112,6 @@ void opcontrol(void) {
 
 void disabled() {}
 
+void competition_initialize() {}
 
 

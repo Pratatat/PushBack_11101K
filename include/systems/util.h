@@ -35,5 +35,5 @@ float deadband(float input, float width);
 
 namespace util { 
 //Util variables
-const int DELAY_TIME = 20;
+const int DELAY_TIME = 15;
 }

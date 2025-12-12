@@ -12,7 +12,7 @@ void Pneumatics::matchloader_control() {
        matchloader_down = !matchloader_down;
        matchloader.set_value(matchloader_down);
        while (master.get_digital(DIGITAL_Y)) {
-           pros::delay(util::DELAY_TIME);
+         pros::delay(util::DELAY_TIME);
        }
    }
 }
@@ -36,11 +36,11 @@ int Pneumatics::matchloader_task() {
 
 void Pneumatics::wing_control() {
   if (master.get_digital(DIGITAL_RIGHT)){
-       wing_down = !wing_down;
-       wing.set_value(wing_down);
-       while (master.get_digital(DIGITAL_RIGHT)) {
-           pros::delay(util::DELAY_TIME);
-       }
+      wing_down = !wing_down;
+      wing.set_value(wing_down);
+      while (master.get_digital(DIGITAL_RIGHT)) {
+         pros::delay(util::DELAY_TIME);
+      }
    }
 }
 
@@ -58,7 +58,9 @@ int Pneumatics::wing_task() {
    while (true) {
       pneumatics.wing_control();
       pros::delay(10);
-   } return 1;
+   } 
+   
+   return 1;
 }
 
 int Pneumatics::awp_task() {
@@ -92,15 +94,17 @@ int Pneumatics::intakepiston_task() {
    while (true) {
       pneumatics.intakepiston_control();
       pros::delay(10);
-   } return 1;
+   } 
+   
+   return 1;
 }
 
 void Pneumatics::intakepiston_control() {
-  if (master.get_digital(DIGITAL_B)){
-       intakepiston_down = !intakepiston_down;
-       intake_piston.set_value(intakepiston_down);
-       while (master.get_digital(DIGITAL_B)) {
+   if (master.get_digital(DIGITAL_B)){
+      intakepiston_down = !intakepiston_down;
+      intake_piston.set_value(intakepiston_down);
+      while (master.get_digital(DIGITAL_B)) {
            pros::delay(util::DELAY_TIME);
-       }
+      }
    }
 }
