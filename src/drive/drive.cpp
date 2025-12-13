@@ -59,6 +59,7 @@ void Drive::print_odom_vals() {
   std::string encorder_avg, odom_value;
   encorder_avg = std::to_string(avg);
   odom_value = std::to_string(odom.Y_position);
+  
   pros::screen::draw_rect(0,0,480,240);
     pros::screen::set_pen(pros::Color::white);
     pros::screen::print(TEXT_LARGE, 50, 50, encorder_avg.c_str());

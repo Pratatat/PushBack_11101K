@@ -3,9 +3,9 @@
 
 void default_constants(){
   // (maxVoltage, kP, kI, kD, startI)
-  chassis.set_drive_constants(12, 1, 0.0000, 8.65, 5);
-  chassis.set_heading_constants(12, 0.27, 0.0003, 1.85, 5);
-   chassis.set_turn_constants(12, 0.27, 0.0003, 1.85, 5);
+  chassis.set_drive_constants(12, 0.9, 0.000011, 2.125, 5);
+  chassis.set_heading_constants(12, 0.27, 0.0001, 1.83, 5);
+   chassis.set_turn_constants(12, 0.27, 0.0001, 1.83, 5);
   chassis.set_swing_constants(12, 0.56, 0.00001, 3.65, 5);
 
   // (settle_error, settle_time, timeout)
@@ -50,6 +50,7 @@ void turn_test(){
   std::string left_front,left_middle, left_back;
   default_constants();
   chassis.set_coordinates(0, 0, 0);
+  
   chassis.turn_to_angle(90);
   left_front = std::to_string(chassis.get_X_position());
   left_middle = std::to_string(chassis.get_Y_position());
@@ -260,7 +261,7 @@ void LeftSevenQual(){
   /*pneumatics.wing_v(0);
   chassis.drive_distance(30, 0, 12, 5);
   chassis.set_turn_constants(12, 0.270, 0.00032, 2.29, 5);
-  //chassis.drive_to_point(-37.8, -24, 8, 1.5);8?
+  //chassis.drive_to_point(-37.8, -24, 8, 1.5);8?*/
 
 }
 
