@@ -62,7 +62,7 @@ void Drive::print_odom_vals() {
   
   pros::screen::draw_rect(0,0,480,240);
     pros::screen::set_pen(pros::Color::white);
-    pros::screen::print(TEXT_LARGE, 50, 50, encorder_avg.c_str());
+    //pros::screen::print(TEXT_LARGE, 50, 50, encorder_avg.c_str());
     pros::screen::print(TEXT_LARGE, 50, 100, odom_value.c_str());
 }
 
