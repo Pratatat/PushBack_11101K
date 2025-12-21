@@ -64,17 +64,28 @@ int Pneumatics::wing_task() {
 }
 
 int Pneumatics::awp_task() {
-   pros::delay(510);
+   pros::delay(250);
    pneumatics.matchloader_v(1);
    return 1;
 }
 int Pneumatics::awp_task2() {
-   pros::delay(400);
+   pros::delay(650);
    pneumatics.matchloader_v(1);
    return 1;
 }
 int Pneumatics::awp_task3() {
-   pros::delay(1220);
+   pros::delay(700);
+   pneumatics.matchloader_v(1);
+   return 1;
+}
+
+int Pneumatics::awp_task4() {
+   pros::delay(400);
+   pneumatics.intakepiston_v(1);
+   return 1;
+}
+int Pneumatics::awp_task5() {
+   pros::delay(370);
    pneumatics.matchloader_v(1);
    return 1;
 }

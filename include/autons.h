@@ -23,6 +23,7 @@ void intake_test();
 
 void RightSevenBall();
 void LeftSevenQual();
+void SevenAWP();
 void LeftSevenElim();
 void RightAWP();
 void RightRush();

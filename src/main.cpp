@@ -72,11 +72,12 @@ void initialize() {
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  RightAWP();
+   SevenAWP();
 }
 
 void opcontrol(void) {
   pneumatics.wing_v(1);
+  wing_down = 1;
   chassis.set_brake_mode('C');
   
   scoring_mech.driverControl = true;
