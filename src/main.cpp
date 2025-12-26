@@ -6,6 +6,7 @@
 pros::adi::DigitalOut matchloader('B');
 pros::adi::DigitalOut intake_piston('A');
 pros::adi::DigitalOut wing('C');
+pros::adi::DigitalOut descore('D');
 pros::Motor left_front_mtr(-13, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 pros::Motor left_middle_mtr(-12, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 pros::Motor left_back_mtr(-11, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
@@ -54,7 +55,7 @@ Scoring_Mech scoring_mech(
 
 
 Pneumatics pneumatics(
-	{matchloader, intake_piston, wing}
+	{matchloader, intake_piston, wing, descore}
 );
 
 
@@ -64,6 +65,7 @@ void initialize() {
 	pneumatics.matchloader_initialize();
   pneumatics.intakepiston_initialize();
   pneumatics.wing_initialize();
+  pneumatics.descore_initialize();
 
   //pros::Task intake_task_3(Scoring_Mech::intake_detector_task);
   //pros::Task intake_task_1(Scoring_Mech::red_color_sort_task);
@@ -72,7 +74,7 @@ void initialize() {
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-   SevenAWP();
+  AWP();
 }
 
 void opcontrol(void) {
@@ -85,6 +87,7 @@ void opcontrol(void) {
   pros::Task pneumatics_matchloader_task(Pneumatics::matchloader_task);
   pros::Task pneumatics_intakepiston_task(Pneumatics::intakepiston_task);
   pros::Task pneumatics_wing_task(Pneumatics::wing_task);
+  pros::Task pneumatics_descore_task(Pneumatics::descore_task);
   
 
   std::string left_front,left_middle, left_back, right_front, right_middle, right_back;

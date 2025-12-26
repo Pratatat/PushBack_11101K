@@ -176,8 +176,8 @@ int Scoring_Mech::intake_autontask2() {
     return 1;
 }
 int Scoring_Mech::intake_autontask3() {
-    pros::delay(350);
-    scoring_mech.mid_intake_move(600);
+    pros::delay(250);
+    scoring_mech.top_goal_intake(600);
         
     return 1;
 }
@@ -201,7 +201,7 @@ void Scoring_Mech::bottom_intake_move(double velocity) {
     bottom_intake.move_velocity(velocity);
 }
 void Scoring_Mech::mid_intake_move(double velocity) {
-    bottom_intake.move_velocity(velocity);
+    bottom_intake.move_velocity(600);
     top_intake.move_velocity(-velocity);
 }
 

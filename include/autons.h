@@ -23,19 +23,15 @@ void intake_test();
 
 void RightSevenBall();
 void LeftSevenQual();
-void SevenAWP();
+void RightFour();
+void LeftFour();
+void LeftSevenAWP();
+void RightSevenAWP();
 void LeftSevenElim();
-void RightAWP();
+void AWP();
 void RightRush();
 void LeftRush();
 
-
-void redLeftElim();
-void redRightElim();
-void blueRightQual();
-void blueLeftQual();
-void blueRightElim();
-void blueLeftElim();
 void skills();
 void auton_setup();
 void test();

@@ -55,14 +55,14 @@ void Drive::print_odom_vals() {
   DriveL.set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
   float avg = ((DriveL.get_position() + DriveR.get_position())/2) * (10.21/480);
   printf("Encoder avg: %f\n",avg);
-  printf("Odom value: %f\n", odom.Y_position);
+  printf("Odom value: %f\n", odom.X_position);
   std::string encorder_avg, odom_value;
-  encorder_avg = std::to_string(avg);
-  odom_value = std::to_string(odom.Y_position);
+  encorder_avg = std::to_string(odom.Y_position);
+  odom_value = std::to_string(odom.X_position);
   
   pros::screen::draw_rect(0,0,480,240);
     pros::screen::set_pen(pros::Color::white);
-    //pros::screen::print(TEXT_LARGE, 50, 50, encorder_avg.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 50, encorder_avg.c_str());
     pros::screen::print(TEXT_LARGE, 50, 100, odom_value.c_str());
 }
 
