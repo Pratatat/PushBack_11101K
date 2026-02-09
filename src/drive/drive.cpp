@@ -275,7 +275,6 @@ void Drive::turn_to_angle(float angle, float turn_max_voltage, float turn_settle
   }
   DriveL.brake();
   DriveR.brake();
-  pros::delay(500);
   //cout << chassis.get_absolute_heading() << " " << R_ForwardTracker.get_position() << " " << R_SidewaysTracker.get_position() << endl;
 }
 

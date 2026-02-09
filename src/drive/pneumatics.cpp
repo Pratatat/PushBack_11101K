@@ -82,12 +82,28 @@ int Pneumatics::awp_task3() {
 }
 
 int Pneumatics::awp_task4() {
-   pros::delay(400);
+   pros::delay(520);
    pneumatics.intakepiston_v(1);
    return 1;
 }
 int Pneumatics::awp_task5() {
-   pros::delay(300);
+   pros::delay(340);
+   pneumatics.matchloader_v(1);
+   return 1;
+}
+int Pneumatics::awp_task6() {
+   pros::delay(350);
+   pneumatics.intakepiston_v(1);
+   return 1;
+}
+int Pneumatics::awp_task7() {
+   pros::delay(1200);
+   pneumatics.matchloader_v(1);
+   return 1;
+}
+
+int Pneumatics::awp_task8() {
+   pros::delay(750);
    pneumatics.matchloader_v(1);
    return 1;
 }

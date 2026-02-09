@@ -21,17 +21,19 @@ void holonomic_odom_test();
 void intake_test();
 
 
-void RightSevenBall();
+void RightSevenElim();
 void LeftSevenQual();
 void RightFour();
 void LeftFour();
-void LeftSevenAWP();
-void RightSevenAWP();
+void LeftSeven();
+void RightSeven();
 void LeftSevenElim();
 void AWP();
+void RightAWP();
 void RightRush();
 void LeftRush();
 
 void skills();
-void auton_setup();
+void right_auton_setup();
+void left_auton_setup();
 void test();

@@ -133,21 +133,29 @@ void Scoring_Mech::intake_control() {
     //printf("Top intake temp %f\n", top_intake.get_temperature());
     
     if (master.get_digital(DIGITAL_L1) && (current_outtaking == 0)){
+        pneumatics.intakepiston_v(0);
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(600);
+        
 
     } else if ((master.get_digital(DIGITAL_L2)) && (current_outtaking == 0)) {
+        pneumatics.intakepiston_v(1);
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(-600);
         
+        
 
     } else if ((master.get_digital(DIGITAL_R1)) && (current_outtaking == 0)) {
+        pneumatics.intakepiston_v(0);
         bottom_intake.move_velocity(600);
         top_intake.set_brake_mode(MOTOR_BRAKE_HOLD);
+        
 
     } else if ((master.get_digital(DIGITAL_R2)) && (current_outtaking == 0)) {
+        pneumatics.intakepiston_v(0);
         bottom_intake.move_velocity(-600);
         top_intake.move_velocity(-600);
+        
 
     } else if (current_outtaking == 0){
         bottom_intake.move_velocity(0);
@@ -169,8 +177,14 @@ int Scoring_Mech::intake_autontask() {
         
     return 1;
 }
+int Scoring_Mech::intake_autontask4() {
+    pros::delay(100);
+    scoring_mech.intake_move(600);
+        
+    return 1;
+}
 int Scoring_Mech::intake_autontask2() {
-    pros::delay(880);
+    pros::delay(700);
     scoring_mech.top_goal_intake(600);
         
     return 1;
@@ -195,7 +209,7 @@ void Scoring_Mech::top_goal_intake(double velocity) {
 }
 void Scoring_Mech::intake_move(double velocity) {
     bottom_intake.move_velocity(velocity);
-    top_intake.move_velocity(-20);
+    top_intake.move_velocity(-50);
 }
 void Scoring_Mech::bottom_intake_move(double velocity) {
     bottom_intake.move_velocity(velocity);

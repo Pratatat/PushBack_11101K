@@ -34,4 +34,7 @@ class Pneumatics{
    static int awp_task3();
    static int awp_task4();
    static int awp_task5();
+   static int awp_task6();
+   static int awp_task7();
+    static int awp_task8();
 };

@@ -1,3 +1,4 @@
+
 #include "main.h"
 #include <iostream> 
 
@@ -74,10 +75,10 @@ void initialize() {
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  AWP();
+  RightSevenElim();
 }
 
-void opcontrol(void) {
+void opcontrol(void) { 
   pneumatics.wing_v(1);
   wing_down = 1;
   chassis.set_brake_mode('C');
@@ -92,7 +93,7 @@ void opcontrol(void) {
 
   std::string left_front,left_middle, left_back, right_front, right_middle, right_back;
   while (true) {
-    chassis.arcade_control_double_reversed();
+    chassis.arcade_control_double();
     pros::delay(util::DELAY_TIME); 
     /*
     left_front = std::to_string(left_front_mtr.get_temperature());
@@ -117,5 +118,4 @@ void opcontrol(void) {
 void disabled() {}
 
 void competition_initialize() {}
-
 

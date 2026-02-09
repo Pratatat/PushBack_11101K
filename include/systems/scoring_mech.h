@@ -53,6 +53,7 @@ class Scoring_Mech{
     static int intake_autontask();
     static int intake_autontask2();
     static int intake_autontask3();
+    static int intake_autontask4();
     static int anti_jam_auton();
 
     
