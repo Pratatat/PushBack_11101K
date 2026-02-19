@@ -72,10 +72,10 @@ void initialize() {
   //pros::Task intake_task_1(Scoring_Mech::red_color_sort_task);
   //pros::Task intake_task_2(Scoring_Mech::blue_color_sort_task);
 }
-
+ 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  RightSevenElim();
+  RightSeven();
 }
 
 void opcontrol(void) { 
@@ -93,7 +93,7 @@ void opcontrol(void) {
 
   std::string left_front,left_middle, left_back, right_front, right_middle, right_back;
   while (true) {
-    chassis.arcade_control_double();
+    chassis.arcade_control_double_reversed();
     pros::delay(util::DELAY_TIME); 
     /*
     left_front = std::to_string(left_front_mtr.get_temperature());

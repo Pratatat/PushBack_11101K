@@ -87,7 +87,7 @@ int Pneumatics::awp_task4() {
    return 1;
 }
 int Pneumatics::awp_task5() {
-   pros::delay(340);
+   pros::delay(370);
    pneumatics.matchloader_v(1);
    return 1;
 }

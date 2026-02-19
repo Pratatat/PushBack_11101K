@@ -209,13 +209,17 @@ void Scoring_Mech::top_goal_intake(double velocity) {
 }
 void Scoring_Mech::intake_move(double velocity) {
     bottom_intake.move_velocity(velocity);
-    top_intake.move_velocity(-50);
+    top_intake.move_velocity(-10);
 }
 void Scoring_Mech::bottom_intake_move(double velocity) {
     bottom_intake.move_velocity(velocity);
 }
 void Scoring_Mech::mid_intake_move(double velocity) {
     bottom_intake.move_velocity(600);
+    top_intake.move_velocity(-velocity);
+}
+void Scoring_Mech::top_intake_move(double velocity) {
+    bottom_intake.move_velocity(0);
     top_intake.move_velocity(-velocity);
 }
 
