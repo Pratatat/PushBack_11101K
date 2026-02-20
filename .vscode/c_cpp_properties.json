@@ -6,14 +6,18 @@
         "${workspaceFolder}/**",
         "/Users/pathu/Downloads/PushBack/PushBack_11101K/include",
         "/Users/pathu/Desktop/PushBack_11101K/include",
+<<<<<<< Updated upstream
         "/Users/pathu/Downloads/Copy_11101K/include"
+=======
+        "/Users/miraram/Documents/Barcbots - 11101K/git/Untitled/include"
+>>>>>>> Stashed changes
       ],
       "defines": [
         "_DEBUG",
         "UNICODE",
         "_UNICODE"
       ],
-      "compilerPath": "/Users/pathu/Library/Application Support/Code/User/globalStorage/sigbots.pros/install/pros-toolchain-macos/bin/arm-none-eabi-g++",
+      "compilerPath": "/Users/miraram/Library/Application Support/Code/User/globalStorage/sigbots.pros/install/pros-toolchain-macos/bin/arm-none-eabi-g++",
       "cStandard": "gnu11",
       "cppStandard": "gnu++20",
       "intelliSenseMode": "gcc-arm",
@@ -22,7 +26,11 @@
       ],
       "browse": {
         "path": [
+<<<<<<< Updated upstream
           "/Users/pathu/Downloads/Copy_11101K"
+=======
+          "/Users/miraram/Documents/Barcbots - 11101K/git/Untitled"
+>>>>>>> Stashed changes
         ],
         "limitSymbolsToIncludedHeaders": true,
         "databaseFilename": ""

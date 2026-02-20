@@ -34,6 +34,11 @@ class Scoring_Mech{
     void bottom_intake_move(double velocity);
     void top_goal_intake(double velocity);
     void mid_intake_move(double velocity);
+<<<<<<< Updated upstream
+=======
+    void mid_intake_move_skills(double bottomVelocity, double topVelocity);
+    void top_intake_move(double velocity);
+>>>>>>> Stashed changes
     bool driverControl = false;
 
     static int rush_helper_task();

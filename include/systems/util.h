@@ -4,7 +4,11 @@
 extern pros::Controller master;
 
 extern int matchloader_down;
+<<<<<<< Updated upstream
 extern int climb_open;
+=======
+extern int hood_down;
+>>>>>>> Stashed changes
 extern int intakepiston_down;
 extern int wing_down;
 

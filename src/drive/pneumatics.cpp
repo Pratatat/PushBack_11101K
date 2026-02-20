@@ -1,10 +1,18 @@
 #include "main.h"
 
 
+<<<<<<< Updated upstream
 Pneumatics::Pneumatics(pros::adi::DigitalOut matchloader_port, pros::adi::DigitalOut intakepiston_port, pros::adi::DigitalOut wing_port)
    : matchloader(matchloader_port),
    intake_piston(intakepiston_port),
    wing(wing_port) {}
+=======
+Pneumatics::Pneumatics(pros::adi::DigitalOut matchloader_port, pros::adi::DigitalOut intakepiston_port, pros::adi::DigitalOut wing_port, pros::adi::DigitalOut hood_port)
+   : matchloader(matchloader_port),
+   intake_piston(intakepiston_port),
+   wing(wing_port),
+   hood(hood_port) {}
+>>>>>>> Stashed changes
 
 
 void Pneumatics::matchloader_control() {
@@ -101,6 +109,36 @@ void Pneumatics::intakepiston_control() {
        intake_piston.set_value(intakepiston_down);
        while (master.get_digital(DIGITAL_B)) {
            pros::delay(util::DELAY_TIME);
+<<<<<<< Updated upstream
        }
    }
 }
+=======
+      }
+   }
+}
+
+
+
+void Pneumatics::hood_control() {
+  
+}
+
+int Pneumatics::hood_task() {
+   while (true) {
+      pneumatics.hood_control();
+      pros::delay(10);
+   } 
+   
+   return 1;
+}
+
+void Pneumatics::hood_initialize() {
+   hood.set_value(0);
+}
+
+
+void Pneumatics::hood_v(int value) {
+   hood.set_value(value);
+}
+>>>>>>> Stashed changes

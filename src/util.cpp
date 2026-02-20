@@ -7,6 +7,10 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 int matchloader_down = 0;
 int intakepiston_down = 0;
 int wing_down = 0;
+<<<<<<< Updated upstream
+=======
+int hood_down = 0;
+>>>>>>> Stashed changes
 
 double PI = 3.14159265359;
 

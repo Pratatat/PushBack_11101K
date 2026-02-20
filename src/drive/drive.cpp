@@ -5,10 +5,12 @@ float GYRO_SCALE;
 using namespace std;
 
 
-Drive::Drive(enum::drive_setup_enum drive_setup, std::initializer_list<std::int8_t> DriveL, std::initializer_list<std::int8_t> DriveR, int gyro_port, float wheel_diameter, float wheel_ratio, float gyro_scale, int ForwardTracker_port, float ForwardTracker_diameter, float ForwardTracker_center_distance, int SidewaysTracker_port, float SidewaysTracker_diameter, float SidewaysTracker_center_distance) 
+Drive::Drive(enum::drive_setup_enum drive_setup, std::initializer_list<std::int8_t> DriveL, std::initializer_list<std::int8_t> DriveR, int gyro_port, int distance_port_v, int distance_port_h, float wheel_diameter, float wheel_ratio, float gyro_scale, int ForwardTracker_port, float ForwardTracker_diameter, float ForwardTracker_center_distance, int SidewaysTracker_port, float SidewaysTracker_diameter, float SidewaysTracker_center_distance) 
   : DriveL(DriveL),
   DriveR(DriveR),
   Gyro(gyro_port),
+  distance_sensor_v(distance_port_v),
+  distance_sensor_h(distance_port_h),
   in_to_deg(wheel_ratio/360.0*PII*wheel_diameter),
   ForwardTracker_center_distance(ForwardTracker_center_distance),
   ForwardTracker_diameter(ForwardTracker_diameter),
@@ -44,14 +46,31 @@ bool Drive::imu_calibrate() {
    return true;
 }
 
+
+
 void Drive::reset_drive_sensor() {
    DriveL.tare_position();
    DriveR.tare_position();
 }
 
 void Drive::print_odom_vals() {
+<<<<<<< Updated upstream
   printf("Forward tracker: %.2f",E_ForwardTracker.get_value());
   printf("sideays tracker: %.2f",E_SidewaysTracker.get_value());
+=======
+  DriveL.set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
+  float avg = ((DriveL.get_position() + DriveR.get_position())/2) * (10.21/480);
+  printf("Encoder avg: %f\n",avg);
+  printf("Odom value: %f\n", odom.Y_position);
+  std::string encorder_avg, odom_value;
+  encorder_avg = std::to_string(avg);
+  odom_value = std::to_string(odom.Y_position);
+  
+  pros::screen::draw_rect(0,0,480,240);
+    pros::screen::set_pen(pros::Color::white);
+    //pros::screen::print(TEXT_LARGE, 50, 50, encorder_avg.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 100, odom_value.c_str());
+>>>>>>> Stashed changes
 }
 
 void Drive::arcade_control() {
@@ -163,6 +182,37 @@ void Drive::reset_gyro() {
    Gyro.set_heading(0);
 }
 
+////////////// vertical distance sensor functions 
+
+double Drive::distance_from_nearest_object_v(){
+  return distance_sensor_v.get()/25.4;
+}
+
+bool Drive::is_object_detected_v(){
+  return distance_sensor_v.get_confidence() > 0;
+}
+
+double Drive::velocity_of_detected_object_v(){
+  return distance_sensor_v.get_object_velocity();
+}
+
+/////////// horizontal distance sensor functions 
+
+double Drive::distance_from_nearest_object_h(){
+  return distance_sensor_h.get()/25.4;
+}
+
+bool Drive::is_object_detected_h(){
+  return distance_sensor_h.get_confidence() > 0;
+}
+
+double Drive::velocity_of_detected_object_h(){
+  return distance_sensor_h.get_object_velocity();
+}
+
+
+
+
 void Drive::drive_with_voltage(float leftVoltage, float rightVoltage){
   //cout << chassis.get_absolute_heading() << " " << R_SidewaysTracker.get_position() << " " <<  R_ForwardTracker.get_position() << endl;
   if (fabs(leftVoltage) < 0.1 && fabs(rightVoltage) < 0.1) return;
@@ -251,7 +301,6 @@ void Drive::turn_to_angle(float angle, float turn_max_voltage){
 
 void Drive::turn_to_angle(float angle, float turn_max_voltage, float turn_settle_error, float turn_settle_time, float turn_timeout, float turn_kp, float turn_ki, float turn_kd, float turn_starti){
   //cout << chassis.get_absolute_heading() << " " << R_ForwardTracker.get_position() << " " << R_SidewaysTracker.get_position() << endl;
-  pros::delay(500);
   desired_heading = angle;
   PID turnPID(reduce_negative_180_to_180(angle - get_absolute_heading()), turn_kp, turn_ki, turn_kd, turn_starti, turn_settle_error, turn_settle_time, turn_timeout);
   while(turnPID.is_settled() == false){
@@ -440,6 +489,25 @@ void Drive::drive_to_point(float X_position, float Y_position, float drive_max_v
 
 void Drive::drive_to_point(float X_position, float Y_position, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout){
   drive_to_point(X_position, Y_position, drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
+}
+
+void Drive::drive_until(double voltage, double distance, int timeout){
+ int start_time = pros::millis();
+ //double d = distance * 25.4;
+    // Debug: see what the sensor is actually reading
+    pros::screen::print(TEXT_LARGE, 50, 200, 
+        ("Dist: " + std::to_string(chassis.distance_from_nearest_object_v())).c_str());
+  // Pause to read the value
+  while (chassis.distance_from_nearest_object_v() > distance){
+    //DriveL.move_voltage(voltage * 1000);
+    //DriveR.move_voltage(voltage * 1000);
+    drive_with_voltage(voltage, voltage);
+    std::cout << "Current Distance:" << chassis.distance_from_nearest_object_v() << std::endl;
+    std::cout << "Stop Distance:" << distance << std::endl;
+    //pros::delay(5);
+  }
+   drive_with_voltage(0, 0);
+  
 }
 
 void Drive::drive_to_point(float X_position, float Y_position, float drive_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti){

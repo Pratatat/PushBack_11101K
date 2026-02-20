@@ -2,6 +2,7 @@
 #include <iostream> 
 
 //Motor Definitions
+<<<<<<< Updated upstream
 pros::adi::DigitalOut matchloader('A');
 pros::adi::DigitalOut intake_piston('B');
 pros::adi::DigitalOut wing('C');
@@ -11,6 +12,19 @@ pros::Motor left_back_mtr(-11, pros::v5::MotorGears::blue, pros::v5::MotorUnits:
 pros::Motor right_front_mtr(10, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 pros::Motor right_middle_mtr(19, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 pros::Motor right_back_mtr(20, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+=======
+pros::adi::DigitalOut hood('A');
+pros::adi::DigitalOut matchloader('B');
+pros::adi::DigitalOut intake_piston('C');
+pros::adi::DigitalOut wing('D');
+
+pros::Motor left_front_mtr(-11, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor left_middle_mtr(12, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor left_back_mtr(-13, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor right_front_mtr(20, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor right_middle_mtr(-19, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor right_back_mtr(18, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+>>>>>>> Stashed changes
 
 
 Drive chassis( 
@@ -47,14 +61,23 @@ Drive chassis(
 );
 
 Scoring_Mech scoring_mech(
+<<<<<<< Updated upstream
   9,-18,17
   //{-9, 7},
   //bottom, top, color sensor
+=======
+  -16,14,26
+  // Bottom Intake, Top Intake, Color Sensor
+>>>>>>> Stashed changes
 );
 
 
 Pneumatics pneumatics(
+<<<<<<< Updated upstream
 	{matchloader, intake_piston, wing}
+=======
+	{matchloader, intake_piston, wing, hood}
+>>>>>>> Stashed changes
 );
 
 
@@ -64,6 +87,10 @@ void initialize() {
 	pneumatics.matchloader_initialize();
   pneumatics.intakepiston_initialize();
   pneumatics.wing_initialize();
+<<<<<<< Updated upstream
+=======
+  pneumatics.hood_initialize();
+>>>>>>> Stashed changes
 
   //pros::Task intake_task_3(Scoring_Mech::intake_detector_task);
   //pros::Task intake_task_1(Scoring_Mech::red_color_sort_task);
@@ -76,7 +103,11 @@ void competition_initialize() {}
 
 void autonomous() { 
   chassis.set_brake_mode('H');
+<<<<<<< Updated upstream
   LeftSevenBall();
+=======
+  AWP();
+>>>>>>> Stashed changes
 }
 
 void opcontrol(void) {
@@ -87,6 +118,11 @@ void opcontrol(void) {
   pros::Task pneumatics_matchloader_task(Pneumatics::matchloader_task);
   pros::Task pneumatics_intakepiston_task(Pneumatics::intakepiston_task);
   pros::Task pneumatics_wing_task(Pneumatics::wing_task);
+<<<<<<< Updated upstream
+=======
+  pros::Task pneumatics_hood_task(Pneumatics::hood_task);
+  
+>>>>>>> Stashed changes
 
   std::string left_front,left_middle, left_back, right_front, right_middle, right_back;
   while (true) {
@@ -114,6 +150,7 @@ void opcontrol(void) {
 
 void disabled() {}
 
+<<<<<<< Updated upstream
 
 
 
@@ -220,3 +257,6 @@ void opcontrol(void) {
 void disabled() {}
 
 */
+=======
+void competition_initialize() {}
+>>>>>>> Stashed changes

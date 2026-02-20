@@ -128,24 +128,49 @@ int Scoring_Mech::neutral_stake_score_task() {
 }
 */
 
+
 void Scoring_Mech::intake_control() {
     //printf("bottom intake temp %f\n", bottom_intake.get_temperature());
     //printf("Top intake temp %f\n", top_intake.get_temperature());
     
     if (master.get_digital(DIGITAL_L1) && (current_outtaking == 0)){
+<<<<<<< Updated upstream
+=======
+        // hood up lift up
+        pneumatics.hood_v(1);
+        pneumatics.intakepiston_v(1) ;
+>>>>>>> Stashed changes
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(600);
 
     } else if ((master.get_digital(DIGITAL_L2)) && (current_outtaking == 0)) {
+<<<<<<< Updated upstream
+=======
+        // hood up lift down
+        pneumatics.hood_v(1);
+        pneumatics.intakepiston_v(0);
+>>>>>>> Stashed changes
         bottom_intake.move_velocity(600);
-        top_intake.move_velocity(-600);
+        top_intake.move_velocity(600);
         
 
     } else if ((master.get_digital(DIGITAL_R1)) && (current_outtaking == 0)) {
+<<<<<<< Updated upstream
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(-5);
 
     } else if ((master.get_digital(DIGITAL_R2)) && (current_outtaking == 0)) {
+=======
+        // hood down lift doesnt matter
+        pneumatics.hood_v(0);
+        bottom_intake.move_velocity(600);
+        top_intake.move_velocity(600);
+        
+
+    } else if ((master.get_digital(DIGITAL_R2)) && (current_outtaking == 0)) {
+        //hood down
+        pneumatics.hood_v(0);
+>>>>>>> Stashed changes
         bottom_intake.move_velocity(-600);
         top_intake.move_velocity(-600);
 
@@ -195,7 +220,19 @@ void Scoring_Mech::bottom_intake_move(double velocity) {
     bottom_intake.move_velocity(velocity);
 }
 void Scoring_Mech::mid_intake_move(double velocity) {
+<<<<<<< Updated upstream
     bottom_intake.move_velocity(velocity);
+=======
+    bottom_intake.move_velocity(600);
+    top_intake.move_velocity(-velocity);
+}
+void Scoring_Mech::mid_intake_move_skills(double velocityBottom, double velocityTop) {
+    bottom_intake.move_velocity(velocityBottom);
+    top_intake.move_velocity(velocityTop);
+}
+void Scoring_Mech::top_intake_move(double velocity) {
+    bottom_intake.move_velocity(0);
+>>>>>>> Stashed changes
     top_intake.move_velocity(-velocity);
 }
 
