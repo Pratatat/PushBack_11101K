@@ -37,3 +37,7 @@ void skills();
 void right_auton_setup();
 void left_auton_setup();
 void test();
+
+void set_coordinates_with_ds();
+void set_X_coordinate_with_ds();
+void set_Y_coordinate_with_ds();

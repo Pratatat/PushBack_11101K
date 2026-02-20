@@ -128,34 +128,38 @@ int Scoring_Mech::neutral_stake_score_task() {
 }
 */
 
+
 void Scoring_Mech::intake_control() {
     //printf("bottom intake temp %f\n", bottom_intake.get_temperature());
     //printf("Top intake temp %f\n", top_intake.get_temperature());
     
     if (master.get_digital(DIGITAL_L1) && (current_outtaking == 0)){
+        // hood up lift up
+        pneumatics.hood_v(1);
+        pneumatics.intakepiston_v(1) ;
+        bottom_intake.move_velocity(600);
+        top_intake.move_velocity(600);
+
+    } else if ((master.get_digital(DIGITAL_L2)) && (current_outtaking == 0)) {
+        // hood up lift down
+        pneumatics.hood_v(1);
         pneumatics.intakepiston_v(0);
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(600);
         
 
-    } else if ((master.get_digital(DIGITAL_L2)) && (current_outtaking == 0)) {
-        pneumatics.intakepiston_v(1);
-        bottom_intake.move_velocity(600);
-        top_intake.move_velocity(-600);
-        
-        
-
     } else if ((master.get_digital(DIGITAL_R1)) && (current_outtaking == 0)) {
-        pneumatics.intakepiston_v(0);
+        // hood down lift doesnt matter
+        pneumatics.hood_v(0);
         bottom_intake.move_velocity(600);
-        top_intake.set_brake_mode(MOTOR_BRAKE_HOLD);
+        top_intake.move_velocity(600);
         
 
     } else if ((master.get_digital(DIGITAL_R2)) && (current_outtaking == 0)) {
-        pneumatics.intakepiston_v(0);
+        //hood down
+        pneumatics.hood_v(0);
         bottom_intake.move_velocity(-600);
         top_intake.move_velocity(-600);
-        
 
     } else if (current_outtaking == 0){
         bottom_intake.move_velocity(0);
@@ -198,7 +202,7 @@ int Scoring_Mech::intake_autontask3() {
 int Scoring_Mech::anti_jam_auton() {
     pros::delay(500);
     scoring_mech.top_goal_intake(-600);
-    pros::delay(70);
+    pros::delay(100);
     scoring_mech.intake_move(600);
     return 1;
 }
@@ -209,13 +213,21 @@ void Scoring_Mech::top_goal_intake(double velocity) {
 }
 void Scoring_Mech::intake_move(double velocity) {
     bottom_intake.move_velocity(velocity);
-    top_intake.move_velocity(-50);
+    top_intake.move_velocity(-5);
 }
 void Scoring_Mech::bottom_intake_move(double velocity) {
     bottom_intake.move_velocity(velocity);
 }
 void Scoring_Mech::mid_intake_move(double velocity) {
     bottom_intake.move_velocity(600);
+    top_intake.move_velocity(-velocity);
+}
+void Scoring_Mech::mid_intake_move_skills(double velocityBottom, double velocityTop) {
+    bottom_intake.move_velocity(velocityBottom);
+    top_intake.move_velocity(velocityTop);
+}
+void Scoring_Mech::top_intake_move(double velocity) {
+    bottom_intake.move_velocity(0);
     top_intake.move_velocity(-velocity);
 }
 

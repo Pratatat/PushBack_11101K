@@ -1,19 +1,18 @@
-
 #include "main.h"
 #include <iostream> 
 
-
 //Motor Definitions
+pros::adi::DigitalOut hood('A');
 pros::adi::DigitalOut matchloader('B');
-pros::adi::DigitalOut intake_piston('A');
-pros::adi::DigitalOut wing('C');
-pros::adi::DigitalOut descore('D');
-pros::Motor left_front_mtr(-13, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
-pros::Motor left_middle_mtr(-12, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
-pros::Motor left_back_mtr(-11, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
-pros::Motor right_front_mtr(18, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
-pros::Motor right_middle_mtr(19, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
-pros::Motor right_back_mtr(20, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::adi::DigitalOut intake_piston('C');
+pros::adi::DigitalOut wing('D');
+
+pros::Motor left_front_mtr(-11, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor left_middle_mtr(12, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor left_back_mtr(-13, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor right_front_mtr(20, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor right_middle_mtr(-19, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor right_back_mtr(18, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 
 
 Drive chassis( 
@@ -25,6 +24,10 @@ Drive chassis(
   {right_front_mtr.get_port(), right_middle_mtr.get_port(), right_back_mtr.get_port()},
   //IMU Port:
   4,
+  //Vertical Distance Sensor Port --- distance_sensor_v:
+  10,
+  //Horizontal Distance Sensor Port --- distance_sensor_h:
+  5,
   //Wheel diameter (4" omnis are actually closer to 4.125"):
   3.25,
   //External Gear Ratio
@@ -50,13 +53,13 @@ Drive chassis(
 );
 
 Scoring_Mech scoring_mech(
-  -17,-1,26
+  -16,14,26
   // Bottom Intake, Top Intake, Color Sensor
 );
 
 
 Pneumatics pneumatics(
-	{matchloader, intake_piston, wing, descore}
+	{matchloader, intake_piston, wing, hood}
 );
 
 
@@ -66,34 +69,33 @@ void initialize() {
 	pneumatics.matchloader_initialize();
   pneumatics.intakepiston_initialize();
   pneumatics.wing_initialize();
-  pneumatics.descore_initialize();
+  pneumatics.hood_initialize();
 
   //pros::Task intake_task_3(Scoring_Mech::intake_detector_task);
   //pros::Task intake_task_1(Scoring_Mech::red_color_sort_task);
   //pros::Task intake_task_2(Scoring_Mech::blue_color_sort_task);
 }
 
+
 void autonomous() { 
   chassis.set_brake_mode('H');
-  RightSevenElim();
+  AWP();
 }
 
-void opcontrol(void) { 
-  pneumatics.wing_v(1);
-  wing_down = 1;
+void opcontrol(void) {
   chassis.set_brake_mode('C');
-  
+  //chassis.calculate();
   scoring_mech.driverControl = true;
   pros::Task intake_task(Scoring_Mech::intake_task);
   pros::Task pneumatics_matchloader_task(Pneumatics::matchloader_task);
   pros::Task pneumatics_intakepiston_task(Pneumatics::intakepiston_task);
   pros::Task pneumatics_wing_task(Pneumatics::wing_task);
-  pros::Task pneumatics_descore_task(Pneumatics::descore_task);
+  pros::Task pneumatics_hood_task(Pneumatics::hood_task);
   
 
   std::string left_front,left_middle, left_back, right_front, right_middle, right_back;
   while (true) {
-    chassis.arcade_control_double();
+    chassis.arcade_control_double_reversed();
     pros::delay(util::DELAY_TIME); 
     /*
     left_front = std::to_string(left_front_mtr.get_temperature());
@@ -118,4 +120,3 @@ void opcontrol(void) {
 void disabled() {}
 
 void competition_initialize() {}
-

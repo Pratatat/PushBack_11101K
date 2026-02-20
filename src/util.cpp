@@ -7,9 +7,9 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 int matchloader_down = 0;
 int intakepiston_down = 0;
 int wing_down = 0;
-int descore_down = 0;
+int hood_down = 0;
 
-double PI = 3.14159;
+double PI = 3.14159265359;
 
 float reduce_0_to_360(float angle) {
   while(!(angle >= 0 && angle < 360)) {

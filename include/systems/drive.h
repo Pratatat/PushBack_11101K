@@ -24,10 +24,13 @@ public:
   pros::MotorGroup DriveL;
   pros::MotorGroup DriveR;
   pros::Imu Gyro;
+  pros::Distance distance_sensor_v;
+  pros::Distance distance_sensor_h;
   pros::v5::Rotation R_ForwardTracker;
   pros::v5::Rotation R_SidewaysTracker;
   pros::adi::Encoder E_ForwardTracker;
   pros::adi::Encoder E_SidewaysTracker;
+  
 
   //Turning variables
   float turn_max_voltage;
@@ -69,7 +72,7 @@ public:
   
   float desired_heading;
 
-  Drive(enum::drive_setup_enum drive_setup, std::initializer_list<std::int8_t> DriveL, std::initializer_list<std::int8_t> DriveR, int gyro_port, float wheel_diameter, float wheel_ratio, float gyro_scale, int ForwardTracker_port, float ForwardTracker_diameter, float ForwardTracker_center_distance, int SidewaysTracker_port, float SidewaysTracker_diameter, float SidewaysTracker_center_distance);
+  Drive(enum::drive_setup_enum drive_setup, std::initializer_list<std::int8_t> DriveL, std::initializer_list<std::int8_t> DriveR, int gyro_port, int distance_port_v, int distance_port_h, float wheel_diameter, float wheel_ratio, float gyro_scale, int ForwardTracker_port, float ForwardTracker_diameter, float ForwardTracker_center_distance, int SidewaysTracker_port, float SidewaysTracker_diameter, float SidewaysTracker_center_distance);
   
   //Sensor Functions
   double left_sensor();
@@ -84,6 +87,18 @@ public:
   void reset_gyro();
   float get_absolute_heading();
   void set_heading(float heading);
+  
+  //Vertical Distance Sensor Functions 
+  double distance_from_nearest_object_v();
+  bool is_object_detected_v();
+  double velocity_of_detected_object_v();
+  void drive_until(double voltage, double distance, int timeout);
+
+  //Horizontal Distance Sensor Functions 
+  double distance_from_nearest_object_h();
+  bool is_object_detected_h();
+  double velocity_of_detected_object_h();
+
 
   //Operation Functions
   void initialize();
@@ -144,7 +159,7 @@ public:
   void y_pos_task();
   void print_coords();
 
-
+  //distance 
 
   //Driving odom
   void drive_to_point(float X_position, float Y_position);
@@ -169,4 +184,5 @@ public:
 
   //finding coordinates
   void calculate();
+  void drive_for_time(int voltage);
 };
