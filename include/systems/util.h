@@ -7,7 +7,7 @@
 extern pros::Controller master;
 
 extern int matchloader_down;
-extern int descore_down;
+extern int hood_down;
 extern int intakepiston_down;
 extern int wing_down;
 

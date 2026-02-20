@@ -510,7 +510,7 @@ void RightAWP(){
   scoring_mech.mid_intake_move(0);
   pneumatics.intakepiston_v(0);
   chassis.drive_distance(19,12,5,25,300,0.75, 0.0000, 3.75, 2);
-  pneumatics.descore_v(1);
+  //pneumatics.descore_v(1);
   pros::delay(300);
   chassis.drive_distance(-20,5.5,5,25,300,0.75, 0.0000, 3.75, 2);
   scoring_mech.top_goal_intake(0);

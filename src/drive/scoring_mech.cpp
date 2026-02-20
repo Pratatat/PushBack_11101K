@@ -133,26 +133,32 @@ void Scoring_Mech::intake_control() {
     //printf("Top intake temp %f\n", top_intake.get_temperature());
     
     if (master.get_digital(DIGITAL_L1) && (current_outtaking == 0)){
-        pneumatics.intakepiston_v(0);
+        // hood up lift up
+        pneumatics.hood_v(1);
+        pneumatics.intakepiston_v(1) ;
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(600);
         
 
     } else if ((master.get_digital(DIGITAL_L2)) && (current_outtaking == 0)) {
-        pneumatics.intakepiston_v(1);
+        // hood up lift down
+        pneumatics.hood_v(1);
+        pneumatics.intakepiston_v(0);
         bottom_intake.move_velocity(600);
-        top_intake.move_velocity(-600);
+        top_intake.move_velocity(600);
         
         
 
     } else if ((master.get_digital(DIGITAL_R1)) && (current_outtaking == 0)) {
-        pneumatics.intakepiston_v(0);
+        // hood down lift doesnt matter
+        pneumatics.hood_v(0);
         bottom_intake.move_velocity(600);
-        top_intake.set_brake_mode(MOTOR_BRAKE_HOLD);
+        top_intake.move_velocity(600);
         
 
     } else if ((master.get_digital(DIGITAL_R2)) && (current_outtaking == 0)) {
-        pneumatics.intakepiston_v(0);
+        //hood down
+        pneumatics.hood_v(0);
         bottom_intake.move_velocity(-600);
         top_intake.move_velocity(-600);
         
