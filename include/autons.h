@@ -36,6 +36,7 @@ void LeftRush();
 void skills();
 void right_auton_setup();
 void left_auton_setup();
+void auton_setup();
 void test();
 
 void set_coordinates_with_ds();

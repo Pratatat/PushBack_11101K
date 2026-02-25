@@ -135,22 +135,25 @@ void Scoring_Mech::intake_control() {
     
     if (master.get_digital(DIGITAL_L1) && (current_outtaking == 0)){
         // hood up lift up
+        pneumatics.intakepiston_v(1);
+        pros::delay(75);
         pneumatics.hood_v(1);
-        pneumatics.intakepiston_v(1) ;
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(600);
 
     } else if ((master.get_digital(DIGITAL_L2)) && (current_outtaking == 0)) {
         // hood up lift down
-        pneumatics.hood_v(1);
         pneumatics.intakepiston_v(0);
+        pros::delay(75);
+        pneumatics.hood_v(1);
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(600);
         
 
     } else if ((master.get_digital(DIGITAL_R1)) && (current_outtaking == 0)) {
-        // hood down lift doesnt matter
+        // hood down lift up
         pneumatics.hood_v(0);
+        pneumatics.intakepiston_v(1);
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(600);
         
@@ -208,19 +211,25 @@ int Scoring_Mech::anti_jam_auton() {
 }
 
 void Scoring_Mech::top_goal_intake(double velocity) {
+    pneumatics.intakepiston_v(1);
+    pneumatics.hood_v(1);
     bottom_intake.move_velocity(velocity);
     top_intake.move_velocity(velocity);
 }
 void Scoring_Mech::intake_move(double velocity) {
+    pneumatics.hood_v(0);
     bottom_intake.move_velocity(velocity);
-    top_intake.move_velocity(-5);
+    top_intake.move_velocity(velocity);
 }
 void Scoring_Mech::bottom_intake_move(double velocity) {
+    pneumatics.hood_v(0);
     bottom_intake.move_velocity(velocity);
 }
 void Scoring_Mech::mid_intake_move(double velocity) {
-    bottom_intake.move_velocity(600);
-    top_intake.move_velocity(-velocity);
+    pneumatics.intakepiston_v(0);
+    pneumatics.hood_v(1);
+    bottom_intake.move_velocity(velocity);
+    top_intake.move_velocity(velocity);
 }
 void Scoring_Mech::mid_intake_move_skills(double velocityBottom, double velocityTop) {
     bottom_intake.move_velocity(velocityBottom);

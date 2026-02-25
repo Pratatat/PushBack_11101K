@@ -23,7 +23,7 @@ Drive chassis(
   //Right Motors:
   {right_front_mtr.get_port(), right_middle_mtr.get_port(), right_back_mtr.get_port()},
   //IMU Port:
-  4,
+  21,
   //Vertical Distance Sensor Port --- distance_sensor_v:
   10,
   //Horizontal Distance Sensor Port --- distance_sensor_h:
@@ -38,18 +38,18 @@ Drive chassis(
   //If you are using ZERO_TRACKER_ODOM, you ONLY need to adjust the FORWARD TRACKER CENTER DISTANCE.
   //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
   //If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
-  15,
+  17,
   //Input the Forward Tracker diameter (reverse it to make the direction switch):
-  2.0,
+  -2,
   //Input Forward Tracker center distance (In.) (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
   //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
-  -0.34375,
+  -2.125,
   //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
-  16,
+  15,
   //Sideways tracker diameter (reverse to make the direction switch):
-  -2,
+  2,
   //Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
-  2.56
+  3.6
 );
 
 Scoring_Mech scoring_mech(
@@ -79,7 +79,7 @@ void initialize() {
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  AWP();
+ RightSeven();
 }
 
 void opcontrol(void) {
