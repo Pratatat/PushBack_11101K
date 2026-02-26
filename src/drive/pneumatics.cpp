@@ -125,11 +125,8 @@ int Pneumatics::intakepiston_task() {
 
 void Pneumatics::intakepiston_control() {
   if (master.get_digital(DIGITAL_B)){
-       intakepiston_down = !intakepiston_down;
-       intake_piston.set_value(intakepiston_down);
-       while (master.get_digital(DIGITAL_B)) {
-           pros::delay(util::DELAY_TIME);
-      }
+       hood_v(0);
+       intake_piston.set_value(0);
    }
 }
 
