@@ -182,7 +182,7 @@ void Drive::reset_gyro() {
 ////////////// vertical distance sensor functions 
 
 double Drive::distance_from_nearest_object_v(){
-  return distance_sensor_v.get()/25.4;
+  return (distance_sensor_v.get()/25.4) + 5.15;
 }
 
 bool Drive::is_object_detected_v(){
@@ -196,7 +196,7 @@ double Drive::velocity_of_detected_object_v(){
 /////////// horizontal distance sensor functions 
 
 double Drive::distance_from_nearest_object_h(){
-  return distance_sensor_h.get()/25.4;
+  return (distance_sensor_h.get()/25.4) + 5.225;
 }
 
 bool Drive::is_object_detected_h(){
@@ -343,6 +343,7 @@ void Drive::drive_distance(float distance, float drive_max_voltage, float drive_
   DriveR.brake();
 }
 
+
 void Drive::drive_distance(float distance, float heading, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti, float heading_kp, float heading_ki, float heading_kd, float heading_starti){
   desired_heading = heading;
   PID drivePID(distance, drive_kp, drive_ki, drive_kd, drive_starti, drive_settle_error, drive_settle_time, drive_timeout);
@@ -368,6 +369,81 @@ void Drive::drive_distance(float distance, float heading, float drive_max_voltag
   DriveL.brake();
   DriveR.brake();
 }
+
+
+
+///////////////////////////////////////////
+// DISTANCE SENSOR DRIVE UNTIL FUNCTIONS BELOW
+//////////////////////////////////////////
+
+void Drive::drive_until(float distance){
+  drive_until(distance, desired_heading, drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
+}
+
+void Drive::drive_until(float distance, float drive_max_voltage){
+  drive_until(distance, desired_heading, drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
+}
+
+void Drive::drive_until(float distance, float heading, float drive_max_voltage, float heading_max_voltage){
+  drive_until(distance, heading, drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
+}
+
+void Drive::drive_until(float distance, float drive_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti){
+  std::cout << "regular drive_until is called "<< std::endl;
+  PID drivePID(distance_from_nearest_object_v() - distance, drive_kp, drive_ki, drive_kd, drive_starti, drive_settle_error, drive_settle_time, drive_timeout);
+  std::cout << "regular drive_until is called1 "<< std::endl;
+  float start_average_position = (get_left_position_in()+get_right_position_in())/2.0;
+  // Rather than resetting the drive position , this function just notes what the drive position started at and determines error relative to that value.
+  float average_position = start_average_position;
+  std::cout << "is_settled() =  "<< drivePID.is_settled() << std::endl;
+  while(drivePID.is_settled() == false){
+    average_position = (get_left_position_in()+get_right_position_in())/2.0;
+    float drive_error = distance+start_average_position-average_position;
+    // Just like for turns, reducing from -180 to 180 degrees ensures that the robot takes the 
+    // quickest path to the desired heading.
+    float drive_output = drivePID.compute(distance_from_nearest_object_v() - distance);
+    drive_output = clamp(drive_output, -drive_max_voltage, drive_max_voltage);
+    drive_with_voltage(drive_output, drive_output);
+    pros::Task::delay(10);
+  }
+  DriveL.brake();
+  DriveR.brake();
+}
+
+
+void Drive::drive_until(float distance, float heading, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti, float heading_kp, float heading_ki, float heading_kd, float heading_starti){
+  std::cout << "heading drive_until is called "<< std::endl;
+  desired_heading = heading;
+  PID drivePID(distance_from_nearest_object_v() - distance, drive_kp, drive_ki, drive_kd, drive_starti, drive_settle_error, drive_settle_time, drive_timeout);
+   std::cout << "heading drive_until is called "<< std::endl;
+  PID headingPID(reduce_negative_180_to_180(heading - get_absolute_heading()), heading_kp, heading_ki, heading_kd, heading_starti);
+  float start_average_position = (get_left_position_in()+get_right_position_in())/2.0;
+  // Rather than resetting the drive position , this function just notes what the drive position started at
+  // and determines error relative to that value.
+  float average_position = start_average_position;
+  std::cout << "is_settled() =  "<< drivePID.is_settled() << std::endl;
+  while(drivePID.is_settled() == false){
+    average_position = (get_left_position_in()+get_right_position_in())/2.0;
+    float drive_error = distance+start_average_position-average_position;
+    float heading_error = reduce_negative_180_to_180(heading - get_absolute_heading());
+    // Just like for turns, reducing from -180 to 180 degrees ensures that the robot takes the 
+    // quickest path to the desired heading.
+    std::cout << "error: " << distance_from_nearest_object_v() - distance << std::endl;
+    float drive_output = drivePID.compute(distance_from_nearest_object_v() - distance);
+    std::cout << "motor output: " << drive_output << std::endl;
+    float heading_output = headingPID.compute(heading_error);
+
+    drive_output = clamp(drive_output, -drive_max_voltage, drive_max_voltage);
+    heading_output = clamp(heading_output, -heading_max_voltage, heading_max_voltage);
+    drive_with_voltage(drive_output+heading_output, drive_output-heading_output);
+    pros::Task::delay(10);
+  }
+  DriveL.brake();
+  DriveR.brake();
+}
+
+////////////////////////////////////////////
+/////////////////////////////////////////////
 
 void Drive::left_swing_to_angle(float angle){
   left_swing_to_angle(angle, swing_max_voltage, swing_settle_error, swing_settle_time, swing_timeout, swing_kp, swing_ki, swing_kd, swing_starti);

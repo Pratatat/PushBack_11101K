@@ -135,6 +135,14 @@ public:
   void drive_distance(float distance, float drive_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti);
   void drive_distance(float distance, float heading, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti, float heading_kp, float heading_ki, float heading_kd, float heading_starti);
 
+  //DRIVE UNTIL FUNCTIONS 
+  void drive_until(float distance);
+  void drive_until(float distance, float drive_max_voltage);
+  void drive_until(float distance, float heading, float drive_max_voltage, float heading_max_voltage);
+  void drive_until(float distance, float drive_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti);
+  void drive_until(float distance, float heading, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti, float heading_kp, float heading_ki, float heading_kd, float heading_starti);
+
+
   //Swinging Functions
   void left_swing_to_angle(float angle);
   void left_swing_to_angle(float angle, float swing_max_voltage);
@@ -185,4 +193,5 @@ public:
   //finding coordinates
   void calculate();
   void drive_for_time(int voltage);
+  
 };
