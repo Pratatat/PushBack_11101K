@@ -9,9 +9,11 @@ Scoring_Mech::Scoring_Mech(int8_t intake_mtr_grp, int8_t intake_mtr_grp2,int8_t 
 
 
 void Scoring_Mech::initialize() {
-    bottom_intake.set_encoder_units(pros::v5::MotorUnits::counts);
+    bottom_intake.set_gearing(pros::v5::MotorGears::blue);
+    top_intake.set_gearing(pros::v5::MotorGears::blue);
+    bottom_intake.set_encoder_units(pros::v5::MotorUnits::degrees);
     bottom_intake.set_brake_mode(MOTOR_BRAKE_COAST);
-    top_intake.set_encoder_units(pros::v5::MotorUnits::counts);
+    top_intake.set_encoder_units(pros::v5::MotorUnits::degrees);
     top_intake.set_brake_mode(MOTOR_BRAKE_COAST);
     color_sensor.set_integration_time(5);
     color_sensor.set_led_pwm(100);

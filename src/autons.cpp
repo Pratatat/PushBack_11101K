@@ -706,63 +706,86 @@ void skills(){
   chassis.set_swing_exit_conditions(1, 75, 1750);
   default_constants();
   chassis.heading_max_voltage = 2;
+
+  
   
   // set coordinates, start intake
-  chassis.set_coordinates(-11.75, -47.25, 337);
+  chassis.set_coordinates(-11.81, -46.75, 337);
   scoring_mech.intake_move(600);
 
   // drive to 4 balls
-  chassis.set_drive_exit_conditions(1.5, 1, 1300);
-  chassis.drive_distance(19, 337, 10, 0.75);
+  chassis.set_drive_exit_conditions(1.5, 1, 1500);
+  chassis.drive_distance(22, 337, 10, 0.75);
   chassis.set_drive_exit_conditions(1.5, 10, 2500);
-  chassis.drive_distance(1, 337, 10, 0.75);
-  pros::delay(150);
-  scoring_mech.intake_move(0);
+  //pros::delay(150);
+  //scoring_mech.intake_move(0);
   chassis.set_drive_exit_conditions(1.5, 10, 1000);
 
   // drive forward, align to mid goal
   chassis.drive_distance(10, 337, 6, 0.75);
-  chassis.drive_distance(3, 337, 6, 0.75);
+  chassis.drive_distance(2, 337, 6, 0.75);
   chassis.set_turn_exit_conditions(2, 75, 1000);
   chassis.turn_to_angle(225, 5);
   chassis.set_turn_exit_conditions(2, 75, 2500);
   // drive to mid goal 
-  scoring_mech.intake_move(100);
-  chassis.drive_to_point(-10.25, -10.75, 10, 0.5, 1.5, 75, 900);
+  chassis.drive_to_point(-11, -11, 10, 0.5, 1.5, 75, 900);
+
   chassis.set_drive_exit_conditions(1.5, 75, 2500);
   chassis.set_swing_exit_conditions(1, 75, 1750);
-  //score 2 balls on mid goal
-  ////scoring_mech.intake_move(-200);
-  ////pros::delay(200);
+  //score 2 balls on mid goal 
+  scoring_mech.mid_intake_move(100);
+  pros::delay(550);
+  scoring_mech.mid_intake_move(0);
+
+  pneumatics.hood_v(0);
+
   pneumatics.intakepiston_v(1);
-  scoring_mech.mid_intake_move_skills(400, -100);
-  pros::delay(700);
-  pneumatics.intakepiston_v(0);
+  
 
   // clear balls out of intake
-  scoring_mech.top_goal_intake(600);
+  //scoring_mech.intake_move(600);
 
+  
   // drive to front of loader #1
-  chassis.drive_to_point(-46, -48, 6, 0.5, 1.5, 75, 2400);
-  scoring_mech.top_goal_intake(0);
-  chassis.set_turn_exit_conditions(2, 75, 1300);
+  chassis.drive_to_point(-43, -47, 6, 0.5, 5, 0, 1600);
+
+  // std::string x_str, y_str, heading_str;
+
+  //   x_str = std::to_string(chassis.get_X_position());
+  //   y_str = std::to_string(chassis.get_Y_position());
+  //   heading_str = std::to_string(chassis.get_absolute_heading());
+  //   pros::screen::draw_rect(0,0,480,240);
+  //   pros::screen::set_pen(pros::Color::white);
+  //   pros::screen::print(TEXT_LARGE, 50, 50, x_str.c_str());
+  //   pros::screen::print(TEXT_LARGE, 50, 125, y_str.c_str());
+  //   pros::screen::print(TEXT_LARGE, 50, 175, heading_str.c_str()); 
+  
+
+
+  
+  chassis.set_turn_exit_conditions(5, 2, 1300);
   // turn to loader #1
   chassis.turn_to_angle(180);
-  chassis.set_turn_exit_conditions(2, 75, 1000);
+  chassis.set_turn_exit_conditions(5, 2, 1000);
   // drive into & grab balls from loader #1
-  pneumatics.matchloader_v(1);
+  //pneumatics.matchloader_v(1);
+
+
+  
   pros::delay(250);
   chassis.set_swing_exit_conditions(1, 75, 1750);
   scoring_mech.intake_move(600);
-  chassis.drive_to_point(-46, -61, 7, 0.75, 1.5, 75, 1650);
+  chassis.drive_to_point(-44.5, -61, 7, 0.75, 5, 2, 1650);
   pros::delay(250);
   // drive out
   //scoring_mech.intake_move(0);
-  chassis.set_turn_exit_conditions(2, 75, 1150);
-  chassis.drive_to_point(-46, -51, 10, 1.5, 1.5, 75, 750);
+  chassis.set_turn_exit_conditions(5, 2, 1150);
+  chassis.drive_to_point(-44.5, -51, 10, 1.5, 5, 2, 750);
   
+  /*
   pneumatics.matchloader_v(0);
 
+  
   // turn & drive to alley #1 
   chassis.turn_to_angle(145);
   chassis.drive_distance(-27, 10);
@@ -783,6 +806,8 @@ void skills(){
   scoring_mech.top_goal_intake(600);
   chassis.drive_distance(-5, 10, 1.5, 75, 1000, 0.75, 0.0000, 3.75, 2);
   chassis.drive_distance(-1.3, 10, 1.5, 75, 450, 0.75, 0.0000, 3.75, 2);
+  */
+  /*
 
   // set coordinates & reset conditions
   set_coordinates_with_ds();
@@ -916,7 +941,7 @@ void skills(){
   }
 
   //scoring_mech.mid_intake_move(400, -150);
-
+*/
   /*
   scoring_mech.mid_intake_move(400, -50);
   pros::delay(5000);
@@ -954,7 +979,7 @@ void skills(){
   scoring_mech.mid_intake_move(300, 100);
   chassis.drive_distance(-1.5, 10, 2, 0.5, 350, 0.75, 0.0000, 3.75, 2);
   */
-  
+  /*
   pros::delay(150); 
   
 
@@ -1070,5 +1095,21 @@ void skills(){
   chassis.drive_distance(2, 10);
   chassis.turn_to_angle(290);
   
-   
+   */
+}
+
+void distance_sensor_test(){
+  chassis.set_coordinates(-71+chassis.distance_from_nearest_object_h(), 71-chassis.distance_from_nearest_object_v(), 270);
+    
+    std::string x_str, y_str, heading_str;
+     x_str = std::to_string(chassis.get_X_position());
+     y_str = std::to_string(chassis.get_Y_position());
+    heading_str = std::to_string(chassis.get_absolute_heading());
+    pros::screen::draw_rect(0,0,480,240);
+    pros::screen::set_pen(pros::Color::white);
+    pros::screen::print(TEXT_LARGE, 50, 50, x_str.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 125, y_str.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 175, heading_str.c_str());
+    
+  chassis.drive_until(10, 2);
 }
