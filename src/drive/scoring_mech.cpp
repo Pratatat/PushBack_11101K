@@ -232,10 +232,14 @@ void Scoring_Mech::mid_intake_move(double velocity) {
     top_intake.move_velocity(velocity);
 }
 void Scoring_Mech::mid_intake_move_skills(double velocityBottom, double velocityTop) {
+     pneumatics.intakepiston_v(0);
+    pneumatics.hood_v(1);
     bottom_intake.move_velocity(velocityBottom);
     top_intake.move_velocity(velocityTop);
 }
 void Scoring_Mech::top_intake_move(double velocity) {
+    pneumatics.intakepiston_v(1);
+    pneumatics.hood_v(1);
     bottom_intake.move_velocity(0);
     top_intake.move_velocity(-velocity);
 }
