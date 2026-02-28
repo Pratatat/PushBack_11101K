@@ -747,40 +747,43 @@ void skills(){
 
   
   // drive to front of loader #1
-  chassis.drive_to_point(-43, -47, 6, 0.5, 5, 0, 1600);
+  chassis.turn_to_point(-38, -50, 6, 0.5, 2.5, 2, 200);
+  chassis.drive_to_point(-38, -50, 6, 0.5, 2.5, 2, 1600);
 
-  // std::string x_str, y_str, heading_str;
+  std::string x_str, y_str, heading_str;
 
-  //   x_str = std::to_string(chassis.get_X_position());
-  //   y_str = std::to_string(chassis.get_Y_position());
-  //   heading_str = std::to_string(chassis.get_absolute_heading());
-  //   pros::screen::draw_rect(0,0,480,240);
-  //   pros::screen::set_pen(pros::Color::white);
-  //   pros::screen::print(TEXT_LARGE, 50, 50, x_str.c_str());
-  //   pros::screen::print(TEXT_LARGE, 50, 125, y_str.c_str());
-  //   pros::screen::print(TEXT_LARGE, 50, 175, heading_str.c_str()); 
+    x_str = std::to_string(chassis.get_X_position());
+    y_str = std::to_string(chassis.get_Y_position());
+    heading_str = std::to_string(chassis.get_absolute_heading());
+    pros::screen::draw_rect(0,0,480,240);
+    pros::screen::set_pen(pros::Color::white);
+    pros::screen::print(TEXT_LARGE, 50, 50, x_str.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 125, y_str.c_str());
+    pros::screen::print(TEXT_LARGE, 50, 175, heading_str.c_str()); 
   
 
 
   
-  chassis.set_turn_exit_conditions(5, 2, 1300);
+  chassis.set_turn_exit_conditions(2, 2, 400);
   // turn to loader #1
   chassis.turn_to_angle(180);
-  chassis.set_turn_exit_conditions(5, 2, 1000);
+  chassis.turn_to_point(-44.5, -61, 6, 0.5, 1.5, 2, 100);
+  chassis.set_turn_exit_conditions(2, 75, 1000);
   // drive into & grab balls from loader #1
-  //pneumatics.matchloader_v(1);
+  pros::delay(250);
+  pneumatics.matchloader_v(1);
 
 
   
   pros::delay(250);
   chassis.set_swing_exit_conditions(1, 75, 1750);
   scoring_mech.intake_move(600);
-  chassis.drive_to_point(-44.5, -61, 7, 0.75, 5, 2, 1650);
+  chassis.drive_to_point(-44.5, -61, 7, 0.75, 1.5, 75, 1650);
   pros::delay(250);
   // drive out
   //scoring_mech.intake_move(0);
-  chassis.set_turn_exit_conditions(5, 2, 1150);
-  chassis.drive_to_point(-44.5, -51, 10, 1.5, 5, 2, 750);
+  chassis.set_turn_exit_conditions(2, 75, 1150);
+  chassis.drive_to_point(-44.5, -51, 10, 1.5, 1.5, 75, 750);
   
   /*
   pneumatics.matchloader_v(0);
