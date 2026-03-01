@@ -1,11 +1,13 @@
 #include "main.h"
 
 
-Pneumatics::Pneumatics(pros::adi::DigitalOut matchloader_port, pros::adi::DigitalOut intakepiston_port, pros::adi::DigitalOut wing_port, pros::adi::DigitalOut hood_port)
+Pneumatics::Pneumatics(pros::adi::DigitalOut matchloader_port, pros::adi::DigitalOut intakepiston_port, pros::adi::DigitalOut wing_port, pros::adi::DigitalOut hood_port, pros::adi::DigitalOut intake_piston_bottom_port)
    : matchloader(matchloader_port),
    intake_piston(intakepiston_port),
    wing(wing_port),
-   hood(hood_port) {}
+   hood(hood_port),
+   intake_piston_bottom(intake_piston_bottom_port)
+    {}
 
 
 void Pneumatics::matchloader_control() {
@@ -107,7 +109,7 @@ int Pneumatics::awp_task8() {
 
 
 void Pneumatics::intakepiston_initialize() {
-   intake_piston.set_value(0);
+   intake_piston.set_value(1);
 }
 
 
@@ -129,6 +131,19 @@ void Pneumatics::intakepiston_control() {
        intake_piston.set_value(0);
    }
 }
+
+
+void Pneumatics::intake_piston_bottom_initialize() {
+   intake_piston_bottom.set_value(0);
+}
+
+
+void Pneumatics::intake_piston_bottom_v(int value) {
+   intake_piston_bottom.set_value(value);
+}
+
+
+
 
 
 

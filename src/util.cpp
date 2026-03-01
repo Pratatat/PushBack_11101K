@@ -6,6 +6,7 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 //Variables
 int matchloader_down = 0;
 int intakepiston_down = 0;
+int intake_piston_bottom_down = 1;
 int wing_down = 0;
 int hood_down = 0;
 

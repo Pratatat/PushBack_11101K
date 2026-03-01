@@ -6,6 +6,7 @@ pros::adi::DigitalOut hood('A');
 pros::adi::DigitalOut matchloader('B');
 pros::adi::DigitalOut intake_piston('C');
 pros::adi::DigitalOut wing('D');
+pros::adi::DigitalOut intake_piston_bottom('E');
 
 pros::Motor left_front_mtr(-11, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 pros::Motor left_middle_mtr(12, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
@@ -23,11 +24,11 @@ Drive chassis(
   //Right Motors:
   {right_front_mtr.get_port(), right_middle_mtr.get_port(), right_back_mtr.get_port()},
   //IMU Port:
-  21,
+  2,
   //Vertical Distance Sensor Port --- distance_sensor_v:
-  10,
+  9,
   //Horizontal Distance Sensor Port --- distance_sensor_h:
-  5,
+  7,
   //Wheel diameter (4" omnis are actually closer to 4.125"):
   3.25,
   //External Gear Ratio
@@ -59,7 +60,7 @@ Scoring_Mech scoring_mech(
 
 
 Pneumatics pneumatics(
-	{matchloader, intake_piston, wing, hood}
+	{matchloader, intake_piston, wing, hood, intake_piston_bottom}
 );
 
 
@@ -70,6 +71,7 @@ void initialize() {
   pneumatics.intakepiston_initialize();
   pneumatics.wing_initialize();
   pneumatics.hood_initialize();
+  pneumatics.intake_piston_bottom_initialize();
 
   //pros::Task intake_task_3(Scoring_Mech::intake_detector_task);
   //pros::Task intake_task_1(Scoring_Mech::red_color_sort_task);
@@ -89,13 +91,14 @@ void opcontrol(void) {
   pros::Task intake_task(Scoring_Mech::intake_task);
   pros::Task pneumatics_matchloader_task(Pneumatics::matchloader_task);
   pros::Task pneumatics_intakepiston_task(Pneumatics::intakepiston_task);
+  //pros::Task pneumatics_intake_piston_bottom_task(Pneumatics::intake_piston_bottom_task);
   pros::Task pneumatics_wing_task(Pneumatics::wing_task);
   pros::Task pneumatics_hood_task(Pneumatics::hood_task);
   
 
   std::string left_front,left_middle, left_back, right_front, right_middle, right_back;
   while (true) {
-    chassis.arcade_control_double_reversed();
+    chassis.arcade_control_double();
     pros::delay(util::DELAY_TIME); 
     /*
     left_front = std::to_string(left_front_mtr.get_temperature());

@@ -138,6 +138,7 @@ void Scoring_Mech::intake_control() {
     if (master.get_digital(DIGITAL_L1) && (current_outtaking == 0)){
         // hood up lift up
         pneumatics.intakepiston_v(1);
+       pneumatics.intake_piston_bottom_v(0);
         pros::delay(75);
         pneumatics.hood_v(1);
         bottom_intake.move_velocity(600);
@@ -146,15 +147,17 @@ void Scoring_Mech::intake_control() {
     } else if ((master.get_digital(DIGITAL_L2)) && (current_outtaking == 0)) {
         // hood up lift down
         pneumatics.intakepiston_v(0);
+        pneumatics.intake_piston_bottom_v(0);
         pros::delay(75);
         pneumatics.hood_v(1);
-        bottom_intake.move_velocity(600);
-        top_intake.move_velocity(600);
+        bottom_intake.move_velocity(400);
+        top_intake.move_velocity(175);
         
 
     } else if ((master.get_digital(DIGITAL_R1)) && (current_outtaking == 0)) {
         // hood down lift up
         pneumatics.hood_v(0);
+        pneumatics.intake_piston_bottom_v(0);
         pneumatics.intakepiston_v(1);
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(600);
@@ -163,10 +166,13 @@ void Scoring_Mech::intake_control() {
     } else if ((master.get_digital(DIGITAL_R2)) && (current_outtaking == 0)) {
         //hood down
         pneumatics.hood_v(0);
-        bottom_intake.move_velocity(-600);
-        top_intake.move_velocity(-600);
+        pneumatics.intakepiston_v(0);
+        pneumatics.intake_piston_bottom_v(1);
+        bottom_intake.move_velocity(-100);
+        top_intake.move_velocity(-500);
 
     } else if (current_outtaking == 0){
+        //pneumatics.intake_piston_bottom_v(1);
         bottom_intake.move_velocity(0);
         top_intake.move_velocity(0);
     }
@@ -245,6 +251,13 @@ void Scoring_Mech::top_intake_move(double velocity) {
     bottom_intake.move_velocity(0);
     top_intake.move_velocity(-velocity);
 }
+
+void Scoring_Mech::mid_goal_score(double bottomVelocity, double topVelocity) {
+    pneumatics.hood_v(1);
+    bottom_intake.move_velocity(bottomVelocity);
+    top_intake.move_velocity(topVelocity);
+}
+
 
 // use intake rotations
 void Scoring_Mech::red_color_sort() { 
