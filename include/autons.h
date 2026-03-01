@@ -9,6 +9,7 @@ extern Scoring_Mech scoring_mech;
 extern Pneumatics pneumatics;
 
 void default_constants();
+void skills_constants();
 
 void drive_test();
 void odom_offset_test();

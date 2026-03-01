@@ -45,11 +45,11 @@ float PID::compute(float error) {
 
 bool PID::is_settled(){
   if (time_spent_running > timeout && timeout != 0) {
-    std::cout << "bad" << std::endl;
+    std::cout << "bad :" << time_spent_running << std::endl;
     return true;
   }
   if (time_spent_settled > settle_time) {
-    std::cout << "good" << std::endl;
+    std::cout << "good :" << time_spent_running << std::endl;
     return true;
   }
   return false;
