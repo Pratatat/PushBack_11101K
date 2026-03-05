@@ -81,7 +81,7 @@ void initialize() {
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  LeftSeven();
+  skills();
 }
 
 void opcontrol(void) {

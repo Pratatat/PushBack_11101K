@@ -804,12 +804,13 @@ void set_Y_coordinate_with_ds(){
 
 
 
+
 void skills(){ 
-  
-  // constants set up 
-  chassis.set_turn_exit_conditions(1.5, 20, 800);
+  pros::millis();
+  // set constants
+  chassis.set_turn_exit_conditions(1.5, 0, 800);
   chassis.set_swing_exit_conditions(1, 20, 1750);
-  chassis.set_drive_exit_conditions(1.5, 20, 1000);
+  chassis.set_drive_exit_conditions(1.5, 0, 1000);
   skills_constants();
   chassis.set_drive_constants(12, 0.65, 0.0001, 4.48, 2.5);
   chassis.set_heading_constants(12, 0.28, 0.000, 1.95, 4); // same as turn
@@ -819,92 +820,93 @@ void skills(){
   chassis.turn_max_voltage = 10;
   chassis.drive_max_voltage = 10;
   
-  /*
+  
   // set coordinates, start intake
   chassis.set_coordinates(-11.81, -46.75, 337);
   scoring_mech.intake_move(600);
 
   // drive to 4 balls
   chassis.drive_distance(27.75, 337, 10, 0.75);
-  chassis.set_turn_exit_conditions(1.5, 50, 850);
+  chassis.set_turn_exit_conditions(1.5, 0, 850);
   chassis.turn_to_angle(220, 5);
   
   // drive back and score balls
-  chassis.drive_distance(-15.5, 222, 10, 0.75);
   pneumatics.intakepiston_v(0);
-  pros::delay(100);
-  scoring_mech.mid_goal_score(500, 200);
-  pros::delay(200);
-  chassis.turn_to_point(-45.6, -45, 1, 10, 2.5, 30, 400);
-  pneumatics.hood_v(0);
-  chassis.drive_to_point(-45.6, -45, 8, 0.5, 2.5, 30, 1800);
+  chassis.drive_distance(-15.5, 222, 10, 0.75);
+  
+  // pros::delay(100);
+  scoring_mech.mid_goal_score(500, 150);
 
-  chassis.turn_to_point(-46.75, -61, 1, 8, 1.5, 30, 450);
+  pros::delay(750); // wait for balls to score
+  chassis.turn_to_point(-45.6, -45, 1, 10, 2.5, 0, 300); // was 400
+  pneumatics.hood_v(0);
+  chassis.drive_to_point(-45.6, -45, 8, 0.5, 2.5, 0, 1500); // was 1800
+  
+  // turn to loader
+  chassis.turn_to_point(-46.75, -61, 1, 8, 1.5, 0, 300); // was 450
   pneumatics.matchloader_v(1);
-  pros::delay(250);
+  pros::delay(175); // was 250
   scoring_mech.intake_move(600);
   pneumatics.intakepiston_v(1);
-  chassis.drive_to_point(-46.75, -62, 10, 0.5, 1.5, 20, 1950);
+  chassis.drive_to_point(-46.75, -62, 10, 0.5, 1.5, 0, 1950); // delay is to drive + pick up the blocks
 
-  chassis.drive_to_point(-47, -51, 10, 0.5, 2.5, 30, 700);
-  chassis.turn_to_angle(145);
-  chassis.drive_distance(-26, 10);
+
+  double timeSecs = pros::millis()/ 1000.0;
+  printf("\n run time %.2f sec\n",timeSecs);
+
+  chassis.drive_to_point(-47, -51, 10, 0.5, 2.5, 0, 600);
   pneumatics.matchloader_v(0);
+  chassis.set_turn_exit_conditions(1.5, 0, 650);
+  chassis.turn_to_angle(145);
+  chassis.drive_distance(-26, 10, 2.5, 0, 900, 0.65, 0.0001, 4.48, 2.5);
+  scoring_mech.intake_move(0);
+  
 
   chassis.turn_to_angle(185);
-  chassis.drive_to_point(-58.25, 16.75, 9, 1, 1.5, 20, 1200);
-  chassis.set_swing_exit_conditions(1, 25, 1600);
-  chassis.right_swing_to_angle(0, 1.65);
+  chassis.drive_to_point(-58.25, 17, 9, 1, 1.5, 0, 1400); // drive down alley works dont touch
+  chassis.set_swing_exit_conditions(1, 25, 1400);
+  chassis.right_swing_to_angle(0, 1.65); // was 1.65
 
+  // start scoring
   scoring_mech.intake_move(600);
   pneumatics.hood_v(1);
   chassis.left_swing_to_angle(0, 1.65);
-  chassis.drive_distance(-5, 10, 2.5, 1, 1000, 0.65, 0.0001, 4.48, 2.5); //default timeout is already 1000 - for driving while scoring
+  chassis.drive_distance(-5, 10, 2.5, 0, 1200, 0.65, 0.0001, 4.48, 2.5); //default timeout is already 1000 - for driving while scoring // was 1500
 
   // set coordinates & reset conditions
-  
-  
-  // align & drive into loader #2  
   chassis.set_coordinates(-47.5, 28.5, chassis.get_absolute_heading());
-  pneumatics.hood_v(0);
-  //scoring_mech.intake_move(0);
+  
+  // done scoring
+
+  // drive into loader
   pneumatics.matchloader_v(1);
-  chassis.drive_distance(5, 8, 2.5, 1, 550, 0.65, 0.0001, 4.48, 2.5);
-  chassis.turn_to_point(-47.5, 72, 1, 10, 1.5, 20, 350);
+  chassis.drive_distance(5, 8, 2.5, 1, 500, 0.65, 0.0001, 4.48, 2.5);// was 900
+  pneumatics.hood_v(0); 
+  chassis.turn_to_point(-47.5, 72, 1, 10, 1.5, 0, 350);
+  chassis.drive_to_point(-48.5, 61.5, 4, 2.5, 1.5, 0, 2400);
   
-  chassis.drive_to_point(-48.5, 61.5, 4, 2.5, 1.5, 20, 2400);
-  
-  // grab balls from loader #2
-  
-  pros::delay(350);
+  pros::delay(200);
   
   chassis.drive_distance(-10, 10, 2.5, 1, 550, 0.65, 0.0001, 4.48, 2.5);
   // align and drive into goal 
   chassis.turn_to_angle(0, 10, 1.5, 2, 330, 0.28, 0.000, 1.95, 4);
-  chassis.drive_to_point(-47.5, 25, 5, 2, 1.5, 20, 1000);
-
+  chassis.drive_to_point(-47.5, 25, 8, 2, 1.5, 20, 700);
 
   // score on goal 
   scoring_mech.top_goal_intake(600);
   pneumatics.hood_v(1);
-  chassis.drive_distance(-5, 10, 1.5, 75, 1500, 0.65, 0.0001, 4.48, 2.5);
-
-  
-  pneumatics.hood_v(1);
-  */
+  chassis.drive_distance(-5, 10, 1.5, 0, 1500, 0.65, 0.0001, 4.48, 2.5);
   chassis.set_coordinates(-71+chassis.distance_from_nearest_object_h(), 71-chassis.distance_from_nearest_object_v(), chassis.get_absolute_heading());
+  pneumatics.matchloader_v(0);
+  timeSecs = pros::millis()/ 1000.0;
+  printf("\n run time 2: %.2f sec\n",timeSecs);
 
   // drive out of goal
-  chassis.drive_distance(6, 10);
+  chassis.drive_distance(7, 10);
 
   // turn to left of park zone
   chassis.turn_to_angle(35);
-  pneumatics.matchloader_v(0);
-  //chassis.drive_distance(35.5, 10);
-  // clear balls from intake
-  // turn to park zone 
-
-  chassis.drive_until(11.5, 6);
+  chassis.drive_until(11.5, 8);
   // clear balls from intake
   scoring_mech.intake_move(600);
   // turn to park zone 
@@ -912,61 +914,55 @@ void skills(){
   chassis.left_swing_to_angle(74, 4);
   chassis.set_swing_exit_conditions(1, 25, 900);
 
-
-  chassis.drive_distance(10, 10, 2.5, 1, 500, 0.65, 0.0001, 4.48, 2.5);
+  chassis.drive_distance(10, 10, 2.5, 1, 675, 0.65, 0.0001, 4.48, 2.5); // drive towards park zone
   // matchloader down & clear balls from park zone
   pneumatics.matchloader_v(1);
 
   chassis.set_turn_exit_conditions(2, 75, 950);
   chassis.left_swing_to_angle(80, 4);
-  chassis.drive_distance(12, 12, 2, 0.5, 200, 0.65, 0.0001, 4.48, 2.5);
+  chassis.drive_distance(12, 12, 2, 0.5, 200, 0.65, 0.0001, 4.48, 2.5); // drive over the barrier
   pneumatics.matchloader_v(0);
 
-  
-
-
-  chassis.drive_distance(30, 8, 2, 0.5, 800, 0.65, 0.0001, 4.48, 2.5);
+  chassis.drive_distance(30, 8, 2, 0.5, 1200, 0.65, 0.0001, 4.48, 2.5); // drive through the park zone
   chassis.set_swing_exit_conditions(1, 20, 1750);
   
-  chassis.turn_to_angle(87);
+  chassis.turn_to_angle(87); // at this point we crossed the park zone
 
   // intake all balls from park zone
   chassis.drive_distance(25, 5.5, 2, 0.5, 2500,0.65, 0.0001, 4.48, 2.5);
   chassis.drive_distance(17, 7.5, 2, 0.5, 2500, 0.65, 0.0001, 4.48, 2.5);
+
   // grab corner ball
-  chassis.right_swing_to_angle(45,3);
-  scoring_mech.intake_move(600);
+  //chassis.right_swing_to_angle(45,3);
+  // scoring_mech.intake_move(600);
 
-  
-
-
-  // align robot to wall and reset position & conditions
-  chassis.drive_distance(5.5, 5, 2, 0.5, 400, 0.65, 0.0001, 4.48, 2.5);
-  //chassis.set_coordinates(36.5, chassis.get_Y_position(), chassis.get_absolute_heading());
+  // drive towards
+  //chassis.drive_distance(5.5, 5, 2, 0.5, 400, 0.65, 0.0001, 4.48, 2.5);
   scoring_mech.intake_move(0);
 
   chassis.right_swing_to_angle(180, 1.5);
-  chassis.drive_distance(-10, 4, 2, 0.5, 1000, 0.65, 0.0001, 4.48, 2.5);
+  chassis.drive_distance(-10, 4, 2, 0.5, 600, 0.65, 0.0001, 4.48, 2.5);
   chassis.set_coordinates(chassis.get_X_position(), 62.5, chassis.get_absolute_heading());
   
-  
+  timeSecs = pros::millis()/ 1000.0;
+  printf("\n run time 3: %.2f sec\n",timeSecs);
+
   chassis.set_swing_exit_conditions(1, 75, 1750);
   //chassis.set_coordinates(chassis.get_X_position(), 63.5, 180);
-  
-  
+    
   // drive forward & reset position
   chassis.drive_distance(6, 5, 2, 0.5, 550, 0.65, 0.0001, 4.48, 2.5);
   //pneumatics.mid_descore_v(1);
   chassis.set_coordinates(71- chassis.distance_from_nearest_object_h(),chassis.get_Y_position(), chassis.get_absolute_heading());
   
-  pros::delay(200);
+  pros::delay(100);
   
   // turn to 4 balls and drive into them
   scoring_mech.intake_move(600);
-  chassis.turn_to_point(21.5, 18.5);
-
+  chassis.turn_to_point(21, 20);
+ 
   
-  chassis.drive_to_point(21.5, 18.5, 5, 1.5, 1.5, 20, 1800);
+  chassis.drive_to_point(21, 20, 8, 1.5, 1.5, 20, 1200); // drive towards the stack of 4
   pneumatics.intakepiston_v(0);
 
   chassis.turn_to_angle(42, 6);
@@ -974,162 +970,102 @@ void skills(){
   pneumatics.matchloader_v(1);
   // drive into mid goal
   
-  chassis.drive_distance(-10, 5, 2, 0.5, 550, 0.65, 0.0001, 4.48, 2.5);
+  chassis.drive_distance(-10.5, 5, 2, 0.5, 550, 0.65, 0.0001, 4.48, 2.5);
   chassis.drive_distance(1, 5, 0.5, 0.5, 400, 0.65, 0.0001, 4.48, 2.5);
 
-  scoring_mech.mid_goal_score(500, 200);
-  pros::delay(400);
+  scoring_mech.mid_goal_score(-400, -400);
+  pros::delay(50);
+  scoring_mech.mid_goal_score(500, 125);
+  pros::delay(2000);
+  scoring_mech.mid_goal_score(0,0);
   
-  chassis.turn_to_point(48, 48);
+  // done scoring
+  timeSecs = pros::millis()/ 1000.0;
+  printf("\n run time 4: %.2f sec\n",timeSecs);
 
+  // done with scoring on middle
+
+  // driving to matchloader
+  chassis.turn_to_point(48, 48);
   
-  chassis.drive_to_point(48, 48, 5, 1.5, 1.5, 20, 1800);
+  chassis.drive_to_point(48, 48, 6, 1.5, 1.5, 20, 1800);
+  pneumatics.hood_v(0);
   chassis.turn_to_point(48, 61);
   pneumatics.intakepiston_v(1);
-  pneumatics.hood_v(0);
-  scoring_mech.intake_move(600);
-  chassis.drive_to_point(48, 62, 5, 1.5, 1.5, 20, 1800);
-  //pros::delay(400);
-
- 
   
-  chassis.drive_distance(-6, 10, 4, 75, 900, 0.65, 0.0001, 4.48, 2.5); 
+  scoring_mech.intake_move(600);
+  chassis.drive_to_point(48, 62, 8, 1.5, 1.5, 20, 1600);
+
+  // done with matchloading
+
+  chassis.drive_distance(-8, 10, 8, 75, 600, 0.65, 0.0001, 4.48, 2.5); 
   //pros::delay(200);
   scoring_mech.intake_move(0);
-  pneumatics.matchloader_v(0);
 
   // turn & drive to alley way
   chassis.turn_to_angle(325);
   chassis.drive_distance(-25, 10);
+  pneumatics.matchloader_v(0);
   // align to & drive down alley #2
   chassis.turn_to_angle(0);
 
-  chassis.drive_to_point(60, -16, 5, 1.5, 1.5, 20, 2000);
+  chassis.drive_to_point(61, -15.5, 8, 1.5, 1.5, 20, 1600);
+  chassis.set_swing_exit_conditions(1, 10, 1800);
+  chassis.set_turn_exit_conditions(1.5, 0, 200);
+  chassis.turn_to_angle(5, 10);
+  chassis.set_turn_exit_conditions(1.5, 0, 200);
+  chassis.turn_to_angle(3, 10);
+  chassis.set_turn_exit_conditions(1.5, 0, 800);
   chassis.right_swing_to_angle(180, 1.65);
+
+  scoring_mech.intake_move(600);
   pneumatics.hood_v(1);
-
-
+  chassis.set_swing_exit_conditions(1, 10, 1200);
   chassis.drive_distance(-5, 10, 2, 75, 450, 0.65, 0.0001, 4.48, 2.5); 
+  chassis.left_swing_to_angle(180, 3);
   pneumatics.matchloader_v(1);
-  pros::delay(800);
+  pros::delay(1100);
  
   chassis.set_coordinates(71-chassis.distance_from_nearest_object_h(), -71+chassis.distance_from_nearest_object_v(), chassis.get_absolute_heading());
 
-  std::string x_str, y_str, heading_str;
-
-  
-    x_str = std::to_string(chassis.get_X_position());
-    y_str = std::to_string(chassis.get_Y_position());
-    heading_str = std::to_string(chassis.get_absolute_heading());
-    pros::screen::draw_rect(0,0,480,240);
-    pros::screen::set_pen(pros::Color::white);
-    pros::screen::print(TEXT_LARGE, 50, 50, x_str.c_str());
-    pros::screen::print(TEXT_LARGE, 50, 125, y_str.c_str());
-    pros::screen::print(TEXT_LARGE, 50, 175, heading_str.c_str()); 
-
-
-  
-  
   // reset position & conditions
 
-  // align to loader #4
-  chassis.turn_to_angle(180);
-  chassis.drive_distance(5, 10, 2, 75, 450, 0.65, 0.0001, 4.48, 2.5); 
-  chassis.turn_to_point(49,-62.5);
   pneumatics.hood_v(0);
-  chassis.drive_to_point(49, -62.5, 4.75, 1.5, 1.5, 75, 1700);
-  // turn & drive into goal
+  chassis.drive_distance(5, 10, 2, 0, 300, 0.65, 0.0001, 4.48, 2.5); 
+  chassis.turn_to_point(50,-72);
+  chassis.drive_to_point(49.5, -68, 4.75, 1.5, 1.5, 75, 2000);  // match loading
   
-  
-  chassis.drive_distance(-1.5, 10, 2, 75, 450, 0.65, 0.0001, 4.48, 2.5);
-  chassis.turn_to_angle(182); 
-  chassis.drive_to_point(47.25, -27, 5.5, 2, 1.5, 75, 1000);
+  chassis.drive_distance(-1.5, 10, 0, 75, 450, 0.65, 0.0001, 4.48, 2.5);
+  chassis.turn_to_angle(183); 
+  chassis.drive_to_point(47.25, -27, 5.5, 0, 1.5, 75, 1300);
+  chassis.set_coordinates(71-chassis.distance_from_nearest_object_h(), -71+chassis.distance_from_nearest_object_v(), chassis.get_absolute_heading());
   pneumatics.hood_v(1);
-  pros::delay(1000);
-  scoring_mech.top_goal_intake(0);
-chassis.drive_distance(5, 10, 2, 75, 450, 0.65, 0.0001, 4.48, 2.5); 
-chassis.turn_to_angle(215);
-  pneumatics.matchloader_v(0);
-  // drive to left of park zone
-  chassis.drive_until(11.5, 6);
-  pneumatics.hood_v(1);
-  scoring_mech.intake_move(600);
-  chassis.left_swing_to_angle(260, 3);
-  chassis.drive_distance(8, 10, 2, 10, 500, 0.65, 0.0001, 4.48, 2.5);
-  pneumatics.matchloader_v(1);
-  chassis.drive_distance(8.5, 10, 2, 10, 350, 0.65, 0.0001, 4.48, 2.5);
-  pneumatics.matchloader_v(0);
-  chassis.drive_distance(28, 10);
-  chassis.drive_distance(2, 10);
-  chassis.turn_to_angle(290);
+  pros::delay(1300); // second scoring of the second long goal
+  // done scoring
+  timeSecs = pros::millis()/ 1000.0;
+  printf("\n run time 5: %.2f sec\n",timeSecs);
 
-  
-  
-  /*
-
-
-  / swing into goal & reset conditions
-  chassis.set_swing_exit_conditions(1, 75, 1250);
-  chassis.right_swing_to_angle(180, 1.65);
-  chassis.set_swing_exit_conditions(1, 75, 4000);
-  chassis.set_swing_exit_conditions(1, 75, 1750);
-  chassis.set_turn_exit_conditions(2, 75, 950);
-  // score balls into goal
-  scoring_mech.top_goal_intake(600);
-  chassis.drive_distance(-5, 10, 2, 75, 450, 0.75, 0.0000, 3.75, 2); 
-  pneumatics.matchloader_v(1);
-  pros::delay(1250);
-  scoring_mech.top_goal_intake(0);
-  scoring_mech.intake_move(600);
-
-  
-  // reset position & conditions
-  set_coordinates_with_ds();
-  chassis.set_turn_exit_conditions(2, 75, 950);
-  chassis.set_turn_exit_conditions(2, 75, 250);
-
-  // align to loader #4
-  chassis.turn_to_angle(180);
-  chassis.set_turn_exit_conditions(2, 75, 2500);  // drive into loader #4
-  chassis.drive_to_point(49.25, -61, 4.75, 1.5, 1.5, 75, 1700);
-  // turn & drive into goal
-  chassis.set_turn_exit_conditions(2, 75, 200);
-  chassis.turn_to_angle(180);
-  chassis.set_turn_exit_conditions(2, 75, 2500);
-  chassis.drive_to_point(47.25, -27, 5.5, 2, 1.5, 75, 1150);
-  // score balls into goal
-  //scoring_mech.top_goal_intake(-600);
-  //pros::delay(150);
-  scoring_mech.top_goal_intake(600);
-  pros::delay(2000);
-  scoring_mech.top_goal_intake(0);
-  
-  // reset conditions
-  chassis.set_swing_exit_conditions(1, 75, 1750);
-  chassis.set_turn_exit_conditions(2, 75, 950);
-  chassis.set_turn_exit_conditions(2, 25, 700);
-
-  // turn to left of park zone
+  // drive towards second park zone
+  chassis.drive_distance(5, 10, 2, 0, 450, 0.65, 0.0001, 4.48, 2.5); 
+  chassis.set_turn_exit_conditions(1, 0, 600);
   chassis.turn_to_angle(215);
   pneumatics.matchloader_v(0);
   // drive to left of park zone
-  chassis.drive_distance(35.5, 12, 2, 10, 1450, 0.75, 0.0000, 3.75, 2);
-  scoring_mech.top_goal_intake(600);
-  chassis.set_swing_exit_conditions(2, 25, 800);
-  // turn to park zone
-  chassis.left_swing_to_angle(262, 3);
-  chassis.drive_distance(1.75, 10, 2, 10, 300, 0.75, 0.0000, 3.75, 2);
-  // drive into park zone and clear balls
-  pneumatics.matchloader_v(1);
-  scoring_mech.top_goal_intake(0);
+  chassis.drive_until(10.75, 10);
+  pneumatics.hood_v(1); // open the hood so the blocks can come out
   scoring_mech.intake_move(600);
-  chassis.drive_distance(8.5, 10, 2, 10, 350, 0.75, 0.0000, 3.75, 2);
+  chassis.set_swing_exit_conditions(1, 0, 800);
+  chassis.left_swing_to_angle(260, 3);
+
+  chassis.drive_distance(6.5, 10, 2, 0, 500, 0.65, 0.0001, 4.48, 2.5);
+  pneumatics.matchloader_v(1);
+  chassis.drive_distance(10, 12, 2, 0, 200, 0.65, 0.0001, 4.48, 2.5);
   pneumatics.matchloader_v(0);
-  chassis.drive_distance(28, 10);
-  chassis.drive_distance(2, 10);
+  chassis.drive_distance(43, 12, 2, 0, 500, 0.65, 0.0001, 4.48, 2.5);
   chassis.turn_to_angle(290);
-  
-   */
+
+  timeSecs = pros::millis()/ 1000.0;
+  printf("\n run time 6: %.2f sec\n",timeSecs);
 }
 
 void distance_sensor_test(){
