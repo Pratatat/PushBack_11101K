@@ -959,7 +959,9 @@ void skills(){
   
   // turn to 4 balls and drive into them
   scoring_mech.intake_move(600);
+  chassis.set_turn_exit_conditions(1.5, 0, 400);
   chassis.turn_to_point(21, 20);
+  chassis.set_turn_exit_conditions(1.5, 0, 800);
  
   
   chassis.drive_to_point(21, 20, 8, 1.5, 1.5, 20, 1200); // drive towards the stack of 4
@@ -994,17 +996,19 @@ void skills(){
   pneumatics.intakepiston_v(1);
   
   scoring_mech.intake_move(600);
-  chassis.drive_to_point(48, 62, 8, 1.5, 1.5, 20, 1600);
+  chassis.drive_to_point(48, 62, 8, 1.5, 1.5, 20, 1850);
 
   // done with matchloading
 
   chassis.drive_distance(-8, 10, 8, 75, 600, 0.65, 0.0001, 4.48, 2.5); 
   //pros::delay(200);
-  scoring_mech.intake_move(0);
 
   // turn & drive to alley way
+  chassis.set_turn_exit_conditions(1.5, 0, 450);
   chassis.turn_to_angle(325);
+  chassis.set_turn_exit_conditions(1.5, 0, 900);
   chassis.drive_distance(-25, 10);
+  scoring_mech.intake_move(0);
   pneumatics.matchloader_v(0);
   // align to & drive down alley #2
   chassis.turn_to_angle(0);
@@ -1013,7 +1017,7 @@ void skills(){
   chassis.set_swing_exit_conditions(1, 10, 1800);
   chassis.set_turn_exit_conditions(1.5, 0, 200);
   chassis.turn_to_angle(5, 10);
-  chassis.set_turn_exit_conditions(1.5, 0, 200);
+  chassis.set_turn_exit_conditions(1.5, 0, 150);
   chassis.turn_to_angle(3, 10);
   chassis.set_turn_exit_conditions(1.5, 0, 800);
   chassis.right_swing_to_angle(180, 1.65);
@@ -1032,12 +1036,14 @@ void skills(){
 
   pneumatics.hood_v(0);
   chassis.drive_distance(5, 10, 2, 0, 300, 0.65, 0.0001, 4.48, 2.5); 
-  chassis.turn_to_point(50,-72);
-  chassis.drive_to_point(49.5, -68, 4.75, 1.5, 1.5, 75, 2000);  // match loading
+  chassis.set_turn_exit_conditions(1.5, 0, 300);
+  chassis.turn_to_point(50.5,-72);
+  chassis.set_turn_exit_conditions(1.5, 0, 800);
+  chassis.drive_to_point(50.5, -68, 4.75, 1.5, 1.5, 75, 2000);  // match loading
   
   chassis.drive_distance(-1.5, 10, 0, 75, 450, 0.65, 0.0001, 4.48, 2.5);
   chassis.turn_to_angle(183); 
-  chassis.drive_to_point(47.25, -27, 5.5, 0, 1.5, 75, 1300);
+  chassis.drive_to_point(47.75, -27, 5.5, 0, 1.5, 75, 1300);
   chassis.set_coordinates(71-chassis.distance_from_nearest_object_h(), -71+chassis.distance_from_nearest_object_v(), chassis.get_absolute_heading());
   pneumatics.hood_v(1);
   pros::delay(1300); // second scoring of the second long goal
@@ -1057,11 +1063,11 @@ void skills(){
   chassis.set_swing_exit_conditions(1, 0, 800);
   chassis.left_swing_to_angle(260, 3);
 
-  chassis.drive_distance(6.5, 10, 2, 0, 500, 0.65, 0.0001, 4.48, 2.5);
+  chassis.drive_distance(5, 10, 2, 0, 500, 0.65, 0.0001, 4.48, 2.5);
   pneumatics.matchloader_v(1);
-  chassis.drive_distance(10, 12, 2, 0, 200, 0.65, 0.0001, 4.48, 2.5);
+  chassis.drive_distance(10, 12, 2, 0, 800, 0.65, 0.0001, 4.48, 2.5);
   pneumatics.matchloader_v(0);
-  chassis.drive_distance(43, 12, 2, 0, 500, 0.65, 0.0001, 4.48, 2.5);
+  chassis.drive_distance(36, 12, 2, 0, 500, 0.65, 0.0001, 4.48, 2.5);
   chassis.turn_to_angle(290);
 
   timeSecs = pros::millis()/ 1000.0;
