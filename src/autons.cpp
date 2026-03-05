@@ -1063,7 +1063,7 @@ void skills(){
   chassis.set_swing_exit_conditions(1, 0, 800);
   chassis.left_swing_to_angle(260, 3);
 
-  chassis.drive_distance(5, 10, 2, 0, 500, 0.65, 0.0001, 4.48, 2.5);
+  chassis.drive_distance(4, 10, 2, 0, 500, 0.65, 0.0001, 4.48, 2.5);
   pneumatics.matchloader_v(1);
   chassis.drive_distance(10, 12, 2, 0, 800, 0.65, 0.0001, 4.48, 2.5);
   pneumatics.matchloader_v(0);
