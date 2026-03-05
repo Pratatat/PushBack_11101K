@@ -106,6 +106,17 @@ int Pneumatics::awp_task8() {
    pneumatics.matchloader_v(1);
    return 1;
 }
+int Pneumatics::awp_task_new() {
+   pros::delay(250);
+   pneumatics.matchloader_v(1);
+   pros::delay(300);
+   pneumatics.matchloader_v(0);
+   pros::delay(500);
+   pneumatics.matchloader_v(1);
+  
+  return 1;
+}
+
 
 
 void Pneumatics::intakepiston_initialize() {

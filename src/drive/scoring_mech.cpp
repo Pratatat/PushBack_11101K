@@ -166,9 +166,8 @@ void Scoring_Mech::intake_control() {
     } else if ((master.get_digital(DIGITAL_R2)) && (current_outtaking == 0)) {
         //hood down
         pneumatics.hood_v(0);
-        pneumatics.intakepiston_v(0);
-        pneumatics.intake_piston_bottom_v(1);
-        bottom_intake.move_velocity(-100);
+        pneumatics.intake_piston_bottom_v(0);
+        bottom_intake.move_velocity(-600);
         top_intake.move_velocity(-500);
 
     } else if (current_outtaking == 0){

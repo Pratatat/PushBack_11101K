@@ -24,6 +24,7 @@ void intake_test();
 
 void RightSevenElim();
 void LeftSevenQual();
+void LeftNine();
 void RightFour();
 void LeftFour();
 void LeftSeven();
