@@ -92,7 +92,7 @@ int Pneumatics::awp_task5() {
 }
 int Pneumatics::awp_task6() {
    pros::delay(350);
-   pneumatics.intakepiston_v(1);
+   pneumatics.matchloader_v(1);
    return 1;
 }
 int Pneumatics::awp_task7() {
