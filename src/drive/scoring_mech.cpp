@@ -151,7 +151,7 @@ void Scoring_Mech::intake_control() {
         pros::delay(75);
         pneumatics.hood_v(1);
         bottom_intake.move_velocity(400);
-        top_intake.move_velocity(175);
+        top_intake.move_velocity(150);
         
 
     } else if ((master.get_digital(DIGITAL_R1)) && (current_outtaking == 0)) {
