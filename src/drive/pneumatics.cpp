@@ -1,12 +1,14 @@
 #include "main.h"
+#include "pros/misc.h"
 
 
-Pneumatics::Pneumatics(pros::adi::DigitalOut matchloader_port, pros::adi::DigitalOut intakepiston_port, pros::adi::DigitalOut wing_port, pros::adi::DigitalOut hood_port, pros::adi::DigitalOut intake_piston_bottom_port)
+Pneumatics::Pneumatics(pros::adi::DigitalOut matchloader_port, pros::adi::DigitalOut intakepiston_port, pros::adi::DigitalOut wing_port, pros::adi::DigitalOut hood_port, pros::adi::DigitalOut intake_piston_bottom_port,pros::adi::DigitalOut descore_port)
    : matchloader(matchloader_port),
    intake_piston(intakepiston_port),
    wing(wing_port),
    hood(hood_port),
-   intake_piston_bottom(intake_piston_bottom_port)
+   intake_piston_bottom(intake_piston_bottom_port),
+   descore(descore_port)
     {}
 
 
@@ -178,4 +180,38 @@ void Pneumatics::hood_initialize() {
 
 void Pneumatics::hood_v(int value) {
    hood.set_value(value);
+}
+
+
+
+
+
+
+void Pneumatics::descore_control() {
+  if (master.get_digital(DIGITAL_DOWN)) {
+    descore_down = !descore_down;
+    descore.set_value(descore_down);
+
+    while (master.get_digital(DIGITAL_DOWN)) {
+      pros::delay(util::DELAY_TIME);
+    }
+  }
+}
+
+int Pneumatics::descore_task() {
+   while (true) {
+      pneumatics.descore_control();
+      pros::delay(10);
+   } 
+   
+   return 1;
+}
+
+void Pneumatics::descore_initialize() {
+   descore.set_value(0);
+}
+
+
+void Pneumatics::descore_v(int value) {
+   descore.set_value(value);
 }

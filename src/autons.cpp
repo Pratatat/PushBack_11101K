@@ -5,13 +5,13 @@
 
 void default_constants(){
   // (maxVoltage, kP, kI, kD, startI)
-  chassis.set_drive_constants(12, 0.65, 0.0001, 4.45, 2);
-  chassis.set_heading_constants(12, 0.28, 0.00015, 1.9, 5); // same as turn
-   chassis.set_turn_constants(12, 0.28, 0.00015, 1.9, 5);
+  chassis.set_drive_constants(12, 1.3, 0.0008, 5.75, 2);
+  chassis.set_heading_constants(12, 0.33, 0.0003, 2.25,  5); // same as turn
+   chassis.set_turn_constants(12, 0.33, 0.0003, 2.25, 5);
   chassis.set_swing_constants(12, 0.56, 0.00001, 3.65, 5);
 
   // (settle_error, settle_time, timeout)
-  chassis.set_drive_exit_conditions(1, 50, 2500);
+  chassis.set_drive_exit_conditions(2, 50, 2500);
   chassis.set_turn_exit_conditions(1, 50, 2500);
   chassis.set_swing_exit_conditions(1, 50, 4000);
 }
@@ -25,7 +25,7 @@ void skills_constants()
   chassis.set_swing_constants(12, 0.56, 0.00001, 3.65, 5);
 
   // (settle_error, settle_time, timeout)
-  chassis.set_drive_exit_conditions(1, 50, 2500);
+  chassis.set_drive_exit_conditions(0.1, 50, 2500);
   chassis.set_turn_exit_conditions(1, 50, 2500);
   chassis.set_swing_exit_conditions(1, 50, 4000);
 }
@@ -39,60 +39,12 @@ void odom_constants(){
 
 
 void drive_test(){
-  chassis.drive_timeout = 1000;
-  chassis.turn_timeout = 800;
-  chassis.turn_settle_time = 30;
-  chassis.drive_settle_time = 30;
-  chassis.drive_settle_error - 2;
-  chassis.turn_settle_error - 1.5;
   std::string left_front,left_middle, left_back;
-  skills_constants();
-  chassis.heading_max_voltage=0;
-  chassis.set_coordinates(0,0,0);
-  pros::delay(900);
-  //chassis.drive_distance(24);
-  chassis.drive_to_point(0, 24, 10, 0);
-  pros::delay(100);
-  std::cout << "After Drive1:" << chassis.get_X_position() << " " << 
-    chassis.get_Y_position() << " " << chassis.get_absolute_heading() << std::endl;
-
-  chassis.turn_to_point(24, 24, 1, 10);
-  pros::delay(100);
-  std::cout << "After Turn1:" << chassis.get_X_position() << " " << 
-    chassis.get_Y_position() << " " << chassis.get_absolute_heading() << std::endl;
-  
-    chassis.drive_to_point(24, 24, 10, 0);
-  pros::delay(100);
-  std::cout << "After Drive1:" << chassis.get_X_position() << " " << 
-    chassis.get_Y_position() << " " << chassis.get_absolute_heading() << std::endl;
-
-  chassis.turn_to_point(24, 0, 1, 10);
-  pros::delay(100);
-  std::cout << "After Turn1:" << chassis.get_X_position() << " " << 
-    chassis.get_Y_position() << " " << chassis.get_absolute_heading() << std::endl;
-  
-  chassis.drive_to_point(24, 0, 10, 0);
-  pros::delay(100);
-  std::cout << "After Drive1:" << chassis.get_X_position() << " " << 
-    chassis.get_Y_position() << " " << chassis.get_absolute_heading() << std::endl;
-
-  chassis.turn_to_point(0, 0, 1, 10);
-  pros::delay(100);
-  std::cout << "After Turn1:" << chassis.get_X_position() << " " << 
-    chassis.get_Y_position() << " " << chassis.get_absolute_heading() << std::endl;
-    
-  chassis.drive_to_point(0, 0, 10, 0);
-  pros::delay(100);
-  std::cout << "After Drive1:" << chassis.get_X_position() << " " << 
-    chassis.get_Y_position() << " " << chassis.get_absolute_heading() << std::endl;
-
-  chassis.turn_to_point(0, 24, 1, 10);
-  pros::delay(100);
-  std::cout << "After Turn1:" << chassis.get_X_position() << " " << 
-    chassis.get_Y_position() << " " << chassis.get_absolute_heading() << std::endl;
-
-  
-
+  default_constants();
+  chassis.set_coordinates(0, 0, 0);
+  pros::delay(1000);
+  chassis.drive_distance(24,0,12,0);
+  pros::delay(1000);
   left_front = std::to_string(chassis.get_X_position());
   left_middle = std::to_string(chassis.get_Y_position());
   left_back = std::to_string(chassis.get_absolute_heading());
@@ -142,6 +94,7 @@ void tank_odom_test(){
   
   chassis.turn_max_voltage = 6;
   chassis.drive_max_voltage = 6;
+  chassis.heading_max_voltage=2;
   
   //chassis.turn_to_point(24, 24,0,4);
   //chassis.drive_to_point(24, 24,4,0,1,200,2000);
@@ -153,7 +106,7 @@ void tank_odom_test(){
   
 
   
-  chassis.turn_to_point(0, 48);
+  //chassis.turn_to_point(0, 48);
   printf("turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
 
   chassis.drive_to_point(0, 48);
@@ -166,6 +119,7 @@ void tank_odom_test(){
   chassis.drive_to_point(48, 48);
   printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
  // pros::delay(100);
+ 
   chassis.turn_to_point(48, 0);
   printf("Turn: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
  // pros::delay(100);

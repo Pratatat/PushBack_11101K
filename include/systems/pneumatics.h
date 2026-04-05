@@ -9,7 +9,8 @@ class Pneumatics{
     pros::adi::DigitalOut intake_piston;
     pros::adi::DigitalOut wing;
     pros::adi::DigitalOut intake_piston_bottom;
-    Pneumatics(pros::adi::DigitalOut matchloader_port, pros::adi::DigitalOut intakepiston_port, pros::adi::DigitalOut wing_port,pros::adi::DigitalOut hood_port, pros::adi::DigitalOut intake_piston_bottom_port);
+    pros::adi::DigitalOut descore;
+    Pneumatics(pros::adi::DigitalOut matchloader_port, pros::adi::DigitalOut intakepiston_port, pros::adi::DigitalOut wing_port,pros::adi::DigitalOut hood_port, pros::adi::DigitalOut intake_piston_bottom_port,  pros::adi::DigitalOut descore_port);
 
     void matchloader_initialize();
     void matchloader_control();
@@ -36,6 +37,11 @@ class Pneumatics{
     void hood_control();
     void hood_v(int value);
     static int hood_task();
+
+    void descore_initialize();
+    void descore_control();
+    void descore_v(int value);
+    static int descore_task();
     
     static int awp_task();
     static int awp_task2();

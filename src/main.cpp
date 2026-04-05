@@ -2,17 +2,18 @@
 #include <iostream> 
 
 //Motor Definitions
-pros::adi::DigitalOut hood('A');
-pros::adi::DigitalOut matchloader('B');
-pros::adi::DigitalOut intake_piston('C');
-pros::adi::DigitalOut wing('D');
-pros::adi::DigitalOut intake_piston_bottom('E');
+pros::adi::DigitalOut hood('H');
+pros::adi::DigitalOut matchloader('E');
+pros::adi::DigitalOut intake_piston('B');
+pros::adi::DigitalOut wing('A');
+pros::adi::DigitalOut intake_piston_bottom('F');
+pros::adi::DigitalOut descore('G');
 
 pros::Motor left_front_mtr(-16, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
-pros::Motor left_middle_mtr(17, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+pros::Motor left_middle_mtr(-17, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 pros::Motor left_back_mtr(-15, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 pros::Motor right_front_mtr(18, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
-pros::Motor right_middle_mtr(-20, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);//
+pros::Motor right_middle_mtr(20, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);//
 pros::Motor right_back_mtr(19, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 
 
@@ -26,31 +27,31 @@ Drive chassis(
   //IMU Port:
   12,
   //Vertical Distance Sensor Port --- distance_sensor_v:
-  9,
+  99,
   //Horizontal Distance Sensor Port --- distance_sensor_h:
-  7,
+  99,
   //Wheel diameter (4" omnis are actually closer to 4.125"):
-  3.25,
+  2.75,
   //External Gear Ratio
   0.75,
   //Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
-  358.9,
+  358.5,
   //Remaining inputs are for position tracking
   //If you are using ZERO_TRACKER_ODOM, you ONLY need to adjust the FORWARD TRACKER CENTER DISTANCE.
   //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
   //If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
   13,
   //Input the Forward Tracker diameter (reverse it to make the direction switch):
-  -2.02,
+  -1.98,
   //Input Forward Tracker center distance (In.) (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
   //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
-  -2.375,
+  -2.125,
   //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
   14,
   //Sideways tracker diameter (reverse to make the direction switch):
   2,
   //Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
-  2.125
+  2.96
 );
 
 Scoring_Mech scoring_mech(
@@ -60,7 +61,7 @@ Scoring_Mech scoring_mech(
 
 
 Pneumatics pneumatics(
-	{matchloader, intake_piston, wing, hood, intake_piston_bottom}
+	{matchloader, intake_piston, wing, hood, intake_piston_bottom,descore}
 );
 
 
@@ -72,6 +73,7 @@ void initialize() {
   pneumatics.wing_initialize();
   pneumatics.hood_initialize();
   pneumatics.intake_piston_bottom_initialize();
+  pneumatics.descore_initialize();
 
   //pros::Task intake_task_3(Scoring_Mech::intake_detector_task);
   //pros::Task intake_task_1(Scoring_Mech::red_color_sort_task);
@@ -81,7 +83,7 @@ void initialize() {
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  skills();
+  tank_odom_test();
 }
 
 void opcontrol(void) {
@@ -94,11 +96,12 @@ void opcontrol(void) {
   //pros::Task pneumatics_intake_piston_bottom_task(Pneumatics::intake_piston_bottom_task);
   pros::Task pneumatics_wing_task(Pneumatics::wing_task);
   pros::Task pneumatics_hood_task(Pneumatics::hood_task);
+  pros::Task descore_task(Pneumatics::descore_task);
   
 
   std::string left_front,left_middle, left_back, right_front, right_middle, right_back;
   while (true) {
-    chassis.arcade_control_double();
+    chassis.arcade_control_double_reversed();
     pros::delay(util::DELAY_TIME); 
     /*
     left_front = std::to_string(left_front_mtr.get_temperature());

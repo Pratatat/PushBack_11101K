@@ -8,6 +8,7 @@ extern int hood_down;
 extern int intakepiston_down;
 extern int intake_piston_bottom_down; 
 extern int wing_down;
+extern int descore_down;
 
 float reduce_0_to_360(float angle);
 
