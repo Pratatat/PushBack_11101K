@@ -5,16 +5,17 @@
 
 void default_constants(){
   // (maxVoltage, kP, kI, kD, startI)
-  chassis.set_drive_constants(12, 1.3, 0.0008, 5.75, 2);
+  chassis.set_drive_constants(12, 0.75, 0.0001, 4.48, 2);
   chassis.set_heading_constants(12, 0.33, 0.0003, 2.25,  5); // same as turn
    chassis.set_turn_constants(12, 0.33, 0.0003, 2.25, 5);
   chassis.set_swing_constants(12, 0.56, 0.00001, 3.65, 5);
 
   // (settle_error, settle_time, timeout)
-  chassis.set_drive_exit_conditions(2, 50, 2500);
-  chassis.set_turn_exit_conditions(1, 50, 2500);
+  chassis.set_drive_exit_conditions(1, 75, 2500);
+  chassis.set_turn_exit_conditions(1, 75, 2500);
   chassis.set_swing_exit_conditions(1, 50, 4000);
 }
+
 
 void skills_constants()
 {
@@ -92,9 +93,9 @@ void tank_odom_test(){
   default_constants();
   chassis.set_coordinates(0, 0, 0);
   
-  chassis.turn_max_voltage = 6;
-  chassis.drive_max_voltage = 6;
-  chassis.heading_max_voltage=2;
+  chassis.turn_max_voltage = 8;
+  chassis.drive_max_voltage = 8;
+  chassis.heading_max_voltage=0;
   
   //chassis.turn_to_point(24, 24,0,4);
   //chassis.drive_to_point(24, 24,4,0,1,200,2000);
@@ -329,8 +330,8 @@ void LeftSevenElim(){
 
 void AWP(){
  default_constants();
- chassis.set_coordinates(-7.5, -1.5, 90);
- chassis.drive_to_point(21.35,-1.5,9,0,2,50,1000);
+ chassis.set_coordinates(-7, -2.5, 90);
+ chassis.drive_to_point(21.35,-2.5,9,0,2,50,1000);
  pneumatics.matchloader_v(1);
  pneumatics.intakepiston_v(1);
  scoring_mech.intake_move(600);
@@ -634,7 +635,7 @@ void left_auton_setup() {
 void auton_setup() {
  default_constants();
   chassis.set_brake_mode('C');
-  chassis.set_coordinates(0, 0, 25.4);
+  chassis.set_coordinates(0, 0, 90);
   std::string x_str, y_str, heading_str;
   while (1){ 
     x_str = std::to_string(chassis.get_X_position());

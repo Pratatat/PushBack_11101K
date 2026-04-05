@@ -49,7 +49,7 @@ Drive chassis(
   //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
   14,
   //Sideways tracker diameter (reverse to make the direction switch):
-  2,
+  -2,
   //Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
   2.96
 );
@@ -83,7 +83,7 @@ void initialize() {
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  tank_odom_test();
+  AWP();
 }
 
 void opcontrol(void) {
