@@ -83,7 +83,7 @@ void initialize() {
 
 void autonomous() { 
   chassis.set_brake_mode('H');
-  AWP();
+  RightAWP();
 }
 
 void opcontrol(void) {
