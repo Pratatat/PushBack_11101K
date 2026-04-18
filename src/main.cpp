@@ -51,7 +51,7 @@ Drive chassis(
   //Sideways tracker diameter (reverse to make the direction switch):
   -2,
   //Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
-  2.96
+  2.45
 );
 
 Scoring_Mech scoring_mech(
@@ -82,8 +82,17 @@ void initialize() {
 
 
 void autonomous() { 
+  //pneumatics.intakepiston_v(0);
   chassis.set_brake_mode('H');
-  RightAWP();
+  bool runauton = chassis.check();
+  if (runauton){
+    LeftSevenElim();
+  }
+  else {
+    pros::screen::draw_rect(0,0,480,240);
+    pros::screen::set_pen(pros::Color::white);
+    pros::screen::print(TEXT_LARGE, 50, 50, "One of the odoms are bad");
+  }
 }
 
 void opcontrol(void) {
@@ -98,7 +107,7 @@ void opcontrol(void) {
   pros::Task pneumatics_hood_task(Pneumatics::hood_task);
   pros::Task descore_task(Pneumatics::descore_task);
   
-
+  
   std::string left_front,left_middle, left_back, right_front, right_middle, right_back;
   while (true) {
     chassis.arcade_control_double_reversed();

@@ -158,6 +158,14 @@ void Drive::initialize() {
  set_brake_mode('H');
 }
 
+bool Drive::check() {
+  if (!R_ForwardTracker.is_installed() || !R_SidewaysTracker.is_installed()) {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
 void Drive::macro(){}
 
 void Drive::set_brake_mode(char brake_type) {

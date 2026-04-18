@@ -122,7 +122,7 @@ int Pneumatics::awp_task_new() {
 
 
 void Pneumatics::intakepiston_initialize() {
-   intake_piston.set_value(1);
+   intake_piston.set_value(0);
 }
 
 

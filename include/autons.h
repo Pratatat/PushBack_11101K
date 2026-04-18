@@ -31,8 +31,12 @@ void LeftSeven();
 void RightSeven();
 void LeftSevenElim();
 void AWP();
+void AWPalt();
 void RightAWP();
 void RightRush();
+void LeftRush();
+void LeftSevenCounter();
+void RightSevenCounter();
 void LeftRush();
 
 void skills();

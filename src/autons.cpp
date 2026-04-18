@@ -9,13 +9,12 @@ void default_constants(){
   chassis.set_heading_constants(12, 0.33, 0.0003, 2.25,  5); // same as turn
    chassis.set_turn_constants(12, 0.33, 0.0003, 2.25, 5);
   chassis.set_swing_constants(12, 0.56, 0.00001, 3.65, 5);
-
+   
   // (settle_error, settle_time, timeout)
   chassis.set_drive_exit_conditions(1, 75, 2500);
   chassis.set_turn_exit_conditions(1, 75, 2500);
   chassis.set_swing_exit_conditions(1, 50, 4000);
 }
-
 
 void skills_constants()
 {
@@ -158,132 +157,131 @@ void LeftSeven(){
   chassis.drive_max_voltage=8;
   chassis.drive_to_point(-20.5,-0.07,10,0,3,50,1000);
   pneumatics.matchloader_v(1);
+  pneumatics.intakepiston_v(1);
   scoring_mech.intake_move(600);
   chassis.turn_to_point(-21.5,-48,1,8,2.5,50,750);
   chassis.drive_to_point(-21.5,-15,8,0,3,50,850);
 
 
-  chassis.drive_to_point(-23.5,4,8,0,5,30,700);
+  chassis.drive_to_point(-23.5,4,12,0,5,30,700);
   pros::Task intake(Scoring_Mech::intake_autontask);
-  chassis.drive_to_point(-23.5,26,10,3,3,30,1000);
-  chassis.drive_distance(-13, 12,5,30,250,0.75, 0.0000, 3.75, 2);
+  chassis.drive_to_point(-23.5,26,8,3,3,30,1000);
+  chassis.drive_distance(1, 2,5,30,250,0.75, 0.0000, 3.75, 2);
+
   //pros::delay(350);
   
   pneumatics.matchloader_v(0);
   chassis.set_coordinates(-24, 18.5, chassis.get_absolute_heading()-0.5);
-  chassis.turn_to_point(0,24,1,7,2.5,50,700);
+  chassis.turn_to_point(0,24,0,8.5,2.5,50,850);
+  printf("Drive: X: %f, Y: %f, Heading: %f\n", chassis.get_X_position(), chassis.get_Y_position(), chassis.get_absolute_heading());
+  
   scoring_mech.intake_move(600);
   pros::Task awp_task(Pneumatics::awp_task);
 
-  chassis.drive_to_point(3,24,8,1,3,30,1000);
+  chassis.drive_to_point(0,24,9,1,3,30,1000);
+  
   pros::delay(100);
   pneumatics.matchloader_v(0);
   chassis.turn_to_point(-24,-7,1,8,2.5,50,700);
   pneumatics.intakepiston_v(0);
+  pros::Task intake2(Scoring_Mech::intake_autontask5);
+  chassis.drive_to_point(11,35,7,0.5,2,30,900);
   
-  chassis.drive_to_point(13.75,37.75,8.5,0.5,2,30,900);
-  scoring_mech.mid_intake_move(450);
+  
   // chassis.turn_to_point(-13.5,14,1,8,4,30,450);
-  pros::delay(650);
+  pros::delay(370);
   
   pneumatics.intakepiston_v(0);
-  chassis.drive_to_point(-11.75,17,9,1,2,30,900);
+  chassis.turn_to_point(-12,13,1,10,2.5,30,600);
+  chassis.drive_to_point(-12,13,10,1,2,30,850);
 
   chassis.turn_to_angle(176, 8, 1, 2, 450, 0.28, 0.00015, 1.9, 5);
-  chassis.drive_distance(-22, 10);
+  chassis.drive_distance(-22, 12);
   chassis.turn_to_point(-65,-60,1,8,5,30,500);
   /**/
 }
 
-void LeftNine(){
-  // 4+3+2
+
+void LeftSevenCounter(){
   default_constants();
-  chassis.set_coordinates(7, -0.5, 270);
+  chassis.set_coordinates(7.05, -0.07, 270);
   chassis.drive_max_voltage=8;
-  chassis.drive_to_point(-21,-0.5,5.5,0,3,50,1000);
+  chassis.drive_to_point(-20.5,-0.07,10,0,3,50,1000);
   pneumatics.matchloader_v(1);
+  pneumatics.intakepiston_v(1);
   scoring_mech.intake_move(600);
-  chassis.turn_to_point(-23,-48,1,8,2.5,50,750);
-  chassis.drive_to_point(-23,-15,6,0,3,50,950);
+  chassis.turn_to_point(-21.5,-48,1,8,2.5,50,750);
+  chassis.drive_to_point(-21.5,-15,8,0,3,50,840);
 
 
-  chassis.drive_to_point(-24.75,4,6.5,0,5,30,700);
+  chassis.drive_to_point(-23.5,4,12,0,5,30,700);
   pros::Task intake(Scoring_Mech::intake_autontask);
-  chassis.drive_to_point(-24.9,26,5,3,3,30,1000);
-  chassis.drive_distance(-12, 12,5,30,250,0.75, 0.0000, 3.75, 2);
+  chassis.drive_to_point(-23.5,26,8,3,3,30,1000);
+  chassis.drive_distance(1, 2,5,30,300,0.75, 0.0000, 3.75, 2);
+
   //pros::delay(350);
-  pneumatics.matchloader_v(0);
-  chassis.set_coordinates(-23.6, 19.6, chassis.get_absolute_heading()-0.5);
-  chassis.turn_to_point(4.5,25,1,8,2.5,50,700);
-  pros::Task awp_task(Pneumatics::awp_task);
-  scoring_mech.intake_move(600);
-
-  chassis.drive_to_point(3,24.75,5.5,1,3,30,1000);
-  pros::delay(150);
-
-  // EXTRA BALL
-  pneumatics.matchloader_v(0);
-  chassis.turn_to_point(-11,38,1,8,4,30,700);
-  chassis.drive_to_point(-11,38,6,1,3,30,1000);
-  chassis.turn_to_point(-20,40,1,8,4,30,700);
-  chassis.drive_to_point(-20,40,3.5,0.5,3,30,650);
-  //pneumatics.matchloader_v(1);
-  pros::delay(350);
-  chassis.turn_to_point(-30,48,1,8,4,30,700);
-  //scoring in the middle
   
- chassis.drive_to_point(3,24.75,6,1,3,30,1200);
-  pros::delay(150);
   pneumatics.matchloader_v(0);
-  chassis.turn_to_point(-24,-2,1,8,2.5,50,700);
+  chassis.set_coordinates(-24, 18.5, chassis.get_absolute_heading()-0.5);
+  chassis.turn_to_point(-14.7,10,1,8,5,30,500);
+  chassis.drive_to_point(-14.7,10,9,1,5,30,600);
+  chassis.turn_to_point(-8,-96,1,8,5,30,500);
+  chassis.drive_to_point(-13,38,12,1,1,30,800);
+  
+  scoring_mech.intake_move(0);
+  pros::delay(900);
+  pneumatics.wing_v(1);
+  pros::delay(100);
+
+  scoring_mech.intake_move(600);
+  chassis.turn_to_point(24,0,1, 8,3,30,600);
+  pros::Task awp_task(Pneumatics::awp_task);
+  chassis.drive_to_point(3,22,8,1,1,30,800);
+  pros::delay(50);
+  chassis.turn_to_point(-4,38.5,1, 8,3,30,800);
+  pneumatics.matchloader_v(0);  
+  chassis.drive_to_point(-4,39,6.75,1,1,30,850);
+  chassis.turn_to_point(-18,41,1, 8,3,30,800);
+  chassis.drive_to_point(-18,41,6.75,1,1,30,850);
+  
+  pros::delay(150);
+  pneumatics.matchloader_v(1);
+  pros::delay(200);
+  
+  chassis.turn_to_point(-35,70,1, 8,3,30,800);
+  pneumatics.matchloader_v(0);
+  chassis.drive_to_point(0,25,6.75,1,1,30,850);
+  
+  chassis.turn_to_point(-24,-8,1,8,2.5,50,700);
   pneumatics.intakepiston_v(0);
-  chassis.drive_to_point(13.5,38.25,7,0.5,2,30,900);
-  scoring_mech.mid_intake_move(320);
-  pros::delay(650);
-
-
-
-  /*
-  // MID DESCORE
-  chassis.drive_distance(12, 12,5,30,850,0.75, 0.0000, 3.75, 2);
-  pneumatics.descore_v(1);
-  pros::delay(300);
-  scoring_mech.mid_intake_move(0);
-  pneumatics.intakepiston_v(0);
-  chassis.drive_distance(-18, 3,5,30,850,0.75, 0.0000, 3.75, 2);
-  chassis.drive_distance(-67, 2,2,120,3850,0.75, 0.0000, 3.75, 2);
-  */
-
-
-
-
-  chassis.drive_to_point(-11.5,17,8,1,2,30,900);
-
-  chassis.turn_to_angle(178.5, 8, 1, 2, 450, 0.28, 0.00015, 1.9, 5);
-  chassis.drive_distance(-22, 10);
-  chassis.turn_to_point(-65,-60,1,8,5,30,500);
-
-  /**/
+  chassis.drive_to_point(12,37,6.9,0.5,2,30,900);
+  scoring_mech.mid_intake_move(600);
+  pros::delay(350);
+  scoring_mech.mid_intake_move(400);
+  pneumatics.matchloader_v(0);
 }
 
 void LeftFour(){
   default_constants();
- chassis.set_coordinates(7, -0.5, 270);
- chassis.drive_max_voltage=8;
-  chassis.drive_to_point(-21,-0.5,5.5,0,3,50,1000);
- pneumatics.matchloader_v(1);
- scoring_mech.intake_move(600);
- chassis.turn_to_point(-23,-48,1,8,2.5,50,750);
-  chassis.drive_to_point(-23,-15,5.5,0,3,50,945);
+  chassis.set_coordinates(7.05, -0.07, 270);
+  chassis.drive_max_voltage=8;
+  chassis.drive_to_point(-20.5,-0.07,10,0,3,50,1000);
+  pneumatics.matchloader_v(1);
+  pneumatics.intakepiston_v(1);
+  scoring_mech.intake_move(600);
+  chassis.turn_to_point(-21.5,-48,1,8,2.5,50,750);
+  chassis.drive_to_point(-21.5,-15,8,0,3,50,850);
 
 
-  chassis.drive_to_point(-24.75,4,6.5,0,5,30,700);
- pros::Task intae(Scoring_Mech::intake_autontask);
- chassis.drive_to_point(-24.9,26,6,1,3,30,1000);
-  pros::delay(250);
- //pros::delay(350);
- pneumatics.matchloader_v(0);
- chassis.set_coordinates(-23.6, 19.6, chassis.get_absolute_heading()-0.5);
+  chassis.drive_to_point(-23.5,4,12,0,5,30,700);
+  pros::Task intake(Scoring_Mech::intake_autontask);
+  chassis.drive_to_point(-23.5,26,8,3,3,30,1000);
+  chassis.drive_distance(1, 2,5,30,250,0.75, 0.0000, 3.75, 2);
+
+  //pros::delay(350);
+  
+  pneumatics.matchloader_v(0);
+  chassis.set_coordinates(-24, 18.5, chassis.get_absolute_heading()-0.5);
   chassis.turn_to_point(-14.7,10,1,8,5,30,500);
   chassis.drive_to_point(-14.7,10,7,1,5,30,600);
   chassis.turn_to_point(-9,-96,1,8,5,30,500);
@@ -297,37 +295,64 @@ void LeftFour(){
 void LeftSevenElim(){
   // 7 Ball
   default_constants();
-  chassis.set_coordinates(11.25, -1.26, 334.6);
+  //chassis.drive_kp = 1;
+  chassis.set_coordinates(7.1, 0, 346.5);
   scoring_mech.intake_move(600);
+
   pros::Task awp_task(Pneumatics::awp_task5);
-  chassis.drive_to_point(-4,27,6,0,2,50,850);
+  chassis.drive_to_point(-2,25,12,0,6,50,700);
   pneumatics.intakepiston_v(1);
-  pros::delay(50);
-  chassis.turn_to_point(-24.5,1,1,8,2.5,30,600);
-  pneumatics.matchloader_v(0);
-  chassis.drive_to_point(-24.5,1,6,0,2,30,900);
-  scoring_mech.intake_move(0);
-  
-  chassis.turn_to_point(-24.7,-18,1,7,2,30,750);
+  chassis.turn_to_point(-26,2,1,12,6,30,650);
+
   scoring_mech.intake_move(600);
-  pneumatics.matchloader_v(1);
-  chassis.drive_to_point(-24.7,-18,5.75,1,3,30,1050);
+  chassis.drive_to_point(-18.35,-2,16,8,3,20,700);
+  chassis.drive_to_point(-20.25,-22,10,8,3,20,1200);
+  
+  chassis.turn_to_point(-22,-96,1,12,6,10,550);
+  
 
-  chassis.drive_to_point(-25.3,6,5.5,6,6,30,650);
+  pros::Task intae(Scoring_Mech::intake_autontask2);
+  chassis.drive_to_point(-24,26,10,7,6,30,800);
 
-  pros::Task intae(Scoring_Mech::intake_autontask);
-  chassis.drive_to_point(-25.3,25,5,0.5,3,30,800);
-  chassis.drive_distance(-13.5, 12,5,30,780,0.75, 0.0000, 3.75, 2);
+  chassis.drive_distance(-30, 16,5,30,1500,0.75, 0.0000, 3.75, 2);
   pros::delay(200);
   pneumatics.matchloader_v(0);
-  chassis.set_coordinates(-23.6, 19.6, chassis.get_absolute_heading()-0.5);
-  chassis.turn_to_point(-14.7,10,1,8,5,30,500);
-  chassis.drive_to_point(-14.7,10,7,1,5,30,600);
-  chassis.turn_to_point(-9,-96,1,8,5,30,500);
-  chassis.drive_to_point(-13,38,10.5,1,1,30,800);
+  pneumatics.hood_v(0);
+  pros::delay(220);
+  scoring_mech.intake_move(0);
+  chassis.drive_distance(-69, 10,3,30,5000,0.75, 0.0000, 3.75, 2);
   
-  chassis.turn_to_point(-65,-60,1,8,5,30,500);
-  chassis.turn_to_point(-75,-60,1,8,5,30,3500);
+
+
+/*
+
+  default_constants();
+  chassis.set_coordinates(-7.1, 0, 13.5);
+  scoring_mech.intake_move(600);
+  pros::Task awp_task(Pneumatics::awp_task5);
+  pneumatics.intakepiston_v(1);
+  chassis.drive_to_point(3,26,16,0,2,50,750);
+  //pros::delay(50);
+  
+  chassis.turn_to_point(26,2,1,12,2.5,30,550);
+  scoring_mech.intake_move(600);
+  
+  chassis.drive_to_point(17,-2,16,8,3,30,800);
+  chassis.drive_to_point(23,-17,16,8,3,30,950);
+  chassis.turn_to_point(19,-96,1,12,5,10,500);
+  
+  //chassis.drive_to_point(24,6,16,7,6,30,650);
+
+  pros::Task intae(Scoring_Mech::intake_autontask2);
+  chassis.drive_to_point(25,26,16,1,3,30,800);
+  chassis.drive_distance(-13, 16,5,30,780,0.75, 0.0000, 3.75, 2);
+  pros::delay(400);
+  pneumatics.matchloader_v(0);
+  pneumatics.hood_v(0);
+  pros::delay(220);
+  scoring_mech.intake_move(0);
+  chassis.drive_distance(-69, 5,3,30,5000,0.75, 0.0000, 3.75, 2);
+  */
 }
 
 void AWP(){
@@ -340,14 +365,14 @@ void AWP(){
  chassis.turn_to_point(23.75,-48,1,8,2.5,30,700);
  scoring_mech.intake_move(600);
  
- chassis.drive_to_point(23.75,-16,7,0,3,50,800);
+ chassis.drive_to_point(23.75,-16,7,0,3,50,850);
 
 
- chassis.drive_to_point(24.5,4,8,4,5.5,30,800);
+ chassis.drive_to_point(24.5,4,12,4,5.5,30,800);
 
 
  pros::Task intae(Scoring_Mech::intake_autontask);
- chassis.drive_to_point(24.65,25,10,3,3,30,1000);
+ chassis.drive_to_point(24.5,25,8,3,3,30,1000);
  chassis.drive_distance(-13, 6,5,30,130,0.75, 0.0000, 3.75, 2);
  pneumatics.matchloader_v(0);
  
@@ -377,49 +402,69 @@ void AWP(){
  chassis.turn_to_point(-96,-24,1,8,2.5,20,900);
  scoring_mech.mid_intake_move_skills(600, 375);
  pneumatics.hood_v(0);
- chassis.drive_to_point(-33.45,37.25,9,1,3,50,1500);
+ chassis.drive_to_point(-33.45,37.25,7.75,1,3,50,1500);
  pneumatics.hood_v(1);
  pneumatics.matchloader_v(0);
-  /*
- scoring_mech.intake_move(600);
- pros::Task awp_task(Pneumatics::awp_task);
- chassis.drive_to_point(-4.5,25.5,7,1,3,30,1000);
- pros::delay(150);
- pneumatics.matchloader_v(0);
- chassis.turn_to_point(-48.75,24.75,1,8,2.5,50,900);
- pros::Task awp_task2(Pneumatics::awp_task3);
- chassis.drive_to_point(-48.75,24.75,7,1,3,50,1500);
- pros::delay(150);
- chassis.turn_to_point(-72,-3.5,1,8,2.5,50,800);
- scoring_mech.top_intake_move(90);
-  //pros::Task awp_task3(Pneumatics::awp_task4);
-
-
- chassis.drive_to_point(-34.45,37.25,6.25,1,3,50,1000);
- scoring_mech.mid_intake_move(600);
- chassis.drive_distance(-5,9.2,5,25,300,0.75, 0.0000, 3.75, 2);
- pneumatics.matchloader_v(0);
- pros::delay(800);
- scoring_mech.mid_intake_move(0);
- pneumatics.intakepiston_v(1);
- chassis.drive_to_point(-47,25.5,7,0,4,50,1000);
- chassis.turn_to_point(-69.5,0,1,8,3,50,800);
- scoring_mech.top_goal_intake(0);
- chassis.drive_to_point(-69.5,0,7,1,3,50,950);
- pneumatics.matchloader_v(1);
-  chassis.turn_to_point(-68.5,-48,1,8,2.5,50,900);
- scoring_mech.intake_move(600);
-  chassis.drive_to_point(-70,-16.5,6,0.5,3,50,1000);
-  pros::delay(60);
- chassis.drive_to_point(-71, 6,7,1.5,4,50,1000);
- //chassis.turn_to_point(-67.4,-48,1,8,2.5,50,900);
- pros::Task intae2(Scoring_Mech::intake_autontask);
- chassis.drive_to_point(-71,24,7,0.5,1.5,50,1000);
- chassis.drive_distance(-28,12,5,25,600,0.75, 0.0000, 3.75, 2);
- */
 }
 
+void AWPalt(){
+  
+ default_constants();
+ chassis.set_coordinates(-7, -2.5, 90);
+ chassis.drive_to_point(22.5,-2.5,10,0,2,50,1000);
+ pneumatics.matchloader_v(1);
+ pneumatics.intakepiston_v(1);
+ scoring_mech.intake_move(600);
+ chassis.turn_to_point(23.75,-48,1,8,2.5,30,700);
+ scoring_mech.intake_move(600);
+ 
+ chassis.drive_to_point(23.75,-16,7,0,3,50,850);
 
+
+ chassis.drive_to_point(24.5,4,8,4,5.5,30,800);
+
+
+ pros::Task intae(Scoring_Mech::intake_autontask);
+ chassis.drive_to_point(24.65,25,10,3,3,30,1000);
+ chassis.drive_distance(-13, 6,5,30,130,0.75, 0.0000, 3.75, 2);
+ pneumatics.matchloader_v(0);
+ 
+ chassis.set_coordinates(23.6, 19.6, chassis.get_absolute_heading()+1.5);
+ chassis.turn_to_point(-48.75,24.75,1,10,2.5,50,900);
+ pneumatics.hood_v(0);
+ pros::Task awp(Pneumatics::awp_task_new);
+ chassis.drive_to_point(-48.75,24.75,10,1,3,50,1300);
+ pneumatics.intakepiston_v(1);
+ chassis.turn_to_point(-70.5,5,1,9,3,50,750);//
+ scoring_mech.top_goal_intake(0);
+ pneumatics.matchloader_v(0);
+ pneumatics.hood_v(0);
+ chassis.drive_to_point(-70,5,6.5,1,3,50,850);//
+ chassis.turn_to_point(-70,-48,1,8,2.5,50,900);
+ pros::Task intae2(Scoring_Mech::intake_autontask);
+ 
+ chassis.drive_to_point(-71,25,9,0.5,3,30,1000);
+ chassis.drive_distance(-13, 6,5,30,680,0.75, 0.0000, 3.75, 2);
+ chassis.drive_to_point(-70,7.5,9,1,5,10,700);
+ pneumatics.matchloader_v(1);
+ chassis.turn_to_point(-70,-48,1,8,2.5,20,900); //-69.25
+ scoring_mech.bottom_intake_move(600);
+ chassis.drive_to_point(-70.25,-17,7.5,0.5,3,20,950);
+ pros::delay(110);
+ chassis.drive_to_point(-70.75,0,10,1,3,20,850);
+ chassis.turn_to_point(-120,-30,1,8,2.5,20,900);
+ pneumatics.matchloader_v(0);
+ chassis.drive_to_point(-7,25,12,1,3,50,1500);
+ chassis.turn_to_point(-24,54,1,8,2.5,50,700);
+ 
+ scoring_mech.top_goal_intake(0);
+ 
+ pros::Task intae3(Scoring_Mech::intake_autontask6);
+ pneumatics.intake_piston_bottom_v(1);
+ chassis.drive_to_point(-14.5,38,10,1,3,30,800);
+ 
+ 
+}
 
 void RightSeven(){
  // 4+3
@@ -435,20 +480,20 @@ void RightSeven(){
  chassis.drive_to_point(23.75,-16,7,0,3,50,800);
 
 
- chassis.drive_to_point(24.5,4,8,4,5.5,30,800);
+ chassis.drive_to_point(24.5,4,12,4,5.5,30,800);
 
 
  pros::Task intae(Scoring_Mech::intake_autontask);
- chassis.drive_to_point(24.65,25,10,3,3,30,1000);
+ chassis.drive_to_point(24.65,25,8,3,3,30,1000);
  chassis.drive_distance(-13, 6,5,30,130,0.75, 0.0000, 3.75, 2);
  pneumatics.matchloader_v(0);
  
  chassis.set_coordinates(23.6, 19.6, chassis.get_absolute_heading()+1.5);
-chassis.turn_to_point(-4,24.75,1,10,2.5,50,900);
+ chassis.turn_to_point(-4,24.75,1,10,2.5,50,900);
  pneumatics.hood_v(0);
  
  scoring_mech.intake_move(0);
-scoring_mech.bottom_intake_move(600);
+ scoring_mech.bottom_intake_move(600);
  pros::Task awp(Pneumatics::awp_task);
  chassis.drive_to_point(-4,25.75,8,1,3,50,1500);
 
@@ -458,7 +503,7 @@ scoring_mech.bottom_intake_move(600);
  scoring_mech.top_goal_intake(0);
  chassis.drive_to_point(-14.5,38,10,1,3,30,800);
  pneumatics.intake_piston_bottom_v(1);
-  scoring_mech.top_goal_intake(-350);
+  scoring_mech.bottom_goal_outtake(-350);
  //chassis.drive_distance(-6.5, 8,5,30,310,0.75, 0.0000, 3.75, 2);
  pros::delay(850);
   scoring_mech.top_goal_intake(0);
@@ -471,7 +516,55 @@ scoring_mech.bottom_intake_move(600);
   
 }
 
+void RightSevenCounter(){
+  default_constants();
+ chassis.set_coordinates(-7, -2.5, 90);
+ chassis.drive_to_point(22.5,-2.5,10,0,2,50,1000);
+ pneumatics.matchloader_v(1);
+ pneumatics.intakepiston_v(1);
+ scoring_mech.intake_move(600);
+ chassis.turn_to_point(23.75,-48,1,8,2.5,30,700);
+ scoring_mech.intake_move(600);
+ 
+ chassis.drive_to_point(23.75,-16,7,0,3,50,875);
 
+
+ chassis.drive_to_point(24.5,4,12,4,5.5,30,800);
+
+
+ pros::Task intae(Scoring_Mech::intake_autontask);
+ chassis.drive_to_point(24.5,25,8,3,3,30,1000);
+ chassis.drive_distance(-13, 6,5,30,130,0.75, 0.0000, 3.75, 2);
+ pneumatics.matchloader_v(0);
+ pros::delay(400);
+ chassis.set_coordinates(23.6, 19.6, chassis.get_absolute_heading()+1.5);
+
+  chassis.turn_to_point(34.25,10,1,8,5,50,400);
+  chassis.drive_to_point(34.25,10,9,1,8,30,600);
+  chassis.turn_to_point(50,-96,1,8,5,50,400);
+  chassis.drive_to_point(14.75,35.5,12,0,1,50,800);
+  
+
+  scoring_mech.intake_move(0);
+  pros::delay(900);
+  pneumatics.wing_v(1);
+  pros::delay(100);
+
+  chassis.drive_to_point(13.5,6,10.5,1,1,100,800);
+
+  scoring_mech.intake_move(600);
+  chassis.turn_to_point(0,24,1, 10,3,30,750);
+
+
+  pros::Task awp_task(Pneumatics::awp_task2);
+  chassis.drive_to_point(-2,25,10,1,1,30,900);
+  pneumatics.matchloader_v(0);
+  chassis.turn_to_point(-24,54,1,8,2.5,50,700);
+  pneumatics.matchloader_v(0);
+  chassis.drive_to_point(-14.5,38,10,1,3,30,800);
+  pneumatics.intake_piston_bottom_v(1);
+  scoring_mech.bottom_goal_outtake(-350);
+}
 
 void RightAWP(){
 
@@ -487,11 +580,11 @@ void RightAWP(){
  chassis.drive_to_point(23.75,-16,7,0,3,50,800);
 
 
- chassis.drive_to_point(24.5,4,8,4,5.5,30,800);
+ chassis.drive_to_point(24.5,4,10,4,5.5,30,800);
 
 
  pros::Task intae(Scoring_Mech::intake_autontask);
- chassis.drive_to_point(24.65,25,10,3,3,30,1000);
+ chassis.drive_to_point(24.5,25,8,3,3,30,1000);
  chassis.drive_distance(-13, 6,5,30,130,0.75, 0.0000, 3.75, 2);
  pneumatics.matchloader_v(0);
  
@@ -510,7 +603,7 @@ scoring_mech.bottom_intake_move(600);
  scoring_mech.top_goal_intake(0);
  chassis.drive_to_point(-14.5,38,10,1,3,30,800);
  pneumatics.intake_piston_bottom_v(1);
-  scoring_mech.top_goal_intake(-350);
+  scoring_mech.bottom_goal_outtake(-350);
  //chassis.drive_distance(-6.5, 8,5,30,310,0.75, 0.0000, 3.75, 2);
  pros::delay(850);
 
@@ -527,34 +620,39 @@ scoring_mech.bottom_intake_move(600);
   chassis.turn_to_point(-72,-4,1,8,2.5,50,800);
   pneumatics.intakepiston_v(0);
   chassis.drive_to_point(-35.2,37,8,0,3,50,1000);
+  
   scoring_mech.mid_intake_move(600);
   pros::delay(500);
-   scoring_mech.mid_intake_move(350);
-   pros::delay(500);
-   pneumatics.matchloader_v(0);
+  scoring_mech.mid_intake_move(350);
+  pros::delay(500);
+  pneumatics.matchloader_v(0);
   scoring_mech.mid_intake_move(0);
-
+  chassis.drive_to_point(-48,24.75,8,1,3,50,1500);
+  pneumatics.descore_v(1);
+  chassis.drive_to_point(-36,38.5,8,0,3,50,1000);
 }
 
 void RightFour(){
  default_constants();
- chassis.set_coordinates(-7.5, -1.5, 90);
- chassis.drive_to_point(21.35,-1.5,9,0,2,50,1000);
+ chassis.set_coordinates(-7, -2.5, 90);
+ chassis.drive_to_point(22.5,-2.5,10,0,2,50,1000);
  pneumatics.matchloader_v(1);
  pneumatics.intakepiston_v(1);
  scoring_mech.intake_move(600);
- chassis.turn_to_point(24.9,-24,1,8,2.5,30,700);
+ chassis.turn_to_point(23.75,-48,1,8,2.5,30,700);
  scoring_mech.intake_move(600);
- chassis.drive_to_point(24,-16,5,0,3,50,900);
+ 
+ chassis.drive_to_point(23.75,-16,7,0,3,50,850);
 
 
- chassis.drive_to_point(24.2,4,6,4,5.5,30,800);
+ chassis.drive_to_point(24.5,4,12,4,5.5,30,800);
 
 
  pros::Task intae(Scoring_Mech::intake_autontask);
- chassis.drive_to_point(24.2,25,6,0.5,3,30,1000);
- chassis.drive_distance(-13, 12,5,30,130,0.75, 0.0000, 3.75, 2);
+ chassis.drive_to_point(24.5,25,8,3,3,30,1000);
+ chassis.drive_distance(-13, 6,5,30,130,0.75, 0.0000, 3.75, 2);
  pneumatics.matchloader_v(0);
+ 
  chassis.set_coordinates(23.6, 19.6, chassis.get_absolute_heading()+1.5);
 
   chassis.turn_to_point(34.25,10,1,8,5,50,400);
@@ -570,31 +668,33 @@ void RightFour(){
 void RightSevenElim(){
   // 7 Ball
   default_constants();
-  chassis.set_coordinates(-13.2, 1.92, 25.5);
+  chassis.set_coordinates(-7.1, 0, 13.5);
   scoring_mech.intake_move(600);
   pros::Task awp_task(Pneumatics::awp_task5);
-  chassis.drive_to_point(4,27,6,0,2,50,850);
+  pneumatics.intakepiston_v(1);
+  chassis.drive_to_point(3,26,16,0,2,50,750);
+  //pros::delay(50);
   
-  pros::delay(50);
-  chassis.turn_to_point(25,2,1,8,2.5,30,600);
-  pneumatics.matchloader_v(0);
-
-
-  
-  chassis.drive_to_point(25,2,6,0,2,30,770);
-  scoring_mech.intake_move(0);
-  pneumatics.matchloader_v(1);
-  chassis.turn_to_point(25.2,-18,1,8,2.5,30,600);
+  chassis.turn_to_point(26,2,1,12,2.5,30,550);
   scoring_mech.intake_move(600);
-  chassis.drive_to_point(25.2,-17,6,1,3,30,900);
-  pros::delay(150);
-  chassis.drive_to_point(25,6,5.5,6,6,30,650);
+  
+  chassis.drive_to_point(17,-2,16,8,3,30,800);
+  chassis.drive_to_point(23,-17,16,8,3,30,950);
+  chassis.turn_to_point(19,-96,1,12,5,10,500);
+  
+  //chassis.drive_to_point(24,6,16,7,6,30,650);
 
-  pros::Task intae(Scoring_Mech::intake_autontask);
-  chassis.drive_to_point(25,25,5,0.5,3,30,800);
-  chassis.drive_distance(-13.5, 12,5,30,780,0.75, 0.0000, 3.75, 2);
-  pros::delay(150);
+  pros::Task intae(Scoring_Mech::intake_autontask2);
+  chassis.drive_to_point(25,26,16,1,3,30,800);
+  chassis.drive_distance(-30, 16,5,30,1500,0.75, 0.0000, 3.75, 2);
+  pros::delay(400);
   pneumatics.matchloader_v(0);
+  pneumatics.hood_v(0);
+  pros::delay(220);
+  scoring_mech.intake_move(0);
+  chassis.drive_distance(-69, 5,3,30,5000,0.75, 0.0000, 3.75, 2);
+
+  /*
   chassis.set_coordinates(23.6, 19.6, chassis.get_absolute_heading()+1.5);
 
   chassis.turn_to_point(34.25,10,1,8,5,50,400);
@@ -603,7 +703,7 @@ void RightSevenElim(){
   chassis.drive_to_point(14.75,35,10.5,0,1,100,800);
   //pros::delay(500);
   chassis.turn_to_point(-25,-60,1,8,5,30,1500);
-
+*/
 }
 
 
@@ -646,7 +746,7 @@ void left_auton_setup() {
 void auton_setup() {
  default_constants();
   chassis.set_brake_mode('C');
-  chassis.set_coordinates(0, 0, 270);
+  chassis.set_coordinates(0, 0, 13.5);
   std::string x_str, y_str, heading_str;
   while (1){ 
     x_str = std::to_string(chassis.get_X_position());
@@ -1068,3 +1168,77 @@ void distance_sensor_test(){
     
   chassis.drive_until(10, 2);
 }
+
+
+
+/*
+void LeftNine(){
+  // 4+3+2
+  default_constants();
+  chassis.set_coordinates(7, -0.5, 270);
+  chassis.drive_max_voltage=8;
+  chassis.drive_to_point(-21,-0.5,5.5,0,3,50,1000);
+  pneumatics.matchloader_v(1);
+  scoring_mech.intake_move(600);
+  chassis.turn_to_point(-23,-48,1,8,2.5,50,750);
+  chassis.drive_to_point(-23,-15,6,0,3,50,950);
+
+
+  chassis.drive_to_point(-24.75,4,6.5,0,5,30,700);
+  pros::Task intake(Scoring_Mech::intake_autontask);
+  chassis.drive_to_point(-24.9,26,5,3,3,30,1000);
+  chassis.drive_distance(-12, 12,5,30,250,0.75, 0.0000, 3.75, 2);
+  //pros::delay(350);
+  pneumatics.matchloader_v(0);
+  chassis.set_coordinates(-23.6, 19.6, chassis.get_absolute_heading()-0.5);
+  chassis.turn_to_point(4.5,25,1,8,2.5,50,700);
+  pros::Task awp_task(Pneumatics::awp_task);
+  scoring_mech.intake_move(600);
+
+  chassis.drive_to_point(3,24.75,5.5,1,3,30,1000);
+  pros::delay(150);
+
+  // EXTRA BALL
+  pneumatics.matchloader_v(0);
+  chassis.turn_to_point(-11,38,1,8,4,30,700);
+  chassis.drive_to_point(-11,38,6,1,3,30,1000);
+  chassis.turn_to_point(-20,40,1,8,4,30,700);
+  chassis.drive_to_point(-20,40,3.5,0.5,3,30,650);
+  //pneumatics.matchloader_v(1);
+  pros::delay(350);
+  chassis.turn_to_point(-30,48,1,8,4,30,700);
+  //scoring in the middle
+  
+ chassis.drive_to_point(3,24.75,6,1,3,30,1200);
+  pros::delay(150);
+  pneumatics.matchloader_v(0);
+  chassis.turn_to_point(-24,-2,1,8,2.5,50,700);
+  pneumatics.intakepiston_v(0);
+  chassis.drive_to_point(13.5,38.25,7,0.5,2,30,900);
+  scoring_mech.mid_intake_move(320);
+  pros::delay(650);
+
+
+
+  /*
+  // MID DESCORE
+  chassis.drive_distance(12, 12,5,30,850,0.75, 0.0000, 3.75, 2);
+  pneumatics.descore_v(1);
+  pros::delay(300);
+  scoring_mech.mid_intake_move(0);
+  pneumatics.intakepiston_v(0);
+  chassis.drive_distance(-18, 3,5,30,850,0.75, 0.0000, 3.75, 2);
+  chassis.drive_distance(-67, 2,2,120,3850,0.75, 0.0000, 3.75, 2);
+  
+
+
+
+
+  chassis.drive_to_point(-11.5,17,8,1,2,30,900);
+
+  chassis.turn_to_angle(178.5, 8, 1, 2, 450, 0.28, 0.00015, 1.9, 5);
+  chassis.drive_distance(-22, 10);
+  chassis.turn_to_point(-65,-60,1,8,5,30,500);
+
+  
+*/

@@ -138,7 +138,7 @@ void Scoring_Mech::intake_control() {
     if (master.get_digital(DIGITAL_L1) && (current_outtaking == 0)){
         // hood up lift up
         pneumatics.intakepiston_v(1);
-       //pneumatics.intake_piston_bottom_v(0);
+       pneumatics.intake_piston_bottom_v(0);
         pros::delay(75);
         pneumatics.hood_v(1);
         bottom_intake.move_velocity(600);
@@ -147,17 +147,17 @@ void Scoring_Mech::intake_control() {
     } else if ((master.get_digital(DIGITAL_L2)) && (current_outtaking == 0)) {
         // hood up lift down
         pneumatics.intakepiston_v(0);
-        //pneumatics.intake_piston_bottom_v(0);
+        pneumatics.intake_piston_bottom_v(0);
         pros::delay(75);
         pneumatics.hood_v(1);
-        bottom_intake.move_velocity(400);
-        top_intake.move_velocity(135);
+        bottom_intake.move_velocity(600);
+        top_intake.move_velocity(600);
         
 
     } else if ((master.get_digital(DIGITAL_R1)) && (current_outtaking == 0)) {
         // hood down lift up
         pneumatics.hood_v(0);
-        //pneumatics.intake_piston_bottom_v(0);
+        pneumatics.intake_piston_bottom_v(0);
         pneumatics.intakepiston_v(1);
         bottom_intake.move_velocity(600);
         top_intake.move_velocity(600);
@@ -166,12 +166,12 @@ void Scoring_Mech::intake_control() {
     } else if ((master.get_digital(DIGITAL_R2)) && (current_outtaking == 0)) {
         //hood down
         pneumatics.hood_v(0);
-       // pneumatics.intake_piston_bottom_v(1);
-        bottom_intake.move_velocity(-100);
-        top_intake.move_velocity(-500);
+       //pneumatics.intake_piston_bottom_v(1);
+        bottom_intake.move_velocity(-600);
+        top_intake.move_velocity(-600);
 
     } else if (current_outtaking == 0){
-        //pneumatics.intake_piston_bottom_v(1);
+        pneumatics.intake_piston_bottom_v(0);
         bottom_intake.move_velocity(0);
         top_intake.move_velocity(0);
     }
@@ -209,6 +209,18 @@ int Scoring_Mech::intake_autontask3() {
         
     return 1;
 }
+int Scoring_Mech::intake_autontask5() {
+    pros::delay(470);
+    scoring_mech.mid_intake_move(320);
+        
+    return 1;
+}
+int Scoring_Mech::intake_autontask6() {
+    pros::delay(400);
+    scoring_mech.top_goal_intake(-350);
+        
+    return 1;
+}
 int Scoring_Mech::anti_jam_auton() {
     pros::delay(500);
     scoring_mech.top_goal_intake(-600);
@@ -223,6 +235,10 @@ void Scoring_Mech::top_goal_intake(double velocity) {
     bottom_intake.move_velocity(velocity);
     top_intake.move_velocity(velocity);
 }
+void Scoring_Mech::bottom_goal_outtake(double velocity) {
+    bottom_intake.move_velocity(velocity);
+    top_intake.move_velocity(velocity);
+}
 void Scoring_Mech::intake_move(double velocity) {
     pneumatics.hood_v(0);
     bottom_intake.move_velocity(velocity);
@@ -231,6 +247,7 @@ void Scoring_Mech::intake_move(double velocity) {
 void Scoring_Mech::bottom_intake_move(double velocity) {
     pneumatics.hood_v(0);
     bottom_intake.move_velocity(velocity);
+    top_intake.move_velocity(-velocity);
 }
 void Scoring_Mech::mid_intake_move(double velocity) {
     pneumatics.intakepiston_v(0);

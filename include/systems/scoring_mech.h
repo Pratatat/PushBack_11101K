@@ -33,6 +33,7 @@ class Scoring_Mech{
     void intake_move(double velocity);
     void bottom_intake_move(double velocity);
     void top_goal_intake(double velocity);
+    void bottom_goal_outtake(double velocity);
     void mid_intake_move(double velocity);
     void mid_intake_move_skills(double bottomVelocity, double topVelocity);
     void top_intake_move(double velocity);
@@ -56,6 +57,8 @@ class Scoring_Mech{
     static int intake_autontask2();
     static int intake_autontask3();
     static int intake_autontask4();
+    static int intake_autontask5();
+    static int intake_autontask6();
     static int anti_jam_auton();
     void mid_goal_score(double bottomVelocity, double topVelocity);
 

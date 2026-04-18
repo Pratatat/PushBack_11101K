@@ -193,5 +193,8 @@ public:
   //finding coordinates
   void calculate();
   void drive_for_time(int voltage);
+
+
+  bool check();
   
 };
