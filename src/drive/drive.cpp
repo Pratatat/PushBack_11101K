@@ -220,7 +220,7 @@ double Drive::velocity_of_detected_object_h(){
 
 void Drive::drive_with_voltage(float leftVoltage, float rightVoltage){
   //cout << chassis.get_absolute_heading() << " " << R_SidewaysTracker.get_position() << " " <<  R_ForwardTracker.get_position() << endl;
-  if (fabs(leftVoltage) < 0.1 && fabs(rightVoltage) < 0.1) return;
+  if (fabs(leftVoltage) < 0 && fabs(rightVoltage) < 0) return;
   DriveL.move_voltage(leftVoltage*1000);
   DriveR.move_voltage(rightVoltage*1000);
   /*while (chassis.get_absolute_heading() > 270 || chassis.get_absolute_heading() < 10) {

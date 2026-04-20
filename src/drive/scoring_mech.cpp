@@ -186,7 +186,7 @@ int Scoring_Mech::intake_task() {
 }
 
 int Scoring_Mech::intake_autontask() {
-    pros::delay(350);
+    pros::delay(330);
     scoring_mech.top_goal_intake(600);
         
     return 1;

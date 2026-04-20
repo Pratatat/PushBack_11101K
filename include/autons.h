@@ -27,6 +27,8 @@ void LeftSevenQual();
 void LeftNine();
 void RightFour();
 void LeftFour();
+void RightFouralt();
+void LeftFouralt();
 void LeftSeven();
 void RightSeven();
 void LeftSevenElim();
